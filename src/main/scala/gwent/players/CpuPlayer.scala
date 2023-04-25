@@ -2,11 +2,20 @@ package cl.uchile.dcc
 package gwent.players
 import gwent.{Card, Player}
 
-class CpuPlayer extends Player{
+class CpuPlayer (var deck: List[Card]) extends Player{
   override val username: String = "CPU"
   override val boardSection: String = "Back"
-  var gems: Int = 2
+  var hand: List[Card] = List()
 
-  override def getUsername(): String = username
+  override def getUsername: String = username
+
+  override def getGems: Int = gems
+
+  override def isDefeated: Boolean = {
+    gems == 0
+  }
+  override def roundLost: Unit = {
+    gems -= 1
+  }
 
 }

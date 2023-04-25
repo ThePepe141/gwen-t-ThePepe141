@@ -3,7 +3,6 @@ package gwent
 
 trait Card {
   val name: String
-  val classification: String
   
-  def getName(): String
+  def getName: String
 }

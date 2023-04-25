@@ -4,22 +4,25 @@ package gwent.cards
 import munit.FunSuite
 
 class CardTest extends FunSuite {
-  val name = "Ciri"
+  val name = "Geralt"
   val weather = "sunnyDay"
-  var CiriCard: UnitCard = _
-  var sunnyDay: WeatherCard = _
+  var GeraltCard: Witcher = _
+  var sunnyDay: SunnyDay = _
 
   override def beforeEach(context: BeforeEach): Unit = {
-    CiriCard = new UnitCard(name, 15, "Melee Combat")
-    sunnyDay = new WeatherCard(weather)
+    GeraltCard = new Witcher(name, 15)
+    sunnyDay = new SunnyDay(weather)
   }
 
   test("A UnitCard requires three parameters") {
-    assertEquals(CiriCard.name, name)
-    assertEquals(CiriCard.basePower, 15)
-    assertEquals(CiriCard.combatRow, "Melee Combat")
+    assertEquals(GeraltCard.getName, name)
+    assertEquals(GeraltCard.getBasePower, 15)
   }
   test("At first the UnitCard's currentPower it's the same as it's basePower") {
-    assertEquals(CiriCard.basePower, CiriCard.currentPower)
+    assertEquals(GeraltCard.basePower, GeraltCard.currentPower)
+  }
+  test("The currentPower cant be less than 0") {
+    GeraltCard.currentPower = -100
+    assertEquals(GeraltCard.currentPower, 0)
   }
 }
