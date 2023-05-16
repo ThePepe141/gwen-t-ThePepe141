@@ -1,8 +1,8 @@
 package cl.uchile.dcc
 package gwent.cards
 
-class SunnyDay extends WeatherCard{
-  override val name: String = "Sunny Day"
+class SunnyDay extends AbstractWeatherCard(name = "Sunny Day"){
+  
   
   override def hazzard(): Unit = println("It´s sunny!")
 }

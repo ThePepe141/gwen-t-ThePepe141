@@ -1,6 +1,8 @@
 package cl.uchile.dcc
 package gwent
 
+import gwent.cards.Card
+
 trait Player {
   val username: String
   val boardSection: String

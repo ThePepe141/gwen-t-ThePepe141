@@ -1,6 +1,7 @@
 package cl.uchile.dcc
 package gwent.players
-import gwent.{Card, Player}
+import gwent.Player
+import cl.uchile.dcc.gwent.cards.Card
 import scala.util.Random
 
 class HumanPlayer (override val username: String, var deck: List[Card]) extends Player {
