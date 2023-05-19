@@ -1,19 +1,24 @@
 package cl.uchile.dcc
-package gwent
+package gwent.players
 
 import gwent.cards.Card
 
 trait Player {
   val username: String
-  val boardSection: String
-  var gems: Int = 2
+  var gems: Int
   var deck: List[Card]
   var hand: List[Card]
 
   def getUsername: String
-  def getGems: Int
 
-  def isDefeated: Boolean
+  def getGems: Int
+  
+  def barajar: Unit
+  
+  def robar: Unit
+
   def roundLost: Unit
   
+  def isDefeated: Boolean
+
 }
