@@ -4,18 +4,18 @@ package gwent.players
 import gwent.cards.Card
 
 trait Player {
-  val username: String
-  var gems: Int
-  var deck: List[Card]
-  var hand: List[Card]
+  protected val username: String
+  protected var gems: Int
+  protected var deck: List[Card]
+  protected var hand: List[Card]
 
   def getUsername: String
 
   def getGems: Int
   
-  def barajar: Unit
+  def shuffleDeck: Unit
   
-  def robar: Unit
+  def pickCard: Card
 
   def roundLost: Unit
   

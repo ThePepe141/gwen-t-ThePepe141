@@ -16,15 +16,11 @@ class PlayerTest extends FunSuite {
     assertEquals(player1.username, name)
   }
   test("A CpuPlayer only needs a deck") {
-    assertEquals(cpu.username, "CPU")
+    assertEquals(cpu.getUsername, "CPU")
   }
   test("Each player start with 2 gems") {
-    assertEquals(player1.gems, 2)
-    assertEquals(cpu.gems, 2)
-  }
-  test("The HumanPlayer takes the front of the board while the cpu takes the back") {
-    assertEquals(player1.boardSection, "Front")
-    assertEquals(cpu.boardSection, "Back")
+    assertEquals(player1.getGems, 2)
+    assertEquals(cpu.getGems, 2)
   }
   test("When a player lost the round, lost a gem and gets defeated when it lost 2") {
     cpu.roundLost
