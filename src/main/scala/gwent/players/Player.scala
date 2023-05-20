@@ -2,23 +2,30 @@ package cl.uchile.dcc
 package gwent.players
 
 import gwent.cards.Card
+import scala.collection.mutable.ListBuffer
+
+import cl.uchile.dcc.gwent.board.BoardSection
 
 trait Player {
   protected val username: String
   protected var gems: Int
-  protected var deck: List[Card]
-  protected var hand: List[Card]
+  protected var deck: ListBuffer[Card]
+  protected var hand: ListBuffer[Card]
+  var boardSection: Array[BoardSection]
 
-  def getUsername: String
+  def getUsername(): String
 
-  def getGems: Int
+  def getGems(): Int
   
-  def shuffleDeck: Unit
+  def deckSize(): Int
   
-  def pickCard: Card
+  def shuffleDeck(): Unit
+  
+  def drawCard(): Unit
 
-  def roundLost: Unit
+  def roundLost(): Unit
   
-  def isDefeated: Boolean
+  def isDefeated(): Boolean
+  def assignBoardSection(newSection: BoardSection): Unit
 
 }
