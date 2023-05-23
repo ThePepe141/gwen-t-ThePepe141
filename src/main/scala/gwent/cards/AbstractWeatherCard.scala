@@ -1,10 +1,16 @@
 package cl.uchile.dcc
 package gwent.cards
+import gwent.cards.WeatherCard
+
+/** A class that represents a Weather type Card.
+ *
+ * @param name The name of the Card.
+ */
 abstract class AbstractWeatherCard(val name: String) extends WeatherCard {
-  def getName: String = name
-  
-  /*La funcion hazzard es para la habilidad de clima especifica*/
-  def hazzard: Unit = {println("Aqui iria mi efecto, si tuviera uno!!")}
+
+  /** The effect this Card has in the Board.
+   */
+  override def weatherEffect: Unit = {println("Aqui iria mi efecto, si tuviera uno!!")}
   
 }
  

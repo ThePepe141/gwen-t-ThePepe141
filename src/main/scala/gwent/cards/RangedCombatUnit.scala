@@ -1,7 +1,8 @@
 package cl.uchile.dcc
 package gwent.cards
 
-/*La gracia de este trait es añadirlo a cada clase de carta que planee ser de categoria combate a distancia*/
+/** A trait that represents a UnitCard that goes on the Ranged Combat Row on the Board.
+ */
 trait RangedCombatUnit extends UnitCard {
 
 }

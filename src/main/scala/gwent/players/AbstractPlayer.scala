@@ -7,27 +7,87 @@ import gwent.board.BoardSection
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
 
+
+/** A class that represents a Player.
+ * 
+ * @param username The name of the Player.
+ * @param deck The deck of Cards of the Player
+ */
 abstract class AbstractPlayer(override protected val username: String, protected var deck: ListBuffer[Card]) extends Player {
-  
+
+  /** The number of gems a Player has.
+   * 
+   * A Player starts with 2.
+   */
   protected var gems: Int = 2
+
+  /** The list of Cards the Player can play.
+   * 
+   *  It begins empty until the start of the first round of the match.
+   */
   protected var hand: ListBuffer[Card] = new ListBuffer[Card]()
-  var boardSection: Array[BoardSection] = Array[BoardSection]()
-  
-  override def getUsername(): String = username
-  override def getGems(): Int = gems
-  override def deckSize(): Int = deck.length
-  override def roundLost(): Unit = {gems = {math.max(0, gems-1)}}
-  override def isDefeated(): Boolean = {gems==0}
-  override def shuffleDeck(): Unit = {
+
+  /** The BoardSection assign to the Player for the match.
+   * 
+   *  It fills at the start of the match.
+   */
+  protected var boardSection: Array[BoardSection] = Array[BoardSection]()
+
+  /** Getter of username value.
+   * 
+   *  @return username.
+   */
+  override def getUsername: String = username
+
+  /** Getter of gems variable
+   * 
+   *  @return gems.
+   */
+  override def getGems: Int = gems
+
+  /** Getter of deck variable.
+   * 
+   * @return deck.
+   */
+  def getDeck: ListBuffer[Card] = deck
+
+  /** Calculates the size of the deck.
+   * 
+   *  @return number of Cards in deck.
+   */
+  override def deckSize: Int = deck.length
+
+  /** Reduce gems variable by 1.
+   * 
+   */
+  override def roundLost: Unit = {gems = {math.max(0, gems-1)}}
+
+  /** Boolean, assert if a Player has lost the match.
+   * 
+   *  @return True or False.
+   */
+  override def isDefeated: Boolean = {gems==0}
+
+  /** Shuffle the Player´s deck.
+   */
+  override def shuffleDeck: Unit = {
     assert(deck.nonEmpty)
     deck = Random.shuffle(deck)
   }
-  override def drawCard(): Unit = {
+
+  /** Pick a the first Card of the deck.
+   */
+  override def drawCard: Unit = {
     assert(deck.nonEmpty)
     val theCard: Card = deck.head
     deck = deck.tail
     hand += theCard
   }
+
+  /** Assing a BoardSection object to the Player for the match.
+   * 
+   * @param newSection An instance of class BoardSection.
+   */
   override def assignBoardSection(newSection: BoardSection): Unit = {
     boardSection = Array[BoardSection](newSection)
   }

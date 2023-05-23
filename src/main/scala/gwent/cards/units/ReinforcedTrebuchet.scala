@@ -3,8 +3,7 @@ package gwent.cards.units
 
 import gwent.cards.{AbstractUnitCard, SiegeCombatUnit}
 
-class ReinforcedTrebuchet extends AbstractUnitCard(name="Reainforced Trebuchet", _power = 8) with SiegeCombatUnit {
-
-  override def ability: Unit = { println("RELOAAAAD!!!!") }
+class ReinforcedTrebuchet extends AbstractUnitCard(name="Reainforced Trebuchet", basePower = 8) with SiegeCombatUnit {
+  
 
 }

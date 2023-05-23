@@ -1,10 +1,8 @@
 package cl.uchile.dcc
 package gwent.cards.units
 
-import gwent.cards.{RangedCombatUnit, AbstractUnitCard}
+import gwent.cards.{AbstractUnitCard, RangedCombatUnit}
 
-class RedanianArcher extends AbstractUnitCard(name="Redanian Archer", _power = 3) with RangedCombatUnit{
-
-  override def ability: Unit = {println("Hold!, FIREEE!!!")}
+class RedanianArcher extends AbstractUnitCard(name="Redanian Archer", basePower = 3) with RangedCombatUnit{
 
 }

@@ -1,21 +1,48 @@
 package cl.uchile.dcc
 package gwent.cards
 
-abstract class AbstractUnitCard(override val name: String, var _power: Int) extends UnitCard {
-  val basePower: Int = _power
+/** A class that represents a Unit type Card.
+ *
+ * It is abstract because ability its not define.
+ *
+ * @param name The name of the Card.
+ * @param basePower The power in which the Card begins.
+ */
+abstract class AbstractUnitCard(override val name: String, val basePower: Int) extends UnitCard {
 
-  def getName: String = name
-  def getBasePower: Int = basePower
+  /** The current power of the Card.
+   *
+   * This variable specify the current power of the Card including abilities, weather, etc.
+   */
+  var _power: Int = basePower
 
-  def currentPower: Int = _power
+  /** Getter of basePower value.
+   *
+   * @return basePower value.
+   */
+  override def getBasePower: Int = basePower
 
+  /** Getter of _power variable.
+   *
+   * @return _power variable.
+   */
+  override def currentPower: Int = _power
+
+  /** Setter of _power variable.
+   *
+   * Change _power to a specify value.
+   *
+   * @param newPower The new power that the Card will posses.
+   */
   def currentPower_=(newPower: Int): Unit = {
     _power = math.max(0, newPower)
   }
 
-  def resetPower: Unit = { _power = getBasePower }
-  
-  /*Funcion ability es para las cartas con habilidades especiales*/
-  def ability: Unit
+  /** Setter of _power variable.
+   *
+   * Set the _power variable to its basePower value.
+   */
+  override def resetPower: Unit = { _power = getBasePower }
+
 
 }

@@ -4,7 +4,11 @@ import cl.uchile.dcc.gwent.cards.Card
 
 import scala.collection.mutable.ListBuffer
 
-class CpuPlayer (var theDeck: ListBuffer[Card]) extends AbstractPlayer(username = "GPU Player", deck = theDeck) {
+/** A class that represents a Player controlled by the CPU.
+ * 
+ * @param theDeck The deck the CPU is going to use.
+ */
+class CpuPlayer (var theDeck: ListBuffer[Card]) extends AbstractPlayer(username = "CPU", deck = theDeck) {
   
 
 }
