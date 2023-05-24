@@ -1,6 +1,6 @@
 package cl.uchile.dcc
 package gwent.players
-import cl.uchile.dcc.gwent.cards.Card
+import gwent.cards.Card
 
 import scala.collection.mutable.ListBuffer
 
