@@ -1,7 +1,8 @@
 package cl.uchile.dcc
-import cl.uchile.dcc.gwent.players.{HumanPlayer, CpuPlayer}
-import cl.uchile.dcc.gwent.cards.Card
-import cl.uchile.dcc.gwent.board.Board
+import gwent.players.{CpuPlayer, HumanPlayer}
+import gwent.cards.Card
+import gwent.board.Board
+import gwent.cards.units.{RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
 
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
@@ -19,6 +20,7 @@ def main(): Unit = {
   var gwentBoard = new Board(player1, player2)
 
   println("Choose the Cards for your deck")
+
 
 
 }

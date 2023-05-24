@@ -4,7 +4,7 @@ package gwent.players
 import gwent.cards.Card
 import scala.collection.mutable.ListBuffer
 
-import cl.uchile.dcc.gwent.board.BoardSection
+import gwent.board.BoardSection
 
 /** A trait that represents a Player.
  */
@@ -62,7 +62,7 @@ trait Player {
 
   /** Shuffle the deck.
    */
-  def shuffleDeck: Unit
+  def deckShuffle: Unit
 
   /** Pick the first Card of the deck.
    */

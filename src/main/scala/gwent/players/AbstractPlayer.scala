@@ -80,7 +80,7 @@ abstract class AbstractPlayer(override protected val username: String, protected
 
   /** Shuffle the Player´s deck.
    */
-  override def shuffleDeck: Unit = {
+  override def deckShuffle: Unit = {
     assert(deck.nonEmpty)
     deck = Random.shuffle(deck)
   }

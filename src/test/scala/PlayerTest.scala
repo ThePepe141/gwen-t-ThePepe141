@@ -46,12 +46,12 @@ class PlayerTest extends FunSuite {
 
   test("A deck can be filled") {
     //Test for addToDeck and deckSize
-    val fisrtSize = player1.deckSize
+    val firstSize = player1.deckSize
     player1.addToDeck(soldier1)
     player1.addToDeck(archer1)
     player1.addToDeck(engine1)
     val endSize = player1.deckSize
-    assertEquals(fisrtSize, 0)
+    assertEquals(firstSize, 0)
     assertEquals(endSize, 3)
   }
 
@@ -62,10 +62,10 @@ class PlayerTest extends FunSuite {
     player1.addToDeck(engine1)
     val originalDeck = player1.getDeck
     val originalSize = player1.deckSize
-    val shuffleDeck = player1.shuffleDeck
+    player1.deckShuffle
+    val endDeck = player1.getDeck
     val endSize = player1.deckSize
-    println(originalDeck)
-    println(shuffleDeck)
+    assert(originalDeck!=endDeck)
     assertEquals(originalSize, endSize)
   }
 

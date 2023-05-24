@@ -54,8 +54,8 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
     assert(player1.deckSize >= 25)
     assert(player2.deckSize >= 25)
 
-    player1.shuffleDeck
-    player2.shuffleDeck
+    player1.deckShuffle
+    player2.deckShuffle
   }
 
   /** Start a round
