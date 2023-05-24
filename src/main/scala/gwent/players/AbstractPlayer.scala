@@ -13,7 +13,7 @@ import scala.util.Random
  * @param username The name of the Player.
  * @param deck The deck of Cards of the Player
  */
-abstract class AbstractPlayer(override protected val username: String, protected var deck: ListBuffer[Card]) extends Player {
+abstract class AbstractPlayer(override protected val username: String, protected var deck: ListBuffer[Card] = ListBuffer[Card]()) extends Player {
 
   /** The number of gems a Player has.
    * 
@@ -31,25 +31,35 @@ abstract class AbstractPlayer(override protected val username: String, protected
    * 
    *  It fills at the start of the match.
    */
-  protected var boardSection: Array[BoardSection] = Array[BoardSection]()
+  protected var boardSection: BoardSection = _
 
-  /** Getter of username value.
+  /** Indicates if the player is in a Match
+   */
+  protected var inMatch: Boolean = false
+
+  /** Getter of username param.
    * 
    *  @return username.
    */
   override def getUsername: String = username
 
-  /** Getter of gems variable
+  /** Getter of gems param.
    * 
    *  @return gems.
    */
   override def getGems: Int = gems
 
-  /** Getter of deck variable.
+  /** Getter of hand param.
+   * 
+   *  @return hand.
+   */
+  override def getHand: ListBuffer[Card] = hand
+
+  /** Getter of deck param.
    * 
    * @return deck.
    */
-  def getDeck: ListBuffer[Card] = deck
+  override def getDeck: ListBuffer[Card] = deck
 
   /** Calculates the size of the deck.
    * 
@@ -84,13 +94,29 @@ abstract class AbstractPlayer(override protected val username: String, protected
     hand += theCard
   }
 
-  /** Assing a BoardSection object to the Player for the match.
+  /** Assign a BoardSection object to the Player for the match.
    * 
    * @param newSection An instance of class BoardSection.
    */
   override def assignBoardSection(newSection: BoardSection): Unit = {
-    boardSection = Array[BoardSection](newSection)
+    boardSection = newSection
   }
+
+  /** Add a Card to the deck.
+   *
+   * @param card The Card to add.
+   */
+  override def addToDeck(card: Card): Unit = {
+    if (!inMatch){
+      deck.append(card)
+    }
+  }
+
+  /** Getter of the boardSection param.
+   *
+   * @return boardSection.
+   */
+  def getBoardSection: BoardSection = boardSection
   
   
 

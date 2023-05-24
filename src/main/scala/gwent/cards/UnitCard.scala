@@ -13,19 +13,19 @@ trait UnitCard extends Card{
    */
   val basePower: Int
 
-  /** Getter of basePower value.
+  /** Getter of basePower param.
    * 
-   * @return basePower value.
+   * @return basePower.
    */
   def getBasePower: Int
 
-  /** Getter of the _power variable.
+  /** Getter of the _power param.
    * 
-   * @return _power variable.
+   * @return _power.
    */
   def currentPower: Int
 
-  /** Setter of the _power variable.
+  /** Setter of the _power param.
    * 
    *  Change _power to its original value.
    */

@@ -16,19 +16,19 @@ abstract class AbstractUnitCard(override val name: String, val basePower: Int) e
    */
   var _power: Int = basePower
 
-  /** Getter of basePower value.
+  /** Getter of basePower param.
    *
-   * @return basePower value.
+   * @return basePower.
    */
   override def getBasePower: Int = basePower
 
-  /** Getter of _power variable.
+  /** Getter of _power param.
    *
-   * @return _power variable.
+   * @return _power.
    */
   override def currentPower: Int = _power
 
-  /** Setter of _power variable.
+  /** Setter of _power param.
    *
    * Change _power to a specify value.
    *
@@ -38,7 +38,7 @@ abstract class AbstractUnitCard(override val name: String, val basePower: Int) e
     _power = math.max(0, newPower)
   }
 
-  /** Setter of _power variable.
+  /** Setter of _power param.
    *
    * Set the _power variable to its basePower value.
    */

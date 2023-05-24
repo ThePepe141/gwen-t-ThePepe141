@@ -28,21 +28,27 @@ trait Player {
 
   /** The section of the Board a Player occupied.
    */
-  protected var boardSection: Array[BoardSection]
+  protected var boardSection: BoardSection
 
-  /** Getter of the username value.
+  /** Getter of the username param.
    *
    * @return username.
    */
   def getUsername: String
 
-  /** Getter of the gems variable.
+  /** Getter of the gems param.
    *
    * @return gems.
    */
   def getGems: Int
 
-  /** Getter of deck variable.
+  /** Getter of the hand param.
+   *
+   * @return hand.
+   */
+  def getHand: ListBuffer[Card]
+
+  /** Getter of deck param.
    * 
    * @return deck.
    */
@@ -77,5 +83,11 @@ trait Player {
    * @param newSection An instance of class BoardSection.
    */
   def assignBoardSection(newSection: BoardSection): Unit
+
+  /** Add a Card to the deck.
+   * 
+   * @param card The Card to add.
+   */
+  def addToDeck(card: Card): Unit
 
 }

@@ -9,9 +9,9 @@ trait Card {
    */
   val name: String
 
-  /** Getter of name value.
+  /** Getter of name param.
    *
-   * @return name value.
+   * @return name.
    */
   def getName: String = name
 }

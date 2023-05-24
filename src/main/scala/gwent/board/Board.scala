@@ -1,6 +1,7 @@
 package cl.uchile.dcc
 package gwent.board
 
+import gwent.players.Player
 import gwent.players.{CpuPlayer, HumanPlayer}
 
 /** A class that represents the Board of a match. It requires 2 Players.
@@ -12,7 +13,7 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
 
   /** The round currently at play.
    */
-  var round: Int = 1
+  var round: Int = 0
 
   /** BoardSection for HumanPlayer.
    */
@@ -21,6 +22,9 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
   /**BoardSection for CpuPlayer.
    */
   var Back: BoardSection = new BoardSection()
+
+  player1.assignBoardSection(Front)
+  player2.assignBoardSection(Back)
 
   /** It gives to each Player a specific number of Cards.
    * 
@@ -50,9 +54,6 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
     assert(player1.deckSize >= 25)
     assert(player2.deckSize >= 25)
 
-    player1.assignBoardSection(Front)
-    player2.assignBoardSection(Back)
-
     player1.shuffleDeck
     player2.shuffleDeck
   }
@@ -62,6 +63,7 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
    * Hand out Cards to each Player.
    */
   def startRound: Unit = {
+    round += 1
     handOutCards()
   }
 

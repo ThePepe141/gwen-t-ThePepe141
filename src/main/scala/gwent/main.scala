@@ -1,10 +1,10 @@
 package cl.uchile.dcc
+import cl.uchile.dcc.gwent.players.{HumanPlayer, CpuPlayer}
+import cl.uchile.dcc.gwent.cards.Card
+import cl.uchile.dcc.gwent.board.Board
 
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
-import gwent.cards.Card
-import gwent.players.{HumanPlayer, CpuPlayer}
-import gwent.board.{Board, BoardSection}
 
 @main
 def main(): Unit = {
