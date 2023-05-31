@@ -8,7 +8,7 @@ package gwent.cards
  * @param name The name of the Card.
  * @param basePower The power in which the Card begins.
  */
-abstract class AbstractUnitCard(override val name: String, val basePower: Int) extends UnitCard {
+abstract class AbstractUnitCard(override protected val name: String, val basePower: Int) extends UnitCard {
 
   /** The current power of the Card.
    *

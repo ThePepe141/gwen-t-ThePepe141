@@ -1,8 +1,8 @@
 package cl.uchile.dcc
 package gwent.cards.units
 
-import gwent.cards.{AbstractUnitCard, CloseCombatUnit}
+import gwent.cards.CloseCombatUnit
 
-class TemerianInfantry extends AbstractUnitCard(name="Temerain Infantry", basePower = 5) with CloseCombatUnit {
+class TemerianInfantry extends CloseCombatUnit(name="Temerain Infantry", basePower = 5) {
   
 }

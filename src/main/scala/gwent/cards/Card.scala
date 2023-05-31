@@ -7,7 +7,7 @@ trait Card {
   
   /** The name of the Card.
    */
-  val name: String
+  protected val name: String
 
   /** Getter of name param.
    *
