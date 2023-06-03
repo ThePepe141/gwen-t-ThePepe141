@@ -27,6 +27,21 @@ class BoardSection {
    */
   var graveyard: Array[Card] = Array[Card]()
 
+  /**The total power of the CLoseCombatRow.
+   */
+  var CCRpower: Int = 0
+
+  /** The total power of the RangedCombatRow.
+   */
+  var RCRpower: Int = 0
+
+  /** The total power of the SiegeCombatRow
+   */
+  var SCRpower: Int = 0
+
+  /** The power of the combined rows.
+   */
+  var totalPower: Int = {CCRpower + RCRpower + SCRpower}
 
   /** A function that puts a CloseCombatUnit in CloseCombatRow.
    *  
