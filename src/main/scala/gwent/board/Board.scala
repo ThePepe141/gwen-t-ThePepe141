@@ -47,12 +47,15 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
 
   /** Initiate a match.
    * 
-   * Verify limit number of Cards in each deck, assign sections of the Board
-   * and suffle the decks.
+   * Verify limit number of Cards in each deck
+   * and shuffle the decks.
    */
   def startMatch: Unit = {
     assert(player1.deckSize >= 25)
     assert(player2.deckSize >= 25)
+    
+    player1.startMatch
+    player2.startMatch
 
     player1.deckShuffle
     player2.deckShuffle

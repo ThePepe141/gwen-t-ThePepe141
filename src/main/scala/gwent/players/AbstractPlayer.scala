@@ -6,6 +6,7 @@ import gwent.board.BoardSection
 
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
+import scala.io.StdIn.readLine
 
 
 /** A class that represents a Player.
@@ -99,7 +100,9 @@ abstract class AbstractPlayer(override protected val username: String, protected
    * @param newSection An instance of class BoardSection.
    */
   override def assignBoardSection(newSection: BoardSection): Unit = {
-    boardSection = newSection
+    if (!inMatch){
+      boardSection = newSection
+    }
   }
 
   /** Add a Card to the deck.
@@ -117,6 +120,32 @@ abstract class AbstractPlayer(override protected val username: String, protected
    * @return boardSection.
    */
   def getBoardSection: BoardSection = boardSection
+
+  /**A function that change the boolean value of inMatch to true.
+   * This way you cant add Cards during the Match.
+   */
+  def startMatch: Unit = {
+    inMatch = true
+  }
+
+  /** A function that allows the Player to play a Card.
+   *
+   */
+  def playCard: Unit = {
+    // First: choose a Card
+    val indice = chooseCard
+    //Second: pick said Card from the hand
+    val theCard = hand(indice)
+    //Third: remove the Card from the hand (its no longer there)
+    hand.remove(indice)
+    //boardSection.putCard(theCard)
+  }
+
+  /** A function the allows to pick a Card from the hand.
+   *
+   * @return The index of the chosen Card.
+   */
+  def chooseCard: Int
   
   
 

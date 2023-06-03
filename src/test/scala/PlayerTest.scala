@@ -1,3 +1,4 @@
+package cl.uchile.dcc
 import cl.uchile.dcc.gwent.cards.UnitCard
 import cl.uchile.dcc.gwent.players.{CpuPlayer, HumanPlayer}
 import cl.uchile.dcc.gwent.cards.units.{RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
@@ -25,11 +26,11 @@ class PlayerTest extends FunSuite {
   test("A HumanPlayer needs a name and a deck, the deck starts empty"){
     //Test for getUsername
     assertEquals(player1.getUsername, name)
-    assertEquals(player1.theDeck.isEmpty, true)
+    assertEquals(player1.getDeck.isEmpty, true)
   }
   test("A CpuPlayer already has a name, the deck starts empty") {
     assertEquals(cpu.getUsername, "CPU")
-    assertEquals(cpu.theDeck.isEmpty, true)
+    assertEquals(cpu.getDeck.isEmpty, true)
   }
   test("Each player start with 2 gems") {
     //Test for getGems

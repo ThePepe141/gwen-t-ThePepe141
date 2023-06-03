@@ -14,4 +14,5 @@ trait Card {
    * @return name.
    */
   def getName: String = name
+  
 }

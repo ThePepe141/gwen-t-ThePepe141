@@ -9,6 +9,12 @@ import scala.collection.mutable.ListBuffer
  * @param deck The deck the CPU is going to use.
  */
 class CpuPlayer (deck: ListBuffer[Card]) extends AbstractPlayer("CPU", deck) {
+
+  /** A function that choose the first Card of the hand.
+   * 
+   * @return The index 0 of the hand.
+   */
+  override def chooseCard: Int = 0
   
 
 }

@@ -43,6 +43,7 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
    * Set the _power variable to its basePower value.
    */
   override def resetPower: Unit = { _power = this.getBasePower }
+  
 
 
 }
