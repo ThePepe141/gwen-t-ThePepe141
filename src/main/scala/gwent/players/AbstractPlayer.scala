@@ -96,7 +96,7 @@ abstract class AbstractPlayer(override protected val username: String, protected
     deck = Random.shuffle(deck)
   }
 
-  /** Pick a the first Card of the deck.
+  /** Pick the first Card of the deck.
    */
   override def drawCard: Unit = {
     assert(deck.nonEmpty)
@@ -113,6 +113,9 @@ abstract class AbstractPlayer(override protected val username: String, protected
     if (!inMatch){
       boardSection = newSection
     }
+    else{
+      println("You cannot assign a BoardSection while you are in match")
+    }
   }
 
   /** Add a Card to the deck.
@@ -122,6 +125,9 @@ abstract class AbstractPlayer(override protected val username: String, protected
   override def addToDeck(card: Card): Unit = {
     if (!inMatch){
       deck.append(card)
+    }
+    else{
+      println("You cannot add a Card to the Deck while you are in match")
     }
   }
   
@@ -143,7 +149,8 @@ abstract class AbstractPlayer(override protected val username: String, protected
     val theCard = hand(indice)
     //Third: remove the Card from the hand (its no longer there)
     hand.remove(indice)
-    //boardSection.putCard(theCard)
+    //Fourth play the card
+    theCard.playOnBoardSection(boardSection)
   }
 
   /** A function the allows to pick a Card from the hand.

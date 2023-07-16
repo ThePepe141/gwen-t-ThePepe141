@@ -187,7 +187,7 @@ class BoardSection {
    *  
    * @param theCard The Card to be put.
    */
-  def putCard(theCard: CloseCombatUnit): Unit = {
+  def putCardCCR(theCard: CloseCombatUnit): Unit = {
     CloseCombatRow = CloseCombatRow :+ theCard
     updateTotalPower
   }
@@ -196,7 +196,7 @@ class BoardSection {
    * 
    * @param theCard The Card to be put.
    */
-  def putCard(theCard: RangedCombatUnit): Unit = {
+  def putCardRCR(theCard: RangedCombatUnit): Unit = {
     RangedCombatRow = RangedCombatRow :+ theCard
     updateTotalPower
   }
@@ -205,7 +205,7 @@ class BoardSection {
    * 
    * @param theCard The Card to be put.
    */
-  def putCard(theCard: SiegeCombatUnit): Unit = {
+  def putCardSCR(theCard: SiegeCombatUnit): Unit = {
     SiegeCombatRow = SiegeCombatRow :+ theCard
     updateTotalPower
   }
@@ -214,7 +214,7 @@ class BoardSection {
    * 
    * @param theCard The Card to be put.
    */
-  def putCard(theCard: WeatherCard): Unit = {
+  def putCardWR(theCard: WeatherCard): Unit = {
     Weather = ListBuffer[WeatherCard](theCard)
   }
 
