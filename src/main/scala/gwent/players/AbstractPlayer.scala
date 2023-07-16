@@ -37,6 +37,8 @@ abstract class AbstractPlayer(override protected val username: String, protected
   /** Indicates if the player is in a Match
    */
   protected var inMatch: Boolean = false
+  
+  // Getters y Setters ------------------------------------
 
   /** Getter of username param.
    * 
@@ -61,6 +63,14 @@ abstract class AbstractPlayer(override protected val username: String, protected
    * @return deck.
    */
   override def getDeck: ListBuffer[Card] = deck
+
+  /** Getter of the boardSection param.
+   *
+   * @return boardSection.
+   */
+  def getBoardSection: BoardSection = boardSection
+  
+  //---------------------------------------------
 
   /** Calculates the size of the deck.
    * 
@@ -114,12 +124,7 @@ abstract class AbstractPlayer(override protected val username: String, protected
       deck.append(card)
     }
   }
-
-  /** Getter of the boardSection param.
-   *
-   * @return boardSection.
-   */
-  def getBoardSection: BoardSection = boardSection
+  
 
   /**A function that change the boolean value of inMatch to true.
    * This way you cant add Cards during the Match.
