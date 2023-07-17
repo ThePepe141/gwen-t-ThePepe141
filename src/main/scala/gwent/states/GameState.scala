@@ -19,10 +19,34 @@ class GameState(val context: GameController) {
 
   //Transitions functions ------------------------------------------------------
 
+  /** A function that change the GameState to BeforeMatchState.
+   */
+  def toBeforeMatchState: Unit = {
+    transitionError("BeforeMatchState")
+  }
+  
   /** A function that change the GameState to InMatchState.
    */
   def toInMatchState: Unit = {
     transitionError("InMatchState")
+  }
+
+  /** A function that change the MatchState to InTurnState.
+   */
+  def toInTurnState: Unit = {
+    transitionError("InTurnState")
+  }
+
+  /** A function that change the MatchState to WaitingTurnState.
+   */
+  def toWaitingTurnState: Unit = {
+    transitionError("WaitingTurnState")
+  }
+
+  /** A function that change the MatchState to StandByState.
+   */
+  def toStandByState: Unit = {
+    transitionError("StandByState")
   }
 
   /** A function that change the GameState to AfterMatchState.
@@ -30,11 +54,6 @@ class GameState(val context: GameController) {
   def toAfterMatchState: Unit = {
     transitionError("AfterMatchState")
   }
-
-  /** A function that change the GameState to BeforeMatchState.
-   */
-  def toBeforeMatchState: Unit = {
-    transitionError("BeforeMatchState")
-  }
+  //-------------------------------------------------------------
 
 }

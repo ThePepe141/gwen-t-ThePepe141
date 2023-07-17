@@ -4,7 +4,7 @@ package gwent
 import gwent.board.Board
 
 import cl.uchile.dcc.gwent.players.{CpuPlayer, HumanPlayer}
-import cl.uchile.dcc.gwent.states.{GameState, MatchState}
+import cl.uchile.dcc.gwent.states.GameState
 
 class GameController {
 
@@ -12,12 +12,8 @@ class GameController {
    */
   var gameState: GameState = _
   
-  /** The current state of the match
-   */
-  var matchState: MatchState = _
-
-  private var board: Board = _
-  private var humanPlayer: HumanPlayer = _
-  private var cpuPlayer: CpuPlayer = _
+  var humanPlayer: HumanPlayer = _
+  var cpuPlayer: CpuPlayer = _
+  var board: Board = _
 
 }
