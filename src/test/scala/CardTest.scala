@@ -41,8 +41,17 @@ class CardTest extends FunSuite {
     assert(engine1.equals(engine2))
     Geralt.currentPower = 5
     assert(!Geralt.equals(coolerGeralt))
-
   }
+
+  test("Testing hashCode method"){
+    //Test for hashCode
+    assertEquals(Geralt.hashCode(), coolerGeralt.hashCode())
+    assertEquals(sunnyDay.hashCode(), otherSunnyDay.hashCode())
+    assertEquals(soldier1.hashCode(), soldier2.hashCode())
+    assertEquals(archer1.hashCode(), archer2.hashCode())
+    assertEquals(engine1.hashCode(), engine2.hashCode())
+  }
+
   test("A UnitCard has a name and a power level") {
     //Test for getName and getBasePower
     assertEquals(Geralt.getName, name)
