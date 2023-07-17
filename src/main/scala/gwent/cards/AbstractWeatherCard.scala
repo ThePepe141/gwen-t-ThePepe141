@@ -8,7 +8,7 @@ import gwent.board.BoardSection
  */
 abstract class AbstractWeatherCard(val name: String) extends WeatherCard with Equals {
 
-  //Equals y hashCode  -------------------------------------------------------
+  //Equals, hashCode y toString -------------------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -43,6 +43,8 @@ abstract class AbstractWeatherCard(val name: String) extends WeatherCard with Eq
     total = primo * total + name.##
     total
   }
+
+  override def toString: String = s"WeatherCard(name=$getName, affected row = Unknown"
   // ---------------------------------------------------------------------------
 
   /** The effect this Card has in the Board.

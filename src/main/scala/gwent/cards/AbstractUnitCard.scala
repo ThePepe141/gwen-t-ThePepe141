@@ -52,7 +52,7 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
     total = primo * total + basePower
     total
   }
-
+  
   //Getters y Setters ----------------------------------------------
 
   /** Getter of basePower param.

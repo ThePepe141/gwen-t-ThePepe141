@@ -9,7 +9,7 @@ import gwent.board.BoardSection
  */
 class CloseCombatUnit(name: String, basePower: Int) extends AbstractUnitCard(name, basePower) {
 
-  //Equals y hashCode ---------------------------------------------------------------
+  //Equals, hashCode y toString ---------------------------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -44,6 +44,8 @@ class CloseCombatUnit(name: String, basePower: Int) extends AbstractUnitCard(nam
     total = primo * total + basePower
     total
   }
+
+  override def toString: String = s"CloseCombatUnit(name=$getName, basePower=$getBasePower, currentPower=$currentPower, ability=Unknown"
   // --------------------------------------------------------------------
 
   /** A function that put the card on the CloseCombatRow of the Section.

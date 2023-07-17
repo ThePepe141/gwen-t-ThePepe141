@@ -5,7 +5,7 @@ import gwent.cards.RangedCombatUnit
 
 class RedanianArcher extends RangedCombatUnit("Redanian Archer", 3){
   
-  //Equals y hashCode -----------------------------------------------------------
+  //Equals, hashCode y toStrong -----------------------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -40,5 +40,7 @@ class RedanianArcher extends RangedCombatUnit("Redanian Archer", 3){
     total = primo * total + basePower
     total
   }
+
+  override def toString: String = s"RedanianArcher(basePower=$getBasePower, currentPower=$currentPower, ability=None"
   //-----------------------------------------------------------------------
 }

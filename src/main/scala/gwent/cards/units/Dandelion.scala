@@ -7,7 +7,7 @@ import cl.uchile.dcc.gwent.cards.units.abilities.MoraleBoost
 
 class Dandelion extends CloseCombatUnit("Dandelion", 2) with MoraleBoost{
 
-  //Equals y hashCode -------------------------------------------
+  //Equals, hashCode y toString -------------------------------------------
 
   /** A function that compares the types of two values.
    *
@@ -42,6 +42,8 @@ class Dandelion extends CloseCombatUnit("Dandelion", 2) with MoraleBoost{
     total = primo * total + basePower
     total
   }
+
+  override def toString: String = s"Dandelion(basePower=$getBasePower, currentPower=$currentPower, ability=MoraleBoost"
   //----------------------------------------------------------
 
   override def moraleBoost(): Unit = println("...Toss a coin to your witcher...!!")

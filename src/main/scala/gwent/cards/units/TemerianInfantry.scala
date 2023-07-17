@@ -5,7 +5,7 @@ import gwent.cards.CloseCombatUnit
 
 class TemerianInfantry extends CloseCombatUnit("Temerain Infantry", 5) {
   
-  //Equals y hashCode ---------------------------------------------------------
+  //Equals, hashCode y toString ---------------------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -40,6 +40,8 @@ class TemerianInfantry extends CloseCombatUnit("Temerain Infantry", 5) {
     total = primo * total + basePower
     total
   }
+
+  override def toString: String = s"TemerianInfantry(basePower=$getBasePower, currentPower=$currentPower, ability=None"
   //-----------------------------------------------------------------------
   
 }

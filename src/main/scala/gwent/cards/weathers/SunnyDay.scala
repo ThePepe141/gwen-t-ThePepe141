@@ -5,7 +5,7 @@ import gwent.cards.AbstractWeatherCard
 
 class SunnyDay extends AbstractWeatherCard("Sunny Day"){
   
-  //Equals y hashCode -------------------------------------------
+  //Equals, hashCode y toString -------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -40,6 +40,9 @@ class SunnyDay extends AbstractWeatherCard("Sunny Day"){
     total
   }
 
+  override def toString: String = s"SunnyDay(affected row = All rows"
+
+  //-----------------------------------------------------------------
   /** Clear the current weatherEffect in the Board
    */
   override def weatherEffect: Unit = println("It´s sunny!")

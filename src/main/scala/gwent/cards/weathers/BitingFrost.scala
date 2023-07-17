@@ -39,6 +39,8 @@ class BitingFrost extends AbstractWeatherCard("Biting Frost"){
     total = primo * total + name.##
     total
   }
+
+  override def toString: String = s"BitingFrost(affected row = CloseCombatRow)"
   
   //--------------------------------------------------
 

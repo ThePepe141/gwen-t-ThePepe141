@@ -7,7 +7,7 @@ import cl.uchile.dcc.gwent.cards.units.abilities.StrongBond
 
 class Catapult extends SiegeCombatUnit("Catapult", 8) with StrongBond{
 
-  //Equals y hashCode -------------------------------------------
+  //Equals, hashCode y toString -------------------------------------------
 
   /** A function that compares the types of two values.
    *
@@ -42,6 +42,8 @@ class Catapult extends SiegeCombatUnit("Catapult", 8) with StrongBond{
     total = primo * total + basePower
     total
   }
+
+  override def toString: String = s"Catapult(basePower=$getBasePower, currentPower=$currentPower, ability=StrongBond"
   //----------------------------------------------------------
 
   override def strongBond(): Unit = println("Reloaaad!!!")

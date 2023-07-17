@@ -5,7 +5,7 @@ import gwent.cards.CloseCombatUnit
 
 class Geralt extends CloseCombatUnit("Geralt of Rivia", 15){
   
-  //Equals y hashCode -------------------------------------------
+  //Equals, hashCode y toString -------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -40,6 +40,8 @@ class Geralt extends CloseCombatUnit("Geralt of Rivia", 15){
     total = primo * total + basePower
     total
   }
+
+  override def toString: String = s"Geralt(basePower=$getBasePower, currentPower=$currentPower, ability=witcher"
   //----------------------------------------------------------
   
   def ability: Unit = println("I hate portals")

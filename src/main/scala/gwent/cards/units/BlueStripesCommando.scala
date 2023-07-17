@@ -7,7 +7,7 @@ import cl.uchile.dcc.gwent.cards.units.abilities.StrongBond
 
 class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4) with StrongBond{
 
-  //Equals y hashCode -------------------------------------------
+  //Equals, hashCode y toString -------------------------------------------
 
   /** A function that compares the types of two values.
    *
@@ -42,6 +42,8 @@ class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4) wi
     total = primo * total + basePower
     total
   }
+
+  override def toString: String = s"BlueStripesCommando(basePower=$getBasePower, currentPower=$currentPower, ability=StrongBond"
   //----------------------------------------------------------
 
   override def strongBond(): Unit = println("For Temeria!!")

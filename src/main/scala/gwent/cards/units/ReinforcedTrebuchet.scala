@@ -5,7 +5,7 @@ import gwent.cards.SiegeCombatUnit
 
 class ReinforcedTrebuchet extends SiegeCombatUnit("Reinforced Trebuchet",  8) {
   
-  //Equals y hashCode ----------------------------------
+  //Equals, hashCode y toString ----------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -40,5 +40,7 @@ class ReinforcedTrebuchet extends SiegeCombatUnit("Reinforced Trebuchet",  8) {
     total = primo * total + basePower
     total
   }
+
+  override def toString: String = s"ReinforcedTrebuchet(basePower=$getBasePower, currentPower=$currentPower, ability=None"
   //----------------------------------------------------------------
 }
