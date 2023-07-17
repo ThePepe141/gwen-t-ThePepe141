@@ -14,7 +14,7 @@ import scala.io.StdIn.readLine
  * @param username The name of the Player.
  * @param deck The deck of Cards of the Player
  */
-abstract class AbstractPlayer(override protected val username: String, protected var deck: ListBuffer[Card] = ListBuffer[Card]()) extends Player {
+abstract class AbstractPlayer(override protected val username: String, protected var deck: ListBuffer[Card] = ListBuffer[Card]()) extends Player  with Equals {
 
   /** The number of gems a Player has.
    * 
@@ -37,6 +37,30 @@ abstract class AbstractPlayer(override protected val username: String, protected
   /** Indicates if the player is in a Match
    */
   protected var inMatch: Boolean = false
+  
+  //Equals --------------------------------------------------------
+
+  /** A function that compares the types of two values.
+   * 
+   * @param that The other value to compare.
+   * @return True if the two values have the same type.
+   */
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[AbstractPlayer]
+
+  /** A function that compares the structure of two objects.
+   * 
+   * @param that The object to compare.
+   * @return True if the two objects have the same structure.
+   */
+  override def equals(that: Any): Boolean = {
+    if (canEqual(that)){
+      val other = that.asInstanceOf[AbstractPlayer]
+      (this eq other) || (this.getUsername == other.getUsername && this.getGems == other.getGems && this.getHand == other.getHand && this.getDeck == other.getDeck && this.getBoardSection == other.getBoardSection)
+    }
+    else{
+      false
+    }
+  }
   
   // Getters y Setters ------------------------------------
 
