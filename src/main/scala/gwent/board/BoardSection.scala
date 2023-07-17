@@ -93,7 +93,7 @@ class BoardSection {
    *
    * @return the weather on the match.
    */
-  def getWeather: WeatherCard = Weather(0)
+  def getWeather: WeatherCard = Weather.head
 
   /** Getter of Graveyard.
    *
