@@ -3,7 +3,7 @@ package gwent.cards.weathers
 
 import gwent.cards.AbstractWeatherCard
 
-class BitingFrost extends AbstractWeatherCard(name = "Biting Frost"){
+class BitingFrost extends AbstractWeatherCard("Biting Frost"){
   
   //Equals y hashCode -----------------------------------------------------
 

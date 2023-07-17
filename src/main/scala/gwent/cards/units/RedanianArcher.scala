@@ -3,7 +3,7 @@ package gwent.cards.units
 
 import gwent.cards.RangedCombatUnit
 
-class RedanianArcher extends RangedCombatUnit(name="Redanian Archer", basePower = 3){
+class RedanianArcher extends RangedCombatUnit("Redanian Archer", 3){
   
   //Equals y hashCode -----------------------------------------------------------
 

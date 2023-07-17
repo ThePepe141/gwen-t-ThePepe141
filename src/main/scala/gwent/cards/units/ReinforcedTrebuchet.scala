@@ -3,7 +3,7 @@ package gwent.cards.units
 
 import gwent.cards.SiegeCombatUnit
 
-class ReinforcedTrebuchet extends SiegeCombatUnit(name="Reinforced Trebuchet", basePower = 8) {
+class ReinforcedTrebuchet extends SiegeCombatUnit("Reinforced Trebuchet",  8) {
   
   //Equals y hashCode ----------------------------------
 

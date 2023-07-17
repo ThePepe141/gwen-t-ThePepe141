@@ -3,7 +3,7 @@ package gwent.cards.units
 
 import gwent.cards.CloseCombatUnit
 
-class Geralt extends CloseCombatUnit(name = "Geralt of Rivia", basePower = 15){
+class Geralt extends CloseCombatUnit("Geralt of Rivia", 15){
   
   //Equals y hashCode -------------------------------------------
 
