@@ -39,7 +39,8 @@ class SunnyDay extends AbstractWeatherCard(name = "Sunny Day"){
     total = primo * total + name.##
     total
   }
-  
-  
+
+  /** Clear the current weatherEffect in the Board
+   */
   override def weatherEffect: Unit = println("It´s sunny!")
 }
