@@ -5,7 +5,7 @@ import gwent.cards.SiegeCombatUnit
 
 class ReinforcedTrebuchet extends SiegeCombatUnit(name="Reinforced Trebuchet", basePower = 8) {
   
-  //Equals ----------------------------------
+  //Equals y hashCode ----------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -26,6 +26,19 @@ class ReinforcedTrebuchet extends SiegeCombatUnit(name="Reinforced Trebuchet", b
     else{
       false
     }
+  }
+
+  /** A function that generates a hash value to an object.
+   * 
+   *  @return The hash value.
+   */
+  override def hashCode(): Int = {
+    val primo = 31
+    var total = 1
+    total = primo * total + classOf[ReinforcedTrebuchet].##
+    total = primo * total + name.##
+    total = primo * total + basePower
+    total
   }
   //----------------------------------------------------------------
 }

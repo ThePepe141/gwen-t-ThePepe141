@@ -5,7 +5,7 @@ import gwent.cards.RangedCombatUnit
 
 class RedanianArcher extends RangedCombatUnit(name="Redanian Archer", basePower = 3){
   
-  //Equals -----------------------------------------------------------
+  //Equals y hashCode -----------------------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -26,6 +26,19 @@ class RedanianArcher extends RangedCombatUnit(name="Redanian Archer", basePower 
     else{
       false
     }
+  }
+
+  /** A function that generates a hash value to an object.
+   * 
+   *  @return The hash value.
+   */
+  override def hashCode(): Int = {
+    val primo = 31
+    var total = 1
+    total = primo * total + classOf[RedanianArcher].##
+    total = primo * total + name.##
+    total = primo * total + basePower
+    total
   }
   //-----------------------------------------------------------------------
 }

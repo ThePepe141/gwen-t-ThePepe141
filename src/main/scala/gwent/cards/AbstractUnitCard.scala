@@ -16,7 +16,7 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
    */
   var _power: Int = basePower
 
-  //Equals -----------------------------------------------------------
+  //Equals y hashCode -----------------------------------------------------------
 
   /** A function that compares the types of two values.
    *
@@ -38,6 +38,19 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
     else{
       false
     }
+  }
+
+  /** A function that generates a hash value to an object.
+   * 
+   * @return The hash value.
+   */
+  override def hashCode(): Int = {
+    val primo = 31
+    var total = 1
+    total = primo * total + classOf[AbstractUnitCard].##
+    total = primo * total + name.##
+    total = primo * total + basePower
+    total
   }
 
   //Getters y Setters ----------------------------------------------

@@ -9,7 +9,7 @@ import gwent.board.BoardSection
  */
 class RangedCombatUnit(name: String, basePower: Int) extends AbstractUnitCard(name, basePower) {
   
-  //Equals -------------------------------------------------------
+  //Equals y hashCode -------------------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -30,6 +30,19 @@ class RangedCombatUnit(name: String, basePower: Int) extends AbstractUnitCard(na
     else{
       false
     }
+  }
+
+  /** A function that generates a hash value to an object.
+   * 
+   *  @return The hash value.
+   */
+  override def hashCode(): Int = {
+    val primo = 31
+    var total = 1
+    total = primo * total + classOf[RangedCombatUnit].##
+    total = primo * total + name.##
+    total = primo * total + basePower
+    total
   }
   // -------------------------------------------------------------------
 

@@ -5,7 +5,7 @@ import gwent.cards.CloseCombatUnit
 
 class Geralt extends CloseCombatUnit(name = "Geralt of Rivia", basePower = 15){
   
-  //Equals -------------------------------------------
+  //Equals y hashCode -------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -26,6 +26,19 @@ class Geralt extends CloseCombatUnit(name = "Geralt of Rivia", basePower = 15){
     else{
       false
     }
+  }
+
+  /** A function that generates a hash value to an object.
+   * 
+   *  @return The hash value.
+   */
+  override def hashCode(): Int = {
+    val primo = 31
+    var total = 1
+    total = primo * total + classOf[Geralt].##
+    total = primo * total + name.##
+    total = primo * total + basePower
+    total
   }
   //----------------------------------------------------------
   
