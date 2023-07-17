@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import cl.uchile.dcc.gwent.cards.units.{Geralt, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
+import cl.uchile.dcc.gwent.cards.units.{BlueStripesCommando, Catapult, CrinfridReaversHunter, Dandelion, Geralt, KaedweniSiegeExpert, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
 import cl.uchile.dcc.gwent.cards.weathers.SunnyDay
 import munit.FunSuite
 
@@ -18,6 +18,17 @@ class CardTest extends FunSuite {
   var archer2: RedanianArcher = _
   var engine1: ReinforcedTrebuchet = _
   var engine2: ReinforcedTrebuchet = _
+  /*
+  var commando1: BlueStripesCommando = _
+  var commando2: BlueStripesCommando = _
+  var catapult1: Catapult = _
+  var catapult2: Catapult = _
+  var hunter1: CrinfridReaversHunter = _
+  var hunter2: CrinfridReaversHunter = _
+  var bard1: Dandelion = _
+  var bard2: Dandelion = _
+  var expert1: KaedweniSiegeExpert = _
+  var expert2: KaedweniSiegeExpert = _*/
 
   override def beforeEach(context: BeforeEach): Unit = {
     Geralt = new Geralt()
