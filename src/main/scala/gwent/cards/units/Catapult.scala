@@ -5,7 +5,7 @@ import gwent.cards.SiegeCombatUnit
 
 import cl.uchile.dcc.gwent.cards.units.abilities.StrongBond
 
-abstract class Catapult extends SiegeCombatUnit("Catapult", 8) with StrongBond{
+class Catapult extends SiegeCombatUnit("Catapult", 8) with StrongBond{
 
   //Equals y hashCode -------------------------------------------
 
@@ -44,4 +44,5 @@ abstract class Catapult extends SiegeCombatUnit("Catapult", 8) with StrongBond{
   }
   //----------------------------------------------------------
 
+  override def strongBond(): Unit = println("Reloaaad!!!")
 }

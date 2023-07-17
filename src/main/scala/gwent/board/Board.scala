@@ -4,6 +4,10 @@ package gwent.board
 import gwent.players.Player
 import gwent.players.{CpuPlayer, HumanPlayer}
 
+import cl.uchile.dcc.gwent.cards.WeatherCard
+
+import scala.collection.mutable.ListBuffer
+
 /** A class that represents the Board of a match. It requires 2 Players.
  * 
  * @param player1 The HumanPlayer of the match.
@@ -17,14 +21,28 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
 
   /** BoardSection for HumanPlayer.
    */
-  var Front: BoardSection = new BoardSection()
+  var Front: BoardSection = new BoardSection(this)
 
   /**BoardSection for CpuPlayer.
    */
-  var Back: BoardSection = new BoardSection()
+  var Back: BoardSection = new BoardSection(this)
 
-  player1.assignBoardSection(Front)
-  player2.assignBoardSection(Back)
+  /** The weather currently being played on the Board.
+   */
+  private var Weather: ListBuffer[WeatherCard] = ListBuffer[WeatherCard]()
+
+  /** Getter of Weather.
+   *
+   * @return the weather on the match.
+   */
+  def getWeather: ListBuffer[WeatherCard] = Weather
+
+  /** A function that assign BoardSections to the players.
+   */
+  def assignSections: Unit = {
+    player1.assignBoardSection(Front)
+    player2.assignBoardSection(Back)
+  }
 
   /** It gives to each Player a specific number of Cards.
    * 
@@ -68,6 +86,14 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
   def startRound: Unit = {
     round += 1
     handOutCards()
+  }
+
+  /** A function that updates the Wather on the Board.
+   *
+   * @param weatherCard
+   */
+  def assignWeather(weatherCard: WeatherCard): Unit = {
+    Weather = Weather :+ weatherCard
   }
 
 }

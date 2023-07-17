@@ -5,7 +5,7 @@ import gwent.cards.RangedCombatUnit
 
 import cl.uchile.dcc.gwent.cards.units.abilities.StrongBond
 
-abstract class CrinfridReaversHunter extends RangedCombatUnit("Crinfrid Reavers Dragon Hunter", 5) with StrongBond{
+class CrinfridReaversHunter extends RangedCombatUnit("Crinfrid Reavers Dragon Hunter", 5) with StrongBond{
 
   //Equals y hashCode -------------------------------------------
 
@@ -43,4 +43,6 @@ abstract class CrinfridReaversHunter extends RangedCombatUnit("Crinfrid Reavers 
     total
   }
   //----------------------------------------------------------
+
+  override def strongBond(): Unit = println("Hold it!! The beast is hours!")
 }

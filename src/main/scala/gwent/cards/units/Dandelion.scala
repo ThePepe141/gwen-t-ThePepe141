@@ -5,7 +5,7 @@ import gwent.cards.CloseCombatUnit
 
 import cl.uchile.dcc.gwent.cards.units.abilities.MoraleBoost
 
-abstract class Dandelion extends CloseCombatUnit("Dandelion", 2) with MoraleBoost{
+class Dandelion extends CloseCombatUnit("Dandelion", 2) with MoraleBoost{
 
   //Equals y hashCode -------------------------------------------
 
@@ -43,4 +43,6 @@ abstract class Dandelion extends CloseCombatUnit("Dandelion", 2) with MoraleBoos
     total
   }
   //----------------------------------------------------------
+
+  override def moraleBoost(): Unit = println("...Toss a coin to your witcher...!!")
 }

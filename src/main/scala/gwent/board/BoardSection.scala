@@ -7,7 +7,7 @@ import scala.collection.mutable.ListBuffer
 
 /** A class that represents a section of a Board.
  */
-class BoardSection {
+class BoardSection(board: Board) {
 
   /** The row for the Close Combat UnitCards.
    */
@@ -20,10 +20,7 @@ class BoardSection {
   /** The row for the Siege Combat UnitCards.
    */
   private var SiegeCombatRow: ListBuffer[SiegeCombatUnit] = ListBuffer[SiegeCombatUnit]()
-
-  /** The weather currently being played on the Board.
-   */
-  private var Weather: ListBuffer[WeatherCard] = ListBuffer[WeatherCard]()
+  
 
   /** The place where Cards go at the end of the Round
    */
@@ -88,12 +85,6 @@ class BoardSection {
     }
     SiegeCombatRow
   }
-
-  /** Getter of Weather.
-   *
-   * @return the weather on the match.
-   */
-  def getWeather: WeatherCard = Weather.head
 
   /** Getter of Graveyard.
    *
@@ -210,12 +201,12 @@ class BoardSection {
     updateTotalPower
   }
 
-  /** A function that puts a WeatherCard in Weather.
+  /** A function that puts a WeatherCard in Weather on the Board.
    * 
    * @param theCard The Card to be put.
    */
   def putCardWR(theCard: WeatherCard): Unit = {
-    Weather = ListBuffer[WeatherCard](theCard)
+    board.assignWeather(theCard)
   }
 
 

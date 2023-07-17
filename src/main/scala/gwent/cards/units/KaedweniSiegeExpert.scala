@@ -5,7 +5,7 @@ import gwent.cards.SiegeCombatUnit
 
 import cl.uchile.dcc.gwent.cards.units.abilities.MoraleBoost
 
-abstract class KaedweniSiegeExpert extends SiegeCombatUnit("Kaedweni Siege Expert", 1) with MoraleBoost{
+class KaedweniSiegeExpert extends SiegeCombatUnit("Kaedweni Siege Expert", 1) with MoraleBoost{
   //Equals y hashCode -------------------------------------------
 
   /** A function that compares the types of two values.
@@ -42,4 +42,6 @@ abstract class KaedweniSiegeExpert extends SiegeCombatUnit("Kaedweni Siege Exper
     total
   }
   //----------------------------------------------------------
+
+  override def moraleBoost(): Unit = println("It lacks WD-40 oil")
 }

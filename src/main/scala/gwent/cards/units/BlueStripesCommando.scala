@@ -5,7 +5,7 @@ import gwent.cards.CloseCombatUnit
 
 import cl.uchile.dcc.gwent.cards.units.abilities.StrongBond
 
-abstract class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4) with StrongBond{
+class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4) with StrongBond{
 
   //Equals y hashCode -------------------------------------------
 
@@ -43,4 +43,6 @@ abstract class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Command
     total
   }
   //----------------------------------------------------------
+
+  override def strongBond(): Unit = println("For Temeria!!")
 }
