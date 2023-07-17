@@ -9,6 +9,7 @@ import scala.collection.mutable.ListBuffer
 class PlayerTest extends FunSuite {
   val name = "player1"
   var player1: HumanPlayer = _
+  var player2: HumanPlayer = _
   var cpu: CpuPlayer = _
   var soldier1: UnitCard = _
   var archer1: UnitCard = _
@@ -16,6 +17,7 @@ class PlayerTest extends FunSuite {
 
   override def beforeEach(context: BeforeEach): Unit = {
     player1 = new HumanPlayer(name, ListBuffer())
+    player2 = new HumanPlayer(name, ListBuffer())
     cpu = new CpuPlayer(ListBuffer())
     soldier1 = new TemerianInfantry()
     archer1 = new RedanianArcher()
@@ -54,6 +56,17 @@ class PlayerTest extends FunSuite {
     val endSize = player1.deckSize
     assertEquals(firstSize, 0)
     assertEquals(endSize, 3)
+  }
+
+  test("Testing equals method"){
+    //Test equals
+    player1.addToDeck(soldier1)
+    player1.addToDeck(archer1)
+    player1.addToDeck(engine1)
+    player2.addToDeck(soldier1)
+    player2.addToDeck(archer1)
+    player2.addToDeck(engine1)
+    assert(player1.equals(player2))
   }
 
   test("A deck can be shuffle") {
