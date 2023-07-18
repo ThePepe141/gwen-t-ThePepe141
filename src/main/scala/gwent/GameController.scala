@@ -136,13 +136,6 @@ class GameController {
     }
   }
 
-  def startRound: Unit = {
-    board.startRound
-    println("You start first")
-    showHand
-    gameState.action
-  }
-
   /** The player choose between play a card or pass
    */
   def makeChoice: Unit = {
@@ -165,17 +158,79 @@ class GameController {
   }
 
   def opponentMove: Unit = {
-    while(board.Back.getTotalPower<board.Front.getTotalPower || cpuPlayer.getHand.isEmpty){
-      cpuPlayer.playCard
-    }
+    cpuPlayer.playCard
+    board.Front.updateTotalPower
+    board.Back.updateTotalPower
     if (cpuPlayer.getHand.isEmpty){
-      //something
-    }
-    else{
-      //something
+      machinePass
     }
   }
 
+  /** A function trigger by StandBy.action
+   *
+   */
+  def waiting: Unit = {
+    while(board.Front.getTotalPower>=board.Back.getTotalPower && cpuPlayer.getHand.nonEmpty){
+      cpuPlayer.playCard
+    }
+    machinePass
+  }
+
+  def humanPass: Unit = {
+    humanPlayer.pass = true
+    println("Has pasado la ronda")
+    if (!cpuPlayer.pass){
+      gameState.action
+    }
+    else{
+      endRound
+    }
+  }
+
+  def machinePass: Unit = {
+    cpuPlayer.pass = true
+    println("El oponente ha pasado la ronda")
+    if (!humanPlayer.pass){
+      gameState.toInTurnState
+    }
+    else{
+      endRound
+    }
+  }
+
+  def beginRound: Unit = {
+    gameState.action
+  }
+  def endRound: Unit = {
+    if (board.Front.getTotalPower>board.Back.getTotalPower){
+      println("Ganaste la ronda")
+      cpuPlayer.roundLost
+      if (cpuPlayer.isDefeated){
+        gameState.toAfterMatchState
+      }
+    }
+    else if (board.Front.getTotalPower<board.Back.getTotalPower){
+      println("Perdiste la ronda")
+      humanPlayer.roundLost
+      if (humanPlayer.isDefeated){
+        gameState.toAfterMatchState
+      }
+    }
+    else{
+      println("La ronda termino en empate")
+      humanPlayer.roundLost
+      cpuPlayer.roundLost
+    }
+  }
+
+  def victory: Unit = {
+    if (humanPlayer.isDefeated || cpuPlayer.isDefeated){
+      gameState.toAfterMatchState
+    }
+    else{
+
+    }
+  }
 
   //Show functions -------------------------------------------------------------
   /** Shows the player´s hand.

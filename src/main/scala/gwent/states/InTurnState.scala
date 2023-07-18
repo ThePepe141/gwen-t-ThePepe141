@@ -11,9 +11,11 @@ class InTurnState(context: GameController) extends GameState(context) {
 
   override def toWaitingTurnState: Unit = {
     context.gameState = new WaitingTurnState(context)
+    context.opponentMove
   }
 
   override def toStandByState: Unit = {
     context.gameState = new StandByState(context)
+    context.humanPass
   }
 }

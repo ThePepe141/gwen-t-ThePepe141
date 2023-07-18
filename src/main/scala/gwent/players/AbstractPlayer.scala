@@ -34,9 +34,13 @@ abstract class AbstractPlayer(override protected val username: String, protected
    */
   protected var boardSection: BoardSection = _
 
-  /** Indicates if the player is in a Match
+  /** Indicates if the player is in a Match.
    */
   protected var inMatch: Boolean = false
+
+  /** Boolean that indicates if a player has passed.
+   */
+  var pass: Boolean = false
   
   //Equals --------------------------------------------------------
 

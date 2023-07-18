@@ -3,16 +3,16 @@ package gwent.cards.weathers
 
 import gwent.cards.AbstractWeatherCard
 
-class BitingFrost extends AbstractWeatherCard("Biting Frost"){
-  
-  //Equals, hashCode y toString -----------------------------------------------------
+class TorrentialRain extends AbstractWeatherCard("Torrential Rain"){
+
+  //Equals, hashCode y toString  -----------------------------------------------------
 
   /** A function that compares the types of two values.
    *
    * @param that The other value to compare.
    * @return True if the two values have the same type.
    */
-  override def canEqual(that: Any): Boolean = that.isInstanceOf[BitingFrost]
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[TorrentialRain]
 
   /** A function that compares the structure of two objects.
    *
@@ -35,16 +35,15 @@ class BitingFrost extends AbstractWeatherCard("Biting Frost"){
   override def hashCode(): Int = {
     val primo = 31
     var total = 1
-    total = primo * total + classOf[BitingFrost].##
+    total = primo * total + classOf[TorrentialRain].##
     total = primo * total + name.##
     total
   }
 
-  override def toString: String = s"BitingFrost(affected row = CloseCombatRow)"
-  
+  override def toString: String = s"TorrentialRain(affected row = SiegeCombatRow)"
+
   //--------------------------------------------------
 
-  /** Reduce the currentPower of units in the opposite BoardSection to the minimum.
-   */
-  override def weatherEffect: Unit = println("It´s Cold!")
+  override def weatherEffect: Unit = println("It was sunny just moments ago!")
+
 }

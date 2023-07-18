@@ -14,8 +14,9 @@ class BeforeMatchState(context: GameController) extends GameState(context){
   override def toInTurnState: Unit = {
     context.board.assignSections
     context.board.startMatch
+    context.board.startRound
     context.gameState = new InTurnState(context)
-    context.startRound
+    context.beginRound
   }
 
 
@@ -24,7 +25,7 @@ class BeforeMatchState(context: GameController) extends GameState(context){
     context.board.startMatch
     context.board.startRound
     context.gameState = new WaitingTurnState(context)
-    println("Your opponents start first")
+    context.beginRound
   }
   
 }
