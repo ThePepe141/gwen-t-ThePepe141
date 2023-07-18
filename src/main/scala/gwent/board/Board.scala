@@ -31,6 +31,14 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
    */
   private var Weather: ListBuffer[WeatherCard] = ListBuffer[WeatherCard]()
 
+  /** A list with the Human player end points of each round.
+   */
+  var FrontPoints: ListBuffer[Int] = ListBuffer[Int](0,0,0)
+
+  /** A List with the CPU player end points od each round.
+   */
+  var BackPoints: ListBuffer[Int] = ListBuffer[Int](0,0,0)
+
   /** Getter of Weather.
    *
    * @return the weather on the match.
@@ -49,6 +57,11 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
   def assignSections: Unit = {
     player1.assignBoardSection(Front)
     player2.assignBoardSection(Back)
+  }
+  
+  def assignPoints: Unit = {
+    FrontPoints(round) = Front.getTotalPower
+    BackPoints(round) = Back.getTotalPower
   }
 
   /** It gives to each Player a specific number of Cards.
@@ -104,7 +117,12 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
     Front.updateTotalPower
     Back.updateTotalPower
     val row = getWeather(true)
-    
+  }
+
+  def clearBoard: Unit = {
+    Front.clearBoardSection
+    Back.clearBoardSection
+    Weather = ListBuffer[WeatherCard]()
   }
 
 }

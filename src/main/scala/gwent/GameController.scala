@@ -125,7 +125,10 @@ class GameController {
     board = new Board(humanPlayer, cpuPlayer)
   }
 
+  /** Initiate a Match.
+   */
   def startMatch: Unit = {
+    board.startMatch
     println("The Match has started!")
     val coin = Random.nextInt(2)
     if (coin == 0) {
@@ -139,6 +142,16 @@ class GameController {
   /** The player choose between play a card or pass
    */
   def makeChoice: Unit = {
+    println("Opponent side")
+    showSiegeCombatRow(false)
+    showRangedCombatRow(false)
+    showCloseCombatRow(false)
+    println("Your side")
+    showCloseCombatRow(true)
+    showRangedCombatRow(true)
+    showSiegeCombatRow(true)
+    println("Your hand")
+    showHand
     println("Choose 1 to play a card choose 2 to pass")
     val choice = readLine().toInt
     if (choice==1){
@@ -157,12 +170,17 @@ class GameController {
     }
   }
 
+  /** Function that indicates it´s the CPU player turn.
+   */
   def opponentMove: Unit = {
     cpuPlayer.playCard
     board.Front.updateTotalPower
     board.Back.updateTotalPower
     if (cpuPlayer.getHand.isEmpty){
       machinePass
+    }
+    else{
+      gameState.toInTurnState
     }
   }
 
@@ -176,6 +194,8 @@ class GameController {
     machinePass
   }
 
+  /** A function trigger when Human player pass.
+   */
   def humanPass: Unit = {
     humanPlayer.pass = true
     println("Has pasado la ronda")
@@ -187,6 +207,8 @@ class GameController {
     }
   }
 
+  /** A function trigger when CPU player pass.
+   */
   def machinePass: Unit = {
     cpuPlayer.pass = true
     println("El oponente ha pasado la ronda")
@@ -201,35 +223,39 @@ class GameController {
   def beginRound: Unit = {
     gameState.action
   }
+  
   def endRound: Unit = {
     if (board.Front.getTotalPower>board.Back.getTotalPower){
       println("Ganaste la ronda")
       cpuPlayer.roundLost
-      if (cpuPlayer.isDefeated){
-        gameState.toAfterMatchState
-      }
     }
     else if (board.Front.getTotalPower<board.Back.getTotalPower){
       println("Perdiste la ronda")
       humanPlayer.roundLost
-      if (humanPlayer.isDefeated){
-        gameState.toAfterMatchState
-      }
     }
     else{
       println("La ronda termino en empate")
       humanPlayer.roundLost
       cpuPlayer.roundLost
     }
-  }
-
-  def victory: Unit = {
-    if (humanPlayer.isDefeated || cpuPlayer.isDefeated){
+    if (humanPlayer.isDefeated && cpuPlayer.isDefeated){
+      gameState.toAfterMatchState
+    }
+    else if (humanPlayer.isDefeated) {
+      gameState.toAfterMatchState
+    }
+    else if (cpuPlayer.isDefeated) {
       gameState.toAfterMatchState
     }
     else{
-
+      board.assignPoints
+      board.clearBoard
+      board.Front.updateTotalPower
+      board.Back.updateTotalPower
+      board.startRound
+      beginRound
     }
+    
   }
 
   //Show functions -------------------------------------------------------------
@@ -292,6 +318,19 @@ class GameController {
    */
   def showWeathers: Unit = {
     val row = board.getWeather(true)
+  }
+
+  /** Shows the Graveyard.
+   *
+   * @param yourSide True to show your graveyard, false to show the opponents.
+   */
+  def showGraveyard(yourSide: Boolean): Unit = {
+    if(yourSide){
+      val row = board.Front.getGraveyard(true)
+    }
+    else{
+      val row = board.Back.getGraveyard(true)
+    }
   }
   //-------------------------------------------------------------------------
 

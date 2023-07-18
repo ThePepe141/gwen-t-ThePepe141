@@ -211,6 +211,23 @@ class BoardSection(board: Board) {
   def putCardWR(theCard: WeatherCard): Unit = {
     board.assignWeather(theCard)
   }
-
+  
+  /** A functions that clears all rows on the BoardSection.
+   */
+  def clearBoardSection: Unit = {
+    for (card <- CloseCombatRow){
+      Graveyard :+ card
+    }
+    CloseCombatRow = ListBuffer[CloseCombatUnit]()
+    for (card <- RangedCombatRow){
+      Graveyard :+ card
+    }
+    RangedCombatRow = ListBuffer[RangedCombatUnit]()
+    for (card <- SiegeCombatRow){
+      Graveyard :+ card
+    }
+    SiegeCombatRow = ListBuffer[SiegeCombatUnit]()
+    updateTotalPower
+  }
 
 }
