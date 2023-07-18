@@ -7,7 +7,24 @@ import cl.uchile.dcc.gwent.board.Board
 
 class BeforeMatchState(context: GameController) extends GameState(context){
 
-  override def toInMatchState: Unit = {
-    context.gameState = new InMatchState(context)
+  override def action: Unit = {
+    context.buildDecks
   }
+
+  override def toInTurnState: Unit = {
+    context.board.assignSections
+    context.board.startMatch
+    context.gameState = new InTurnState(context)
+    context.startRound
+  }
+
+
+  override def toWaitingTurnState: Unit = {
+    context.board.assignSections
+    context.board.startMatch
+    context.board.startRound
+    context.gameState = new WaitingTurnState(context)
+    println("Your opponents start first")
+  }
+  
 }

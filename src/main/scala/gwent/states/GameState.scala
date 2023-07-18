@@ -16,6 +16,10 @@ class GameState(val context: GameController) {
   private def transitionError(targetState: String): Unit = {
     throw new InvalidTransitionException(s"Cannot transition to $targetState")
   }
+  
+  def action: Unit = {
+    //I´m think i should do something
+  }
 
   //Transitions functions ------------------------------------------------------
 
@@ -23,12 +27,6 @@ class GameState(val context: GameController) {
    */
   def toBeforeMatchState: Unit = {
     transitionError("BeforeMatchState")
-  }
-  
-  /** A function that change the GameState to InMatchState.
-   */
-  def toInMatchState: Unit = {
-    transitionError("InMatchState")
   }
 
   /** A function that change the MatchState to InTurnState.

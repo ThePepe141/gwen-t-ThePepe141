@@ -35,7 +35,14 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
    *
    * @return the weather on the match.
    */
-  def getWeather: ListBuffer[WeatherCard] = Weather
+  def getWeather(show: Boolean): ListBuffer[WeatherCard] = {
+    if (show && Weather.nonEmpty){
+      for (card <- Weather){
+        println(card.getName)
+      }
+    }
+    Weather
+  }
 
   /** A function that assign BoardSections to the players.
    */
@@ -94,6 +101,10 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
    */
   def assignWeather(weatherCard: WeatherCard): Unit = {
     Weather = Weather :+ weatherCard
+    Front.updateTotalPower
+    Back.updateTotalPower
+    val row = getWeather(true)
+    
   }
 
 }

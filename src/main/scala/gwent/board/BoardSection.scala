@@ -181,6 +181,7 @@ class BoardSection(board: Board) {
   def putCardCCR(theCard: CloseCombatUnit): Unit = {
     CloseCombatRow = CloseCombatRow :+ theCard
     updateTotalPower
+    val row = getCloseCombatRow(true)
   }
 
   /** A function that puts a RangedCombatUnit in RangedCombatRow.
@@ -190,6 +191,7 @@ class BoardSection(board: Board) {
   def putCardRCR(theCard: RangedCombatUnit): Unit = {
     RangedCombatRow = RangedCombatRow :+ theCard
     updateTotalPower
+    val row = getRangedCombatRow(true)
   }
 
   /** A function that puts a SiegeCombatUnit in SiegeCombatRow.
@@ -199,6 +201,7 @@ class BoardSection(board: Board) {
   def putCardSCR(theCard: SiegeCombatUnit): Unit = {
     SiegeCombatRow = SiegeCombatRow :+ theCard
     updateTotalPower
+    getSiegeCombatRow(true)
   }
 
   /** A function that puts a WeatherCard in Weather on the Board.
