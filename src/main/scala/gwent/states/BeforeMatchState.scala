@@ -6,11 +6,16 @@ import gwent.GameController
 class BeforeMatchState(context: GameController) extends GameState(context){
 
   override def action(): Unit = {
-    context.matchSettings()
+    context.setPlayers()
+    if (!context.keepDecks){
+      context.matchSettings()
+    }
+    context.setBoard()
   }
 
   override def toBeginRoundState(): Unit = {
-    context.gameState = new BeginRoundState(context) 
+    context.gameState = new BeginRoundState(context)
+    context.trigger()
   }
 
 }

@@ -18,18 +18,46 @@ abstract class GameController {
   var theBoard: Board = _
   val library = new CardLibrary
   var humanStartMatch: Boolean = _
+  var humanName: String = _
+  var humanDeck: ListBuffer[Card] = _
+  var cpuDeck: ListBuffer[Card] = _
+  var firstMatch: Boolean = true
+  var keepDecks: Boolean = false
+  
+  trigger()
   
   //GameState trigger functions ---------------------------------------
+
+  /** A functions that triggers the action method of the current gameState.
+   */
+  def trigger(): Unit = {
+    gameState.action()
+  }
+
+  /** A function trigger by BeforeMatchState.action()
+   */
+  def setPlayers(): Unit = {
+    if (firstMatch){
+      //Choose the human name
+      println("Hello Human player, please choose your name")
+      val name = readLine()
+      humanPlayer = new HumanPlayer(name, ListBuffer[Card]())
+      cpuPlayer = new CpuPlayer(ListBuffer[Card]())
+      println(s"Thank you ${humanPlayer.getUsername}")
+    }
+    else if (!firstMatch && keepDecks){
+      humanPlayer = new HumanPlayer(humanName, humanDeck)
+      cpuPlayer = new CpuPlayer(cpuDeck)
+    }
+    else{
+      humanPlayer = new HumanPlayer(humanName, ListBuffer[Card]())
+      cpuPlayer = new CpuPlayer(ListBuffer[Card]())
+    }
+  }
 
   /** A function trigger by BeforeMatchState.action()
    */
   def matchSettings(): Unit = {
-    //Choose the human name
-    println("Hello Human player, please choose your name")
-    val name = readLine()
-    humanPlayer = new HumanPlayer(name, ListBuffer[Card]())
-    cpuPlayer = new CpuPlayer(ListBuffer[Card]())
-    println("Thank you")
     //Build the human player deck
     println("Deck library")
     library.showLibrary()
@@ -64,6 +92,7 @@ abstract class GameController {
     }
     println("Your deck has been filled")
     showDeck()
+    humanDeck = humanPlayer.getDeck
     //Build the machine deck
     println("Please choose your opponent´s deck")
     println("Write the number of the set you want to pick for or -1 to finish")
@@ -99,6 +128,12 @@ abstract class GameController {
       x = readLine().toInt
     }
     println("Your opponent´s deck has been filled")
+    cpuDeck = cpuPlayer.getDeck
+  }
+
+  /** A function trigger by BeforeMatchState.action()
+   */
+  def setBoard(): Unit = {
     //Create the Board
     theBoard = new Board(humanPlayer, cpuPlayer)
     //Board settings
@@ -108,7 +143,7 @@ abstract class GameController {
     gameState.toBeginRoundState()
   }
 
-  /**
+  /** A function trigger by BeginRoundState.action()
    */
   def roundSettings(): Unit = {
     //The round has begun
@@ -138,7 +173,9 @@ abstract class GameController {
       }
     }
   }
-  
+
+  /** A function trigger by InTurnState.action()
+   */
   def humanMove(): Unit = {
     showBoard()
     showHand()
@@ -162,7 +199,9 @@ abstract class GameController {
       gameState.toStandByState()
     }
   }
-  
+
+  /** A function trigger by WaitingTurnState.action()
+   */
   def machineMove(): Unit = {
     if (!cpuPlayer.pass){
       cpuPlayer.playCard
@@ -179,17 +218,23 @@ abstract class GameController {
       gameState.toInTurnState()
     }
   }
-  
+
+  /** A function trigger by StandByState.action()
+   */
   def humanPass(): Unit = {
     humanPlayer.pass = true
-    println(s"${humanPlayer.getUsername} has passed the round")
+    println(s"${humanPlayer.getUsername} passed the round")
   }
-  
+
+  /** A function that defines when the CpuPlayer pass de Round
+   */
   def machinePass(): Unit = {
     cpuPlayer.pass = true
     println(s"${cpuPlayer.getUsername} has passed the round")
   }
-  
+
+  /** A function trigger by StandByState.action()
+   */
   def endingRound(): Unit = {
     if (cpuPlayer.pass && humanPlayer.pass){
       gameState.toEndRoundState()
@@ -203,7 +248,9 @@ abstract class GameController {
       endingRound()
     }
   }
-  
+
+  /** A function trigger by EndRoundState.action()
+   */
   def definingWinner(): Unit = {
     theBoard.assignPoints
     if (theBoard.FrontPoints(theBoard.round)>theBoard.BackPoints(theBoard.round)){
@@ -212,7 +259,7 @@ abstract class GameController {
     }
     else if(theBoard.FrontPoints(theBoard.round)<theBoard.BackPoints(theBoard.round)){
       humanPlayer.roundLost
-      println(s"${humanPlayer} loose the round")
+      println(s"${humanPlayer.getUsername} loose the round")
     }
     else{
       humanPlayer.roundLost
@@ -232,25 +279,61 @@ abstract class GameController {
       gameState.toAfterMatchState()
     }
     else{
+      humanPlayer.pass = false
+      cpuPlayer.pass = false
+      theBoard.clearBoard
       gameState.toBeginRoundState()
     }
   }
-  def postMatch(): Unit
+
+  /** A function trigger by AfterMatchState.action()
+   */
+  def postMatch(): Unit = {
+    humanPlayer.pass = false
+    cpuPlayer.pass = false
+    println(s"${humanPlayer.getUsername} points:")
+    println(s"Round 1: ${theBoard.FrontPoints.head}, Round 2: ${theBoard.FrontPoints(1)}, Round 3: ${theBoard.FrontPoints(2)}")
+    println(s"${cpuPlayer.getUsername} points:")
+    println(s"Round 1: ${theBoard.BackPoints.head}, Round 2: ${theBoard.BackPoints(1)}, Round 3: ${theBoard.BackPoints(2)}")
+    println("Do you want to play another match? Choose 1 for yes, choose 2 for no")
+    val choice = readLine().toInt
+    if (choice==1){
+      firstMatch = false
+      println("Do you want to keep the decks? Choose 1 for yes, choose 2 for no")
+      val choice2 = readLine().toInt
+      if (choice2 == 1){
+        keepDecks = true
+      }
+      else{
+        keepDecks = false
+      }
+      gameState.toBeforeMatchState()
+    }
+    else{
+      println("GG")
+    }
+  }
   
   //Show functions -------------------------------------------------
-  
+
+  /** Shows the humanPlayer´s deck.
+   */
   def showDeck(): Unit = {
     for (card <- humanPlayer.getDeck){
       println(card.toString)
     }
   }
-  
+
+  /** Shows the humanPlayer´s hand.
+   */
   def showHand(): Unit = {
     for (card <- humanPlayer.getHand){
       println(card.toString)
     }
   }
-  
+
+  /** Shows the Board´s rows
+   */
   def showBoard(): Unit = {
     println("Cpu side")
     println("Siege Combat Row")

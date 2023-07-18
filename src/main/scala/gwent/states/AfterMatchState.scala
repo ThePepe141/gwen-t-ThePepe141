@@ -5,8 +5,13 @@ import gwent.GameController
 
 class AfterMatchState(context: GameController) extends GameState(context){
 
+  override def action(): Unit = {
+    context.postMatch()
+  }
+
   override def toBeforeMatchState(): Unit = {
     context.gameState = new BeforeMatchState(context)
+    context.trigger()
   }
 
 }
