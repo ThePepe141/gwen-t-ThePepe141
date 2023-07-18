@@ -5,11 +5,13 @@ import gwent.GameController
 
 class StandByState(context: GameController) extends GameState(context) {
 
+  override def action(): Unit = {
+    context.humanPass()
+    context.endingRound()
+  }
 
-  override def action: Unit = {
-    context.waiting
+  override def toEndRoundState(): Unit = {
+    context.gameState = new EndRoundState(context)
   }
-  override def toAfterMatchState: Unit = {
-    context.gameState = new AfterMatchState(context)
-  }
+
 }

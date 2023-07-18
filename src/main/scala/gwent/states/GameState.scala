@@ -3,55 +3,66 @@ package gwent.states
 
 import gwent.GameController
 
-import cl.uchile.dcc.gwent.exceptions.InvalidTransitionException
+import gwent.exceptions.InvalidTransitionException
 
-class GameState(val context: GameController) {
-
+class GameState(context: GameController){
+  
   context.gameState = this
 
   /** A function that throws an InvalidTransitionException.
    *
-   * @param targetState The GameState you wanted to transition.
+   * @param targetState The GameState you try to transition.
    */
   private def transitionError(targetState: String): Unit = {
     throw new InvalidTransitionException(s"Cannot transition to $targetState")
   }
-  
-  def action: Unit = {
-    //I´m think i should do something
-  }
 
-  //Transitions functions ------------------------------------------------------
-
-  /** A function that change the GameState to BeforeMatchState.
+  /** A function that varies on each State.
    */
-  def toBeforeMatchState: Unit = {
+  def action(): Unit = {
+    println("I think I should do something")
+  }
+  
+  //Transition functions --------------------------------------------------
+
+  /** A function that switch the gameState to BeforeMatchState.
+   */
+  def toBeforeMatchState(): Unit = {
     transitionError("BeforeMatchState")
   }
 
-  /** A function that change the MatchState to InTurnState.
+  /** A function that switch the gameState to RoundStudyState.
    */
-  def toInTurnState: Unit = {
+  def toBeginRoundState(): Unit = {
+    transitionError("BeginRoundState")
+  }
+
+  /** A function that switch the gameState to InTurnState.
+   */
+  def toInTurnState(): Unit = {
     transitionError("InTurnState")
   }
 
-  /** A function that change the MatchState to WaitingTurnState.
+  /** A function that switch the gameState to WaitingTurnState.
    */
-  def toWaitingTurnState: Unit = {
+  def toWaitingTurnState(): Unit = {
     transitionError("WaitingTurnState")
   }
 
-  /** A function that change the MatchState to StandByState.
+  /** A function that switch the gameState to StandByState.
    */
-  def toStandByState: Unit = {
+  def toStandByState(): Unit = {
     transitionError("StandByState")
   }
+  
+  def toEndRoundState(): Unit = {
+    transitionError("EndRoundState")
+  }
 
-  /** A function that change the GameState to AfterMatchState.
+  /** A function that switch the gameState to AfterMatchState.
    */
-  def toAfterMatchState: Unit = {
+  def toAfterMatchState(): Unit = {
     transitionError("AfterMatchState")
   }
-  //-------------------------------------------------------------
 
 }

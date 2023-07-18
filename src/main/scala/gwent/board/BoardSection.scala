@@ -46,45 +46,23 @@ class BoardSection(board: Board) {
 
   /** Getter of CloseCombatRow.
    *
-   * @param show boolean that represents the choice of printing the cards.
    * @return the cards on CloseCombatRow.
    */
-  def getCloseCombatRow(show: Boolean): ListBuffer[CloseCombatUnit] = {
-    if (show){
-      for (card <- CloseCombatRow) {
-        println(s"Name: ${card.getName}, Power: ${card.currentPower}")
-      }
-    }
-    CloseCombatRow
-  }
+  def getCloseCombatRow(show: Boolean): ListBuffer[CloseCombatUnit] = CloseCombatRow
 
   /** Getter of RangedCombatRow.
    *
-   * @param show boolean that represents the choice of printing the cards.
    * @return the cards on RangedCombatRow.
    */
-  def getRangedCombatRow(show: Boolean): ListBuffer[RangedCombatUnit] = {
-    if(show){
-      for (card <- RangedCombatRow) {
-        println(s"Name: ${card.getName}, Power: ${card.currentPower}")
-      }
-    }
-    RangedCombatRow
-  }
+  def getRangedCombatRow: ListBuffer[RangedCombatUnit] = RangedCombatRow
+  
 
   /** Getter of SiegeCombatRow.
    *
-   * @param show boolean that represents the choice of printing the cards.
    * @return the cards on SiegeCombatRow.
    */
-  def getSiegeCombatRow(show: Boolean): ListBuffer[SiegeCombatUnit] = {
-    if (show) {
-      for (card <- SiegeCombatRow) {
-        println(s"Name: ${card.getName}, Power: ${card.currentPower}")
-      }
-    }
-    SiegeCombatRow
-  }
+  def getSiegeCombatRow: ListBuffer[SiegeCombatUnit] = SiegeCombatRow
+  
 
   /** Getter of Graveyard.
    *
@@ -181,7 +159,7 @@ class BoardSection(board: Board) {
   def putCardCCR(theCard: CloseCombatUnit): Unit = {
     CloseCombatRow = CloseCombatRow :+ theCard
     updateTotalPower
-    val row = getCloseCombatRow(true)
+    showCloseCombatRow()
   }
 
   /** A function that puts a RangedCombatUnit in RangedCombatRow.
@@ -191,7 +169,7 @@ class BoardSection(board: Board) {
   def putCardRCR(theCard: RangedCombatUnit): Unit = {
     RangedCombatRow = RangedCombatRow :+ theCard
     updateTotalPower
-    val row = getRangedCombatRow(true)
+    showRangedCombatRow()
   }
 
   /** A function that puts a SiegeCombatUnit in SiegeCombatRow.
@@ -201,7 +179,7 @@ class BoardSection(board: Board) {
   def putCardSCR(theCard: SiegeCombatUnit): Unit = {
     SiegeCombatRow = SiegeCombatRow :+ theCard
     updateTotalPower
-    getSiegeCombatRow(true)
+    showSiegeCombatRow()
   }
 
   /** A function that puts a WeatherCard in Weather on the Board.
@@ -228,6 +206,33 @@ class BoardSection(board: Board) {
     }
     SiegeCombatRow = ListBuffer[SiegeCombatUnit]()
     updateTotalPower
+  }
+  
+  
+  //Show rows ----------------------------------------
+
+  /** Print the cards in the CloseCombatRow.
+   */
+  def showCloseCombatRow(): Unit = {
+    for (card <- CloseCombatRow) {
+      println(s"Name: ${card.getName}, Power: ${card.currentPower}")
+    }
+  }
+
+  /** Print the cards in the RangedCombatRow.
+   */
+  def showRangedCombatRow(): Unit = {
+    for (card <- RangedCombatRow) {
+      println(s"Name: ${card.getName}, Power: ${card.currentPower}")
+    }
+  }
+
+  /** Print the cards in the SiegeCombatRow.
+   */
+  def showSiegeCombatRow(): Unit = {
+    for (card <- SiegeCombatRow) {
+      println(s"Name: ${card.getName}, Power: ${card.currentPower}")
+    }
   }
 
 }

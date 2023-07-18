@@ -7,6 +7,7 @@ import gwent.players.{CpuPlayer, HumanPlayer}
 import cl.uchile.dcc.gwent.cards.WeatherCard
 
 import scala.collection.mutable.ListBuffer
+import scala.util.Random
 
 /** A class that represents the Board of a match. It requires 2 Players.
  * 
@@ -38,6 +39,8 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
   /** A List with the CPU player end points od each round.
    */
   var BackPoints: ListBuffer[Int] = ListBuffer[Int](0,0,0)
+  
+  var coin: Int = _
 
   /** Getter of Weather.
    *
@@ -97,6 +100,7 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
 
     player1.deckShuffle
     player2.deckShuffle
+    coin = Random.nextInt(2)
   }
 
   /** Start a round
@@ -123,6 +127,11 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
     Front.clearBoardSection
     Back.clearBoardSection
     Weather = ListBuffer[WeatherCard]()
+  }
+  
+  def updateScores: Unit = {
+    Front.updateTotalPower
+    Back.updateTotalPower
   }
 
 }

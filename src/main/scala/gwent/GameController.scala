@@ -1,95 +1,72 @@
 package cl.uchile.dcc
 package gwent
 
+import gwent.states.GameState
 import gwent.board.{Board, CardLibrary}
-
-import cl.uchile.dcc.gwent.cards.Card
-
-import scala.io.StdIn.readLine
-import cl.uchile.dcc.gwent.players.{CpuPlayer, HumanPlayer}
-import cl.uchile.dcc.gwent.states.{BeforeMatchState, GameState}
-import scala.util.Random
+import gwent.cards.Card
+import gwent.players.{CpuPlayer, HumanPlayer}
 
 import scala.collection.mutable.ListBuffer
+import scala.io.StdIn.readLine
+import scala.util.Random
 
-class GameController {
-
-  /** The current state of the game
-   */
-  var gameState: GameState = new BeforeMatchState(this)
+abstract class GameController {
   
+  var gameState: GameState = _
   var humanPlayer: HumanPlayer = _
   var cpuPlayer: CpuPlayer = _
-  var board: Board = _
+  var theBoard: Board = _
+  val library = new CardLibrary
+  var humanStartMatch: Boolean = _
+  
+  //GameState trigger functions ---------------------------------------
 
-  gameState.action
-  startMatch
-
-  /** A function that initiates the match.
-   *
-   * The player choose build both decks and start the match.
+  /** A function trigger by BeforeMatchState.action()
    */
-  def buildDecks: Unit = {
+  def matchSettings(): Unit = {
+    //Choose the human name
     println("Hello Human player, please choose your name")
     val name = readLine()
     humanPlayer = new HumanPlayer(name, ListBuffer[Card]())
     cpuPlayer = new CpuPlayer(ListBuffer[Card]())
     println("Thank you")
-    println("Now choose your deck")
-    val library = new CardLibrary()
-    //Show card options
-    println("Set 1: Close Combat Cards")
-    for (a <- library.closeCombatCards.indices){
-      println(s"$a, ${library.closeCombatCards(a).toString}")
-    }
-    println("Set 2: Ranged Combat Cards")
-    for (b <- library.rangedCombatCards.indices){
-      println(s"$b, ${library.rangedCombatCards(b).toString}")
-    }
-    println("Set 3: Siege Combat Cards")
-    for (c <- library.siegeCombatCards.indices){
-      println(s"$c, ${library.siegeCombatCards(c).toString}")
-    }
-    println("Set 4: Weather Cards")
-    for (d <- library.weatherCards.indices){
-      println(s"$d, ${library.weatherCards(d).toString}")
-    }
-    println("Write the number of the set you want to pick for or -1 to finish")
-    //Choose cards for human deck
+    //Build the human player deck
+    println("Deck library")
+    library.showLibrary()
     var a = readLine().toInt
-    while (a != -1 || humanPlayer.deckSize<25){
-      if (a== -1){
-        println("Your deck doesn´t have the minimum of cards")
+    while (a != -1 || humanPlayer.deckSize < 25) {
+      if (a == -1) {
+        println("Your deck does not have the minimum of cards")
       }
-      else if (a!=1 && a!=2 && a!=3 && a!=4){
+      else if (a != 1 && a != 2 && a != 3 && a != 4) {
         println("Invalid set number")
       }
-      else{
+      else {
         println("Which card do you want (write the index)")
         var b = readLine().toInt
-        if (a == 1){
+        if (a == 1) {
           humanPlayer.addToDeck(library.closeCombatCards(b))
         }
-        else if (a == 2){
+        else if (a == 2) {
           humanPlayer.addToDeck(library.rangedCombatCards(b))
         }
-        else if (a == 3){
+        else if (a == 3) {
           humanPlayer.addToDeck(library.siegeCombatCards(b))
         }
-        else if (a == 4){
+        else if (a == 4) {
           humanPlayer.addToDeck(library.weatherCards(b))
         }
         println("Your current deck")
-        showDeck
+        showDeck()
       }
       println("Write the number of the set you want to pick for or -1 to finish")
       a = readLine().toInt
     }
     println("Your deck has been filled")
-    showDeck
+    showDeck()
+    //Build the machine deck
     println("Please choose your opponent´s deck")
     println("Write the number of the set you want to pick for or -1 to finish")
-    //Choose cards for cpu deck
     var x = readLine().toInt
     while (x != -1 || cpuPlayer.deckSize < 25) {
       if (x == -1) {
@@ -122,216 +99,161 @@ class GameController {
       x = readLine().toInt
     }
     println("Your opponent´s deck has been filled")
-    board = new Board(humanPlayer, cpuPlayer)
+    //Create the Board
+    theBoard = new Board(humanPlayer, cpuPlayer)
+    //Board settings
+    theBoard.assignSections
+    theBoard.startMatch
+    //Switch gameState
+    gameState.toBeginRoundState()
   }
 
-  /** Initiate a Match.
+  /**
    */
-  def startMatch: Unit = {
-    board.startMatch
-    println("The Match has started!")
-    val coin = Random.nextInt(2)
-    if (coin == 0) {
-      gameState.toInTurnState
+  def roundSettings(): Unit = {
+    //The round has begun
+    theBoard.startRound
+    if (theBoard.round == 1) {
+
+      if (theBoard.coin == 0) {
+        //Human player begin
+        humanStartMatch = true
+        gameState.toInTurnState()
+      }
+      else {
+        //Cpu player begin
+        humanStartMatch = false
+        gameState.toWaitingTurnState()
+      }
     }
     else {
-      gameState.toWaitingTurnState
-    }
-  }
-
-  /** The player choose between play a card or pass
-   */
-  def makeChoice: Unit = {
-    println("Opponent side")
-    showSiegeCombatRow(false)
-    showRangedCombatRow(false)
-    showCloseCombatRow(false)
-    println("Your side")
-    showCloseCombatRow(true)
-    showRangedCombatRow(true)
-    showSiegeCombatRow(true)
-    println("Your hand")
-    showHand
-    println("Choose 1 to play a card choose 2 to pass")
-    val choice = readLine().toInt
-    if (choice==1){
-      humanPlayer.playCard
-      board.Front.updateTotalPower
-      board.Back.updateTotalPower
-      if (humanPlayer.getHand.isEmpty){
-        gameState.toStandByState
+      humanStartMatch = !humanStartMatch
+      if (humanStartMatch) {
+        //Cpu player begun last turn, it´s human player´s turn
+        gameState.toInTurnState()
       }
-      else{
-        gameState.toWaitingTurnState
+      else {
+        //Human player begun last turn, it´s cpu player´s turn
+        gameState.toWaitingTurnState()
       }
     }
-    else{
-      gameState.toStandByState
-    }
-  }
-
-  /** Function that indicates it´s the CPU player turn.
-   */
-  def opponentMove: Unit = {
-    cpuPlayer.playCard
-    board.Front.updateTotalPower
-    board.Back.updateTotalPower
-    if (cpuPlayer.getHand.isEmpty){
-      machinePass
-    }
-    else{
-      gameState.toInTurnState
-    }
-  }
-
-  /** A function trigger by StandBy.action
-   *
-   */
-  def waiting: Unit = {
-    while(board.Front.getTotalPower>=board.Back.getTotalPower && cpuPlayer.getHand.nonEmpty){
-      cpuPlayer.playCard
-    }
-    machinePass
-  }
-
-  /** A function trigger when Human player pass.
-   */
-  def humanPass: Unit = {
-    humanPlayer.pass = true
-    println("Has pasado la ronda")
-    if (!cpuPlayer.pass){
-      gameState.action
-    }
-    else{
-      endRound
-    }
-  }
-
-  /** A function trigger when CPU player pass.
-   */
-  def machinePass: Unit = {
-    cpuPlayer.pass = true
-    println("El oponente ha pasado la ronda")
-    if (!humanPlayer.pass){
-      gameState.toInTurnState
-    }
-    else{
-      endRound
-    }
-  }
-
-  def beginRound: Unit = {
-    gameState.action
   }
   
-  def endRound: Unit = {
-    if (board.Front.getTotalPower>board.Back.getTotalPower){
-      println("Ganaste la ronda")
-      cpuPlayer.roundLost
+  def humanMove(): Unit = {
+    showBoard()
+    showHand()
+    println("Choose 1 to play a card, choose 2 to pass")
+    var choice = readLine().toInt
+    while (choice!=1 && choice!=2){
+      println("Wrong input, choose 1 to play a card, choose 2 to pass")
+      choice = readLine().toInt
     }
-    else if (board.Front.getTotalPower<board.Back.getTotalPower){
-      println("Perdiste la ronda")
-      humanPlayer.roundLost
+    if (choice==1){
+      humanPlayer.playCard
+      theBoard.updateScores
+      if (humanPlayer.getHand.isEmpty){
+        gameState.toStandByState()
+      }
+      else{
+        gameState.toWaitingTurnState()
+      }
+    }
+    else if (choice == 2){
+      gameState.toStandByState()
+    }
+  }
+  
+  def machineMove(): Unit = {
+    if (!cpuPlayer.pass){
+      cpuPlayer.playCard
+      theBoard.updateScores
+      if (cpuPlayer.getHand.isEmpty) {
+        machinePass()
+        gameState.toInTurnState()
+      }
+      else {
+        gameState.toInTurnState()
+      }
     }
     else{
-      println("La ronda termino en empate")
+      gameState.toInTurnState()
+    }
+  }
+  
+  def humanPass(): Unit = {
+    humanPlayer.pass = true
+    println(s"${humanPlayer.getUsername} has passed the round")
+  }
+  
+  def machinePass(): Unit = {
+    cpuPlayer.pass = true
+    println(s"${cpuPlayer.getUsername} has passed the round")
+  }
+  
+  def endingRound(): Unit = {
+    if (cpuPlayer.pass && humanPlayer.pass){
+      gameState.toEndRoundState()
+    }
+    else{
+      while(theBoard.Front.getTotalPower>=theBoard.Back.getTotalPower && cpuPlayer.getHand.nonEmpty){
+        cpuPlayer.playCard
+        theBoard.updateScores
+      }
+      machinePass()
+      endingRound()
+    }
+  }
+  
+  def definingWinner(): Unit = {
+    theBoard.assignPoints
+    if (theBoard.FrontPoints(theBoard.round)>theBoard.BackPoints(theBoard.round)){
+      cpuPlayer.roundLost
+      println(s"${cpuPlayer.getUsername} loose the round")
+    }
+    else if(theBoard.FrontPoints(theBoard.round)<theBoard.BackPoints(theBoard.round)){
+      humanPlayer.roundLost
+      println(s"${humanPlayer} loose the round")
+    }
+    else{
       humanPlayer.roundLost
       cpuPlayer.roundLost
+      println("The match end in draw")
     }
-    if (humanPlayer.isDefeated && cpuPlayer.isDefeated){
-      gameState.toAfterMatchState
+    if (humanPlayer.isDefeated && cpuPlayer.isDefeated){ 
+      println("The match end in draw")
+      gameState.toAfterMatchState()
     }
-    else if (humanPlayer.isDefeated) {
-      gameState.toAfterMatchState
+    else if (humanPlayer.isDefeated){
+      println(s"${cpuPlayer.getUsername} win the match")
+      gameState.toAfterMatchState()
     }
     else if (cpuPlayer.isDefeated) {
-      gameState.toAfterMatchState
+      println(s"${humanPlayer.getUsername} win the match")
+      gameState.toAfterMatchState()
     }
     else{
-      board.assignPoints
-      board.clearBoard
-      board.Front.updateTotalPower
-      board.Back.updateTotalPower
-      board.startRound
-      beginRound
-    }
-    
-  }
-
-  //Show functions -------------------------------------------------------------
-  /** Shows the player´s hand.
-   */
-  def showHand: Unit = {
-    for (card <- humanPlayer.getHand) {
-      println(card.toString)
+      gameState.toBeginRoundState()
     }
   }
-
-  /** Shows the player´s deck.
-   */
-  def showDeck: Unit = {
+  def postMatch(): Unit
+  
+  //Show functions -------------------------------------------------
+  
+  def showDeck(): Unit = {
     for (card <- humanPlayer.getDeck){
       println(card.toString)
     }
   }
-
-  /** Shows the CloseCombatRow.
-   *
-   * @param yourSide True to show your row, false to show the opponents.
-   */
-  def showCloseCombatRow(yourSide: Boolean): Unit = {
-    if (yourSide){
-      val row = board.Front.getCloseCombatRow(true)
-    }
-    else{
-      val row = board.Back.getCloseCombatRow(true)
+  
+  def showHand(): Unit = {
+    for (card <- humanPlayer.getHand){
+      println(card.toString)
     }
   }
-
-  /** Shows the RangedCombatRow.
-   *
-   * @param yourSide True to show your row, false to show the opponents.
-   */
-  def showRangedCombatRow(yourSide: Boolean): Unit = {
-    if (yourSide){
-      val row = board.Front.getRangedCombatRow(true)
-    }
-    else{
-      val row = board.Back.getRangedCombatRow(true)
-    }
+  
+  def showBoard(): Unit = {
+    println("Cpu side")
+    println("Siege Combat Row")
+    
   }
-
-  /** Shows the SiegeCombatRow.
-   *
-   * @param yourSide True to show your row, false to show the opponents.
-   */
-  def showSiegeCombatRow(yourSide: Boolean): Unit = {
-    if (yourSide){
-      val row = board.Front.getSiegeCombatRow(true)
-    }
-    else{
-      val row = board.Back.getSiegeCombatRow(true)
-    }
-  }
-
-  /** Show the weathers on the board.
-   */
-  def showWeathers: Unit = {
-    val row = board.getWeather(true)
-  }
-
-  /** Shows the Graveyard.
-   *
-   * @param yourSide True to show your graveyard, false to show the opponents.
-   */
-  def showGraveyard(yourSide: Boolean): Unit = {
-    if(yourSide){
-      val row = board.Front.getGraveyard(true)
-    }
-    else{
-      val row = board.Back.getGraveyard(true)
-    }
-  }
-  //-------------------------------------------------------------------------
-
 }

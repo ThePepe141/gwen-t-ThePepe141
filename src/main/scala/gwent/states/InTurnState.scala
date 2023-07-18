@@ -5,17 +5,16 @@ import gwent.GameController
 
 class InTurnState(context: GameController) extends GameState(context) {
 
-  override def action: Unit = {
-    context.makeChoice
+  override def action(): Unit = {
+    context.humanMove()
   }
 
-  override def toWaitingTurnState: Unit = {
+  override def toWaitingTurnState(): Unit = {
     context.gameState = new WaitingTurnState(context)
-    context.opponentMove
   }
 
-  override def toStandByState: Unit = {
+  override def toStandByState(): Unit = {
     context.gameState = new StandByState(context)
-    context.humanPass
   }
+
 }

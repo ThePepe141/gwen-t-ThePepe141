@@ -3,14 +3,18 @@ package gwent.states
 
 import gwent.GameController
 
-class WaitingTurnState(context: GameController) extends GameState(context) {
+class BeginRoundState(context: GameController) extends GameState(context) {
 
   override def action(): Unit = {
-    context.machineMove()
+    context.roundSettings()
   }
 
   override def toInTurnState(): Unit = {
     context.gameState = new InTurnState(context)
+  }
+
+  override def toWaitingTurnState(): Unit = {
+    context.gameState = new WaitingTurnState(context)
   }
 
 }
