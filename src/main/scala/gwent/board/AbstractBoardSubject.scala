@@ -44,19 +44,19 @@ class AbstractBoardSubject extends BoardSubject {
 
   override def notifyObserversCCR(effect: Effect): Unit = {
     for (observer <- observersCCR) {
-      observer.updateAbility(this, effect)
+      observer.updateEffect(this, effect)
     }
   }
 
   override def notifyObserversRCR(effect: Effect): Unit = {
     for (observer <- observersRCR) {
-      observer.updateAbility(this, effect)
+      observer.updateEffect(this, effect)
     }
   }
 
   override def notifyObserversSCR(effect: Effect): Unit = {
     for (observer <- observersSCR) {
-      observer.updateAbility(this, effect)
+      observer.updateEffect(this, effect)
     }
   }
 }
