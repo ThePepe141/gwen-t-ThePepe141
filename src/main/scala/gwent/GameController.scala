@@ -24,7 +24,11 @@ class GameController {
   var firstMatch: Boolean = true
   var keepDecks: Boolean = false
   
-  trigger()
+  println("Begin? (Type 1)")
+  val abba = readLine().toInt
+  if (abba == 1){
+    trigger()
+  }
   
   //GameState trigger functions ---------------------------------------
 

@@ -100,6 +100,7 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
 
   override def updateAbility(boardSubject: BoardSubject, ability: Ability): Unit = {
     //something
+    ability.apply(this, this)
   }
 
   override def updateEffect(boardSubject: BoardSubject, effect: Effect): Unit = {
