@@ -1,6 +1,10 @@
 package cl.uchile.dcc
 package gwent.cards
 
+import gwent.cards.abilities.{Ability, NullAbility}
+
+import cl.uchile.dcc.gwent.cards.observer.{Observer, Subject}
+
 /** A class that represents a Unit type Card.
  *
  * It is abstract because ability its not define.
@@ -8,13 +12,20 @@ package gwent.cards
  * @param name The name of the Card.
  * @param basePower The power in which the Card begins.
  */
-abstract class AbstractUnitCard(override protected val name: String, val basePower: Int) extends UnitCard with Equals {
+abstract class AbstractUnitCard(override protected val name: String, val basePower: Int) extends UnitCard with Observer{
 
   /** The current power of the Card.
    *
    * This variable specify the current power of the Card including abilities, weather, etc.
    */
   var _power: Int = basePower
+
+  /** The ability of the card.
+   *
+   * Null ability by default.
+   */
+  val ability: Ability = new NullAbility
+  
 
   //Equals y hashCode -----------------------------------------------------------
 
@@ -73,7 +84,7 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
    *
    * @param newPower The new power that the Card will posses.
    */
-  def currentPower_=(newPower: Int): Unit = {
+  def setCurrentPower(newPower: Int): Unit = {
     _power = math.max(0, newPower)
   }
 
@@ -83,7 +94,10 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
    */
   override def resetPower: Unit = { _power = this.getBasePower }
   
-  
+  //---------------------------------------------------------------
 
+  override def update(observable: Subject, value: Any): Unit = {
+    //Something
+  }
 
 }

@@ -44,7 +44,6 @@ class Geralt extends CloseCombatUnit("Geralt of Rivia", 15){
   override def toString: String = s"Geralt(basePower=$getBasePower, currentPower=$currentPower, ability=witcher"
   //----------------------------------------------------------
   
-  def ability: Unit = println("I hate portals")
   
   
 

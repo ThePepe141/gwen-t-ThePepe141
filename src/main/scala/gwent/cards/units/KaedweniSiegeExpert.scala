@@ -3,9 +3,11 @@ package gwent.cards.units
 
 import gwent.cards.SiegeCombatUnit
 
-import cl.uchile.dcc.gwent.cards.units.abilities.MoraleBoost
+import gwent.cards.abilities.{Ability, MoraleBoost}
 
-class KaedweniSiegeExpert extends SiegeCombatUnit("Kaedweni Siege Expert", 1) with MoraleBoost{
+class KaedweniSiegeExpert extends SiegeCombatUnit("Kaedweni Siege Expert", 1) {
+
+  override val ability: Ability = new MoraleBoost
   
   //Equals, hashCode y toString -------------------------------------------
 
@@ -45,6 +47,5 @@ class KaedweniSiegeExpert extends SiegeCombatUnit("Kaedweni Siege Expert", 1) wi
 
   override def toString: String = s"KaedweniSiegeExpert(basePower=$getBasePower, currentPower=$currentPower, ability=MoraleBoost"
   //----------------------------------------------------------
-
-  override def moraleBoost(): Unit = println("It lacks WD-40 oil")
+  
 }

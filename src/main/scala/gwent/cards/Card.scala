@@ -5,7 +5,7 @@ import gwent.board.BoardSection
 
 /** A trait that represents a Card.
  */
-trait Card {
+trait Card extends Equals {
   
   /** The name of the Card.
    */

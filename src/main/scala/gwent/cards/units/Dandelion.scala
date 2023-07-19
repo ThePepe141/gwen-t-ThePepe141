@@ -3,9 +3,11 @@ package gwent.cards.units
 
 import gwent.cards.CloseCombatUnit
 
-import cl.uchile.dcc.gwent.cards.units.abilities.MoraleBoost
+import gwent.cards.abilities.{Ability, MoraleBoost}
 
-class Dandelion extends CloseCombatUnit("Dandelion", 2) with MoraleBoost{
+class Dandelion extends CloseCombatUnit("Dandelion", 2){
+
+  override val ability: Ability = new MoraleBoost
 
   //Equals, hashCode y toString -------------------------------------------
 
@@ -45,6 +47,5 @@ class Dandelion extends CloseCombatUnit("Dandelion", 2) with MoraleBoost{
 
   override def toString: String = s"Dandelion(basePower=$getBasePower, currentPower=$currentPower, ability=MoraleBoost"
   //----------------------------------------------------------
-
-  override def moraleBoost(): Unit = println("...Toss a coin to your witcher...!!")
+  
 }

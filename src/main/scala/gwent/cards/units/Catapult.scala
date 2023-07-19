@@ -3,9 +3,11 @@ package gwent.cards.units
 
 import gwent.cards.SiegeCombatUnit
 
-import cl.uchile.dcc.gwent.cards.units.abilities.StrongBond
+import gwent.cards.abilities.{Ability, StrongBond}
 
-class Catapult extends SiegeCombatUnit("Catapult", 8) with StrongBond{
+class Catapult extends SiegeCombatUnit("Catapult", 8){
+
+  override val ability: Ability = new StrongBond(this)
 
   //Equals, hashCode y toString -------------------------------------------
 
@@ -45,6 +47,5 @@ class Catapult extends SiegeCombatUnit("Catapult", 8) with StrongBond{
 
   override def toString: String = s"Catapult(basePower=$getBasePower, currentPower=$currentPower, ability=StrongBond"
   //----------------------------------------------------------
-
-  override def strongBond(): Unit = println("Reloaaad!!!")
+  
 }

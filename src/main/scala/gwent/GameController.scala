@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent
 
-import gwent.states.GameState
+import gwent.states.{BeforeMatchState, GameState}
 import gwent.board.{Board, CardLibrary}
 import gwent.cards.Card
 import gwent.players.{CpuPlayer, HumanPlayer}
@@ -12,7 +12,7 @@ import scala.util.Random
 
 abstract class GameController {
   
-  var gameState: GameState = _
+  var gameState: GameState = new BeforeMatchState(this)
   var humanPlayer: HumanPlayer = _
   var cpuPlayer: CpuPlayer = _
   var theBoard: Board = _
@@ -71,7 +71,7 @@ abstract class GameController {
       }
       else {
         println("Which card do you want (write the index)")
-        var b = readLine().toInt
+        val b = readLine().toInt
         if (a == 1) {
           humanPlayer.addToDeck(library.closeCombatCards(b))
         }
@@ -99,14 +99,14 @@ abstract class GameController {
     var x = readLine().toInt
     while (x != -1 || cpuPlayer.deckSize < 25) {
       if (x == -1) {
-        println("Your deck doesn´t have the minimum of cards")
+        println("Your deck does not have the minimum of cards")
       }
       else if (x != 1 && x != 2 && x != 3 && x != 4) {
         println("Invalid set number")
       }
       else {
         println("Which card do you want (write the index)")
-        var b = readLine().toInt
+        val b = readLine().toInt
         if (x == 1) {
           cpuPlayer.addToDeck(library.closeCombatCards(b))
         }
