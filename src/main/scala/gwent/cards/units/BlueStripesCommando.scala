@@ -48,5 +48,5 @@ class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4){
   override def toString: String = s"BlueStripesCommando(basePower=$getBasePower, currentPower=$currentPower, ability=StrongBond"
   //----------------------------------------------------------
 
-
+  
 }

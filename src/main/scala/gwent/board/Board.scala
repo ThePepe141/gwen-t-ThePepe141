@@ -133,5 +133,22 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
     Front.updateTotalPower
     Back.updateTotalPower
   }
+  
+  def showBoard: Unit = {
+    println("The Opponent side")
+    println("Siege Combat Row")
+    Back.showSiegeCombatRow()
+    println("Ranged Combat Row")
+    Back.showRangedCombatRow()
+    println("Close Combat Row")
+    Back.showCloseCombatRow()
+    println("Your side")
+    println("Close Combat Row")
+    Front.showCloseCombatRow()
+    println("Ranged Combat Row")
+    Front.showRangedCombatRow()
+    println("Siege Combat Row")
+    Front.showSiegeCombatRow()
+  }
 
 }

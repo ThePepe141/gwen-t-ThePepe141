@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.cards.abilities
 
-import gwent.cards.Card
+import gwent.cards.{Card, UnitCard}
 
 /** A trait that represents the abilities of the cards.
  *
@@ -9,6 +9,6 @@ import gwent.cards.Card
 trait Ability{
 
 
-  def apply(self: Card, target: Card): Unit
+  def apply(self: UnitCard, target: UnitCard): Unit
 
 }

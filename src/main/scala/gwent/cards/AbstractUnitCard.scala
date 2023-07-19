@@ -3,7 +3,7 @@ package gwent.cards
 
 import gwent.cards.abilities.{Ability, NullAbility}
 
-import cl.uchile.dcc.gwent.cards.observer.{Observer, Subject}
+import cl.uchile.dcc.gwent.board.BoardSection
 
 /** A class that represents a Unit type Card.
  *
@@ -12,7 +12,7 @@ import cl.uchile.dcc.gwent.cards.observer.{Observer, Subject}
  * @param name The name of the Card.
  * @param basePower The power in which the Card begins.
  */
-abstract class AbstractUnitCard(override protected val name: String, val basePower: Int) extends UnitCard with Observer{
+abstract class AbstractUnitCard(override protected val name: String, val basePower: Int) extends UnitCard with CardObserver {
 
   /** The current power of the Card.
    *
@@ -25,7 +25,7 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
    * Null ability by default.
    */
   val ability: Ability = new NullAbility
-  
+
 
   //Equals y hashCode -----------------------------------------------------------
 
@@ -84,7 +84,7 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
    *
    * @param newPower The new power that the Card will posses.
    */
-  def setCurrentPower(newPower: Int): Unit = {
+  override def setCurrentPower(newPower: Int): Unit = {
     _power = math.max(0, newPower)
   }
 
@@ -93,11 +93,11 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
    * Set the _power variable to its basePower value.
    */
   override def resetPower: Unit = { _power = this.getBasePower }
-  
+
   //---------------------------------------------------------------
 
-  override def update(observable: Subject, value: Any): Unit = {
-    //Something
+  override def updateAbility(boardSection: BoardSection, ability: Ability): Unit = {
+    //something
   }
-
+  
 }

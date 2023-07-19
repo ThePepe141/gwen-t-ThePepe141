@@ -7,7 +7,7 @@ import scala.collection.mutable.ListBuffer
 
 /** A class that represents a section of a Board.
  */
-class BoardSection(board: Board) {
+class BoardSection(board: Board){
 
   /** The row for the Close Combat UnitCards.
    */
@@ -158,8 +158,9 @@ class BoardSection(board: Board) {
    */
   def putCardCCR(theCard: CloseCombatUnit): Unit = {
     CloseCombatRow = CloseCombatRow :+ theCard
+    //addObserver(theCard)
     updateTotalPower
-    showCloseCombatRow()
+    println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
   }
 
   /** A function that puts a RangedCombatUnit in RangedCombatRow.
@@ -168,8 +169,9 @@ class BoardSection(board: Board) {
    */
   def putCardRCR(theCard: RangedCombatUnit): Unit = {
     RangedCombatRow = RangedCombatRow :+ theCard
+    //addObserverRCR(theCard)
     updateTotalPower
-    showRangedCombatRow()
+    println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
   }
 
   /** A function that puts a SiegeCombatUnit in SiegeCombatRow.
@@ -178,8 +180,9 @@ class BoardSection(board: Board) {
    */
   def putCardSCR(theCard: SiegeCombatUnit): Unit = {
     SiegeCombatRow = SiegeCombatRow :+ theCard
+    //addObserverSCR(theCard)
     updateTotalPower
-    showSiegeCombatRow()
+    println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
   }
 
   /** A function that puts a WeatherCard in Weather on the Board.

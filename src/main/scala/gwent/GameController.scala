@@ -10,7 +10,7 @@ import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
 import scala.util.Random
 
-abstract class GameController {
+class GameController {
   
   var gameState: GameState = new BeforeMatchState(this)
   var humanPlayer: HumanPlayer = _
@@ -335,8 +335,6 @@ abstract class GameController {
   /** Shows the Board´s rows
    */
   def showBoard(): Unit = {
-    println("Cpu side")
-    println("Siege Combat Row")
-    
+    theBoard.showBoard
   }
 }

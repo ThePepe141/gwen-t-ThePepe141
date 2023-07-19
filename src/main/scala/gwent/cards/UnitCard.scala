@@ -7,11 +7,11 @@ trait UnitCard extends Card{
   
   /** The power the Card currently posses.
    */
-  var _power: Int
+  protected var _power: Int
   
   /** The power which the Card begins with.
    */
-  val basePower: Int
+  protected val basePower: Int
 
   /** Getter of basePower param.
    * 
@@ -24,6 +24,12 @@ trait UnitCard extends Card{
    * @return _power.
    */
   def currentPower: Int
+
+  /** Setter of the _power param.
+   * 
+   * @param newPower The new _power.
+   */
+  def setCurrentPower(newPower: Int): Unit
 
   /** Setter of the _power param.
    * 
