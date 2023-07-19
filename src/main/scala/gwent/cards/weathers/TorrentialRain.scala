@@ -3,7 +3,11 @@ package gwent.cards.weathers
 
 import gwent.cards.AbstractWeatherCard
 
+import cl.uchile.dcc.gwent.cards.effects.PowerToOne
+
 class TorrentialRain extends AbstractWeatherCard("Torrential Rain"){
+
+  val effect = new PowerToOne
 
   //Equals, hashCode y toString  -----------------------------------------------------
 

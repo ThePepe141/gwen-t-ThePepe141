@@ -3,7 +3,11 @@ package gwent.cards.weathers
 
 import gwent.cards.AbstractWeatherCard
 
+import cl.uchile.dcc.gwent.cards.effects.PowerToOne
+
 class ImpenetrableFog extends AbstractWeatherCard("Impenetrable Fog"){
+  
+  val effect = new PowerToOne
 
   //Equals, hashCode y toString  -----------------------------------------------------
 

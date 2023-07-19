@@ -3,7 +3,11 @@ package gwent.cards.weathers
 
 import gwent.cards.AbstractWeatherCard
 
+import cl.uchile.dcc.gwent.cards.effects.PowerToOne
+
 class BitingFrost extends AbstractWeatherCard("Biting Frost"){
+  
+  val effect = new PowerToOne
   
   //Equals, hashCode y toString -----------------------------------------------------
 
