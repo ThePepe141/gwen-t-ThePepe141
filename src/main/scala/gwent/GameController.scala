@@ -38,7 +38,7 @@ class GameController {
     gameState.action()
   }
 
-  /** A function trigger by BeforeMatchState.action()
+  /** Set the players attributes
    */
   def setPlayers(): Unit = {
     if (firstMatch){
@@ -59,7 +59,7 @@ class GameController {
     }
   }
 
-  /** A function trigger by BeforeMatchState.action()
+  /** Set player´s decks
    */
   def matchSettings(): Unit = {
     //Build the human player deck
@@ -135,7 +135,7 @@ class GameController {
     cpuDeck = cpuPlayer.getDeck
   }
 
-  /** A function trigger by BeforeMatchState.action()
+  /** Prepares the Board.
    */
   def setBoard(): Unit = {
     //Create the Board
@@ -147,7 +147,7 @@ class GameController {
     gameState.toBeginRoundState()
   }
 
-  /** A function trigger by BeginRoundState.action()
+  /** Formally start the round, choose which player goes first.
    */
   def roundSettings(): Unit = {
     //The round has begun
@@ -178,7 +178,8 @@ class GameController {
     }
   }
 
-  /** A function trigger by InTurnState.action()
+  /** Asks the human player for it´s choice.
+   *  Play a Card or pass the Round, updates the Board scores.
    */
   def humanMove(): Unit = {
     showBoard()
@@ -204,7 +205,7 @@ class GameController {
     }
   }
 
-  /** A function trigger by WaitingTurnState.action()
+  /** Play a Card from the cpu Player or make the cpu player pass the Round.
    */
   def machineMove(): Unit = {
     if (!cpuPlayer.pass){
@@ -223,21 +224,21 @@ class GameController {
     }
   }
 
-  /** A function trigger by StandByState.action()
+  /** Formally make the human player pass the Round.
    */
   def humanPass(): Unit = {
     humanPlayer.pass = true
     println(s"${humanPlayer.getUsername} passed the round")
   }
 
-  /** A function that defines when the CpuPlayer pass de Round
+  /**Formally make the cpu player pass the Round.
    */
   def machinePass(): Unit = {
     cpuPlayer.pass = true
     println(s"${cpuPlayer.getUsername} has passed the round")
   }
 
-  /** A function trigger by StandByState.action()
+  /** Make the cpu player´s choices after human player have pass the round.
    */
   def endingRound(): Unit = {
     if (cpuPlayer.pass && humanPlayer.pass){
@@ -253,7 +254,8 @@ class GameController {
     }
   }
 
-  /** A function trigger by EndRoundState.action()
+  /** Formally defines the winner of the Round, and prepares the Board for the next.
+   * Change the gems attributes, print the winner, clean the Board.
    */
   def definingWinner(): Unit = {
     theBoard.assignPoints
@@ -290,7 +292,8 @@ class GameController {
     }
   }
 
-  /** A function trigger by AfterMatchState.action()
+  /** Formally finish the match and prepares the next.
+   * Reset player´s pass attributes, print scores, ask player if it wants to play again.
    */
   def postMatch(): Unit = {
     humanPlayer.pass = false

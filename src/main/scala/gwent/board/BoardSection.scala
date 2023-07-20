@@ -48,7 +48,7 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
    *
    * @return the cards on CloseCombatRow.
    */
-  def getCloseCombatRow(show: Boolean): ListBuffer[CloseCombatUnit] = CloseCombatRow
+  def getCloseCombatRow: ListBuffer[CloseCombatUnit] = CloseCombatRow
 
   /** Getter of RangedCombatRow.
    *
@@ -66,17 +66,10 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
 
   /** Getter of Graveyard.
    *
-   * @param show boolean that represents the choice of printing the cards.
    * @return the cards in the Graveyard.
    */
-  def getGraveyard(show: Boolean): ListBuffer[AbstractUnitCard] = {
-    if (show){
-      for (card <- Graveyard){
-        println(s"Name: ${card.getName}, Power: ${card.currentPower}")
-      }
-    }
-    Graveyard
-  }
+  def getGraveyard: ListBuffer[AbstractUnitCard] = Graveyard
+  
 
   /** Setter of CCRpower param.
    *

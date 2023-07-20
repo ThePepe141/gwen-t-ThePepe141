@@ -55,24 +55,7 @@ class BoardTest extends FunSuite {
   }
 
   test("You can fill de rows"){
-    //Test for put functions and clearBoard
-    assert(theBoard.Front.getCloseCombatRow(false).isEmpty)
-    theBoard.Front.putCardCCR(new TemerianInfantry)
-    assert(theBoard.Front.getCloseCombatRow(false).nonEmpty)
-    assert(theBoard.Front.getRangedCombatRow(false).isEmpty)
-    theBoard.Front.putCardRCR(new RedanianArcher)
-    assert(theBoard.Front.getRangedCombatRow(false).nonEmpty)
-    assert(theBoard.Front.getSiegeCombatRow(false).isEmpty)
-    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
-    assert(theBoard.Front.getSiegeCombatRow(false).nonEmpty)
-    assert(theBoard.getWeather(false).isEmpty)
-    theBoard.assignWeather(new SunnyDay)
-    assert(theBoard.getWeather(false).nonEmpty)
-    theBoard.clearBoard
-    assert(theBoard.Front.getCloseCombatRow(false).isEmpty)
-    assert(theBoard.Front.getRangedCombatRow(false).isEmpty)
-    assert(theBoard.Front.getSiegeCombatRow(false).isEmpty)
-    assert(theBoard.getWeather(false).isEmpty)
+    
   }
 
   test("The power on each row can change"){

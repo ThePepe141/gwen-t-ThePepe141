@@ -50,7 +50,7 @@ class CardTest extends FunSuite {
     assert(soldier1.equals(soldier2))
     assert(archer1.equals(archer2))
     assert(engine1.equals(engine2))
-    Geralt.currentPower = 5
+    Geralt.setCurrentPower(5)
     assert(!Geralt.equals(coolerGeralt))
   }
 
@@ -71,19 +71,19 @@ class CardTest extends FunSuite {
 
   test("A UnitCard power can change, but its base power remains the same") {
     //Test for currentPower and currentPower=
-    Geralt.currentPower = 4
+    Geralt.setCurrentPower(4)
     assertEquals(Geralt.currentPower, 4)
     assertEquals(Geralt.getBasePower, 15)
   }
 
   test("A UnitCard´s power cannot be lower than 0") {
-    Geralt.currentPower = -1000
+    Geralt.setCurrentPower(-1000)
     assert(Geralt.currentPower>=0)
   }
 
   test("You can reset the power of a UnitCard") {
     //Test for  resetPower
-    Geralt.currentPower = 4100000
+    Geralt.setCurrentPower(4100000)
     Geralt.resetPower
     assertEquals(Geralt.currentPower, Geralt.getBasePower)
   }

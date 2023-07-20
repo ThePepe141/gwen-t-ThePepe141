@@ -5,6 +5,11 @@ import gwent.GameController
 
 import gwent.exceptions.InvalidTransitionException
 
+/** A class that represents the idea of a State of the Match
+ * It´s lower classes will be the specific States of the Match.
+ * 
+ * @param context The GameController associated.
+ */
 class GameState(context: GameController){
   
   context.gameState = this
