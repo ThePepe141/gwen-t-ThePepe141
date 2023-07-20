@@ -23,12 +23,8 @@ class GameController {
   var cpuDeck: ListBuffer[Card] = _
   var firstMatch: Boolean = true
   var keepDecks: Boolean = false
+  val text = "Wrong input, please try again"
   
-  println("Begin? (Type 1)")
-  val abba = readLine().toInt
-  if (abba == 1){
-    trigger()
-  }
   
   //GameState trigger functions ---------------------------------------
 
@@ -184,7 +180,7 @@ class GameController {
   def humanMove(): Unit = {
     showBoard()
     showHand()
-    println("Choose 1 to play a card, choose 2 to pass")
+    println("Choose 0 to play a card, choose 1 to pass")
     var choice = readLine().toInt
     while (choice!=1 && choice!=2){
       println("Wrong input, choose 1 to play a card, choose 2 to pass")
@@ -303,22 +299,26 @@ class GameController {
     println(s"${cpuPlayer.getUsername} points:")
     println(s"Round 1: ${theBoard.BackPoints.head}, Round 2: ${theBoard.BackPoints(1)}, Round 3: ${theBoard.BackPoints(2)}")
     println("Do you want to play another match? Choose 1 for yes, choose 2 for no")
-    val choice = readLine().toInt
-    if (choice==1){
-      firstMatch = false
-      println("Do you want to keep the decks? Choose 1 for yes, choose 2 for no")
-      val choice2 = readLine().toInt
-      if (choice2 == 1){
-        keepDecks = true
-      }
-      else{
-        keepDecks = false
-      }
-      gameState.toBeforeMatchState()
+    var choice = readLine().toInt
+    while(choice!=1){
+      if (choice==2) println("Are you sure?")
+      else println(text)
+      choice = readLine().toInt
     }
-    else{
-      println("GG")
+    firstMatch = false
+    println("Do you want to keep the decks? Choose 1 for yes, choose 2 for no")
+    var choice2 = readLine().toInt
+    while (choice2 != 1 && choice != 2) {
+      println(text)
+      choice2 = readLine().toInt
     }
+    if (choice2 == 1) {
+      keepDecks = true
+    }
+    else {
+      keepDecks = false
+    }
+    gameState.toBeforeMatchState()
   }
   
   //Show functions -------------------------------------------------

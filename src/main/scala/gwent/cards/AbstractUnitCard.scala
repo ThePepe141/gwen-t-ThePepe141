@@ -97,14 +97,15 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
   override def resetPower: Unit = { _power = this.getBasePower }
 
   //---------------------------------------------------------------
-
-  override def updateAbility(boardSubject: BoardSubject, ability: Ability): Unit = {
+  
+  override def updateAbility(boardSubject: BoardSubject,theOne: UnitCard, ability: Ability): Unit = {
     //something
-    ability.apply(this, this)
+    ability.apply(theOne, this)
   }
 
-  override def updateEffect(boardSubject: BoardSubject, effect: Effect): Unit = {
+  override def updateEffect(boardSubject: BoardSubject, theOne: WeatherCard, effect: Effect): Unit = {
     //something
+    effect.effect(theOne, this)
   }
   
   

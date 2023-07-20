@@ -2,13 +2,12 @@ package cl.uchile.dcc
 package gwent.cards.weathers
 
 import gwent.cards.AbstractWeatherCard
-
-import cl.uchile.dcc.gwent.cards.effects.PowerToOne
+import gwent.cards.effects.{Effect, PowerToOne}
 
 class TorrentialRain extends AbstractWeatherCard("Torrential Rain"){
 
-  val effect = new PowerToOne
-
+  override val effect: Effect = new PowerToOne(List[Int](3))
+  
   //Equals, hashCode y toString  -----------------------------------------------------
 
   /** A function that compares the types of two values.

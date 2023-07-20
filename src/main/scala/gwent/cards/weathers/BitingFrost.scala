@@ -3,11 +3,12 @@ package gwent.cards.weathers
 
 import gwent.cards.AbstractWeatherCard
 
-import cl.uchile.dcc.gwent.cards.effects.PowerToOne
+import gwent.cards.effects.{Effect, PowerToOne}
 
 class BitingFrost extends AbstractWeatherCard("Biting Frost"){
-  
-  val effect = new PowerToOne
+
+
+  override val effect: Effect = new PowerToOne(List[Int](1))
   
   //Equals, hashCode y toString -----------------------------------------------------
 

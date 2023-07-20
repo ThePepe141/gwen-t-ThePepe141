@@ -2,11 +2,18 @@ package cl.uchile.dcc
 package gwent.cards
 import gwent.board.BoardSection
 
+import gwent.cards.effects.{Effect, NullEffect}
+
 /** A class that represents a Weather type Card.
  *
  * @param name The name of the Card.
  */
 abstract class AbstractWeatherCard(val name: String) extends WeatherCard with Equals {
+
+  /** The effect of the WeatherCard, NullEffect by default.
+   * 
+   */
+  val effect: Effect = new NullEffect(List[Int](0))
 
   //Equals, hashCode y toString -------------------------------------------------------
 
@@ -44,7 +51,7 @@ abstract class AbstractWeatherCard(val name: String) extends WeatherCard with Eq
     total
   }
 
-  override def toString: String = s"WeatherCard(name=$getName, affected row = Unknown"
+  override def toString: String = s"WeatherCard(name=$getName, affected row = Unknown)"
   // ---------------------------------------------------------------------------
 
   /** The effect this Card has in the Board.

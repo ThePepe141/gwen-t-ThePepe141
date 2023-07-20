@@ -12,7 +12,7 @@ class StrongBond(val bros: UnitCard) extends Ability {
 
   override def apply(self: UnitCard, target: UnitCard): Unit = {
     //Bro
-    target.setCurrentPower(self.currentPower * 2)
+    target.setCurrentPower(target.currentPower * 2)
   }
 
 }

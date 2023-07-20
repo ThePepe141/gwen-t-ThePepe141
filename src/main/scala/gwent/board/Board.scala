@@ -63,8 +63,8 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
   }
   
   def assignPoints: Unit = {
-    FrontPoints(round) = Front.getTotalPower
-    BackPoints(round) = Back.getTotalPower
+    FrontPoints(round-1) = Front.getTotalPower
+    BackPoints(round-1) = Back.getTotalPower
   }
 
   /** It gives to each Player a specific number of Cards.

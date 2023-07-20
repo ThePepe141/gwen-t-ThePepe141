@@ -35,7 +35,8 @@ class BoardTest extends FunSuite {
   }
 
   test("The Board automatically assign BoardSections to the Players") {
-    //Test for getBoardSection and Board class in general
+    //Test for assignSections, getBoardSection and Board class in general
+    theBoard.assignSections
     assertEquals(player1.getBoardSection, theBoard.Front)
     assertEquals(player2.getBoardSection, theBoard.Back)
   }
@@ -55,11 +56,19 @@ class BoardTest extends FunSuite {
   }
 
   test("You can fill de rows"){
-    
+    assert(theBoard.Front.getCloseCombatRow.isEmpty)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    assert(theBoard.Front.getCloseCombatRow.nonEmpty)
+    assert(theBoard.Front.getRangedCombatRow.isEmpty)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    assert(theBoard.Front.getRangedCombatRow.nonEmpty)
+    assert(theBoard.Front.getSiegeCombatRow.isEmpty)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    assert(theBoard.Front.getSiegeCombatRow.nonEmpty)
   }
 
   test("The power on each row can change"){
-    //Test for get and update functions of each row
+    //Test for get and update functions of each row, assignPoints, clearBoard
     assertEquals(theBoard.Front.getCCRpower, 0)
     theBoard.Front.putCardCCR(new TemerianInfantry)
     assertEquals(theBoard.Front.getCCRpower, 5)
@@ -70,6 +79,9 @@ class BoardTest extends FunSuite {
     theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
     assertEquals(theBoard.Front.getSCRpower, 6)
     assertEquals(theBoard.Front.getTotalPower, 14)
+    theBoard.startRound
+    theBoard.assignPoints
+    assertEquals(theBoard.FrontPoints.head, 14)
     theBoard.clearBoard
     assertEquals(theBoard.Front.getTotalPower, 0)
   }

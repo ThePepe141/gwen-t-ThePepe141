@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.board
 
-import gwent.cards.CardObserver
+import gwent.cards.{CardObserver, UnitCard, WeatherCard}
 
 import cl.uchile.dcc.gwent.cards.abilities.Ability
 import cl.uchile.dcc.gwent.cards.effects.Effect
@@ -24,39 +24,39 @@ class AbstractBoardSubject extends BoardSubject {
     observersSCR = observer :: observersSCR
   }
 
-  override def notifyObserversCCR(ability: Ability): Unit = {
+  override def notifyObserversCCR(user: UnitCard, ability: Ability): Unit = {
     for (observer <- observersCCR){
-      observer.updateAbility(this, ability)
+      observer.updateAbility(this, user, ability)
     }
   }
 
-  override def notifyObserversRCR(ability: Ability): Unit = {
+  override def notifyObserversRCR(user: UnitCard, ability: Ability): Unit = {
     for (observer <- observersRCR) {
-      observer.updateAbility(this, ability)
+      observer.updateAbility(this, user, ability)
     }
   }
 
-  override def notifyObserversSCR(ability: Ability): Unit = {
+  override def notifyObserversSCR(user: UnitCard, ability: Ability): Unit = {
     for (observer <- observersSCR) {
-      observer.updateAbility(this, ability)
+      observer.updateAbility(this, user, ability)
     }
   }
 
-  override def notifyObserversCCR(effect: Effect): Unit = {
+  override def notifyObserversCCR(user: WeatherCard, effect: Effect): Unit = {
     for (observer <- observersCCR) {
-      observer.updateEffect(this, effect)
+      observer.updateEffect(this, user, effect)
     }
   }
 
-  override def notifyObserversRCR(effect: Effect): Unit = {
+  override def notifyObserversRCR(user: WeatherCard, effect: Effect): Unit = {
     for (observer <- observersRCR) {
-      observer.updateEffect(this, effect)
+      observer.updateEffect(this, user, effect)
     }
   }
 
-  override def notifyObserversSCR(effect: Effect): Unit = {
+  override def notifyObserversSCR(user: WeatherCard, effect: Effect): Unit = {
     for (observer <- observersSCR) {
-      observer.updateEffect(this, effect)
+      observer.updateEffect(this, user, effect)
     }
   }
 }

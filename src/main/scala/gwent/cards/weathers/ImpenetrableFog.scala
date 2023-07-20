@@ -2,12 +2,12 @@ package cl.uchile.dcc
 package gwent.cards.weathers
 
 import gwent.cards.AbstractWeatherCard
-
-import cl.uchile.dcc.gwent.cards.effects.PowerToOne
+import gwent.cards.effects.{Effect, PowerToOne}
 
 class ImpenetrableFog extends AbstractWeatherCard("Impenetrable Fog"){
-  
-  val effect = new PowerToOne
+
+
+  override val effect: Effect = new PowerToOne(List[Int](2))
 
   //Equals, hashCode y toString  -----------------------------------------------------
 
