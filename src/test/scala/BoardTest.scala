@@ -3,8 +3,10 @@ import gwent.board.Board
 import gwent.cards.Card
 import gwent.players.{CpuPlayer, HumanPlayer}
 
-import cl.uchile.dcc.gwent.cards.units.{RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
-import cl.uchile.dcc.gwent.cards.weathers.SunnyDay
+import cl.uchile.dcc.gwent.cards.units.{BlueStripesCommando, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
+import gwent.cards.units.{Catapult, CrinfridReaversHunter, Dandelion, KaedweniSiegeExpert}
+
+import cl.uchile.dcc.gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain}
 import munit.FunSuite
 
 import scala.collection.mutable.ListBuffer
@@ -15,6 +17,11 @@ class BoardTest extends FunSuite {
   var theBoard: Board = _
   var player1: HumanPlayer = _
   var player2: CpuPlayer = _
+  var commando1: BlueStripesCommando = _
+  var catapult1: Catapult = _
+  var hunter1: CrinfridReaversHunter = _
+  var bard1: Dandelion = _
+  var expert1: KaedweniSiegeExpert = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     player1 = new HumanPlayer("Pepe", ListBuffer[Card]())
@@ -31,6 +38,11 @@ class BoardTest extends FunSuite {
       player2.addToDeck(carta2)
       player2.addToDeck(carta3)
     }
+    commando1 = new BlueStripesCommando
+    catapult1 = new Catapult
+    hunter1 = new CrinfridReaversHunter
+    bard1 = new Dandelion
+    expert1 = new KaedweniSiegeExpert
 
   }
 
@@ -84,6 +96,31 @@ class BoardTest extends FunSuite {
     assertEquals(theBoard.FrontPoints.head, 14)
     theBoard.clearBoard
     assertEquals(theBoard.Front.getTotalPower, 0)
+  }
+
+  test("Test for MoraleBoost"){
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new Dandelion)
+    assertEquals(theBoard.Front.getCCRpower, 14)
+  }
+
+  test("Test for effects"){
+    //Biting Frost
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardWR(new BitingFrost)
+    assertEquals(theBoard.Front.getCCRpower, 2)
+    //Impenetrable Fog
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardWR(new ImpenetrableFog)
+    assertEquals(theBoard.Front.getRCRpower, 2)
+    //Torrential Rain
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardWR(new TorrentialRain)
+    assertEquals(theBoard.Front.getSCRpower, 2)
   }
   
 

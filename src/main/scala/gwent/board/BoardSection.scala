@@ -151,8 +151,8 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
    */
   def putCardCCR(theCard: CloseCombatUnit): Unit = {
     CloseCombatRow = CloseCombatRow :+ theCard
-    addObserverCCR(theCard)
     notifyObserversCCR(theCard, theCard.ability)
+    addObserverCCR(theCard)
     updateTotalPower
     println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
   }
@@ -163,8 +163,8 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
    */
   def putCardRCR(theCard: RangedCombatUnit): Unit = {
     RangedCombatRow = RangedCombatRow :+ theCard
-    addObserverRCR(theCard)
     notifyObserversRCR(theCard, theCard.ability)
+    addObserverRCR(theCard)
     updateTotalPower
     println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
   }
@@ -175,8 +175,8 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
    */
   def putCardSCR(theCard: SiegeCombatUnit): Unit = {
     SiegeCombatRow = SiegeCombatRow :+ theCard
-    addObserverSCR(theCard)
     notifyObserversSCR(theCard, theCard.ability)
+    addObserverSCR(theCard)
     updateTotalPower
     println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
   }
