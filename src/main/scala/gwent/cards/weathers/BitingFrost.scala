@@ -8,7 +8,9 @@ import gwent.cards.effects.{Effect, PowerToOne}
 class BitingFrost extends AbstractWeatherCard("Biting Frost"){
 
 
-  override val effect: Effect = new PowerToOne(List[Int](1))
+  override val effect: Effect = new PowerToOne
+
+  override val rows: List[Int] = List[Int](1)
   
   //Equals, hashCode y toString -----------------------------------------------------
 

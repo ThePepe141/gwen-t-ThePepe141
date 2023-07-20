@@ -13,7 +13,12 @@ abstract class AbstractWeatherCard(val name: String) extends WeatherCard with Eq
   /** The effect of the WeatherCard, NullEffect by default.
    * 
    */
-  val effect: Effect = new NullEffect(List[Int](0))
+  override val effect: Effect = new NullEffect
+
+  /** The rows affected by the effect.
+   *  None by default, 1 for Close Combat, 2 for Ranged Combat and 3 for Siege Combat.
+   */
+  override val rows: List[Int] = List[Int](0)
 
   //Equals, hashCode y toString -------------------------------------------------------
 

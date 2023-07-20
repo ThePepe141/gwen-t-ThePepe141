@@ -6,7 +6,7 @@ import gwent.cards.{UnitCard, WeatherCard}
 /** A trait that represents the effects of the WeatherCards.
  * 
  */
-trait Effect(rows: List[Int]) {
+trait Effect {
 
   /** Applies the effect to a Card.
    * 

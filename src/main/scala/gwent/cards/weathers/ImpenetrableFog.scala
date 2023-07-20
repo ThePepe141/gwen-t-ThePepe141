@@ -7,7 +7,9 @@ import gwent.cards.effects.{Effect, PowerToOne}
 class ImpenetrableFog extends AbstractWeatherCard("Impenetrable Fog"){
 
 
-  override val effect: Effect = new PowerToOne(List[Int](2))
+  override val effect: Effect = new PowerToOne
+
+  override val rows: List[Int] = List[Int](2)
 
   //Equals, hashCode y toString  -----------------------------------------------------
 
