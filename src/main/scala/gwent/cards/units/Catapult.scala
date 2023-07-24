@@ -7,7 +7,7 @@ import gwent.cards.abilities.{Ability, StrongBond}
 
 class Catapult extends SiegeCombatUnit("Catapult", 8){
 
-  override val ability: Ability = new StrongBond(this)
+  override val ability: Ability = new StrongBond
 
   //Equals, hashCode y toString -------------------------------------------
 

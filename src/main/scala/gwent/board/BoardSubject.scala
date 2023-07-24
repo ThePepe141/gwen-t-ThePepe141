@@ -5,6 +5,8 @@ import gwent.cards.{CardObserver, UnitCard, WeatherCard}
 import gwent.cards.abilities.Ability
 import gwent.cards.effects.Effect
 
+import scala.collection.mutable.ListBuffer
+
 trait BoardSubject {
 
   def addObserverCCR(observer: CardObserver): Unit
@@ -24,5 +26,8 @@ trait BoardSubject {
   def notifyObserversSCR(user: UnitCard, ability: Ability): Unit
 
   def notifyObserversSCR(user: WeatherCard, effect: Effect): Unit
+
+  
+
 
 }

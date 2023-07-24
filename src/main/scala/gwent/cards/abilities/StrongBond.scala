@@ -7,12 +7,15 @@ import gwent.cards.{AbstractUnitCard, Card, UnitCard}
  *
  * Multiply the currentPower of the units of the same class by the amount of them in the row.
  */
-class StrongBond(val bros: UnitCard) extends Ability {
+class StrongBond extends Ability {
 
 
   override def apply(self: UnitCard, target: UnitCard): Unit = {
     //Bro
-    target.setCurrentPower(target.currentPower * 2)
+    if (self.getClass==target.getClass){
+      self.setCurrentPower(self.currentPower * 2)
+      target.setCurrentPower(target.currentPower * 2)
+    }
   }
 
 }

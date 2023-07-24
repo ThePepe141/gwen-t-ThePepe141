@@ -105,6 +105,14 @@ class BoardTest extends FunSuite {
     assertEquals(theBoard.Front.getCCRpower, 14)
   }
 
+  test("Test for StrongBond") {
+    theBoard.Front.putCardCCR(new BlueStripesCommando)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new BlueStripesCommando)
+    assertEquals(theBoard.Front.getCCRpower, 21)
+
+  }
+
   test("Test for effects"){
     //Biting Frost
     theBoard.Front.putCardCCR(new TemerianInfantry)

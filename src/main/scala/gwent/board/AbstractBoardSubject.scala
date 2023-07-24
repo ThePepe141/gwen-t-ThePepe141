@@ -1,12 +1,13 @@
 package cl.uchile.dcc
 package gwent.board
 
-import gwent.cards.{CardObserver, UnitCard, WeatherCard}
+import gwent.cards.{Card, CardObserver, UnitCard, WeatherCard}
+import gwent.cards.abilities.Ability
+import gwent.cards.effects.Effect
 
-import cl.uchile.dcc.gwent.cards.abilities.Ability
-import cl.uchile.dcc.gwent.cards.effects.Effect
+import scala.collection.mutable.ListBuffer
 
-class AbstractBoardSubject extends BoardSubject {
+abstract class AbstractBoardSubject extends BoardSubject {
 
   private var observersCCR: List[CardObserver] = Nil
   private var observersRCR: List[CardObserver] = Nil

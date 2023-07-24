@@ -7,7 +7,7 @@ import cl.uchile.dcc.gwent.cards.abilities.{Ability, StrongBond}
 
 class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4){
 
-  override val ability: Ability = new StrongBond(this)
+  override val ability: Ability = new StrongBond
 
   //Equals, hashCode y toString -------------------------------------------
 

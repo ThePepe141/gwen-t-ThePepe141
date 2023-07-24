@@ -11,6 +11,7 @@ import cl.uchile.dcc.gwent.cards.effects.Effect
  */
 trait CardObserver {
 
+  
   /** Applies the ability send by boardSubject.
    * 
    * @param boardSubject The BoardSection of this current Card.
@@ -24,4 +25,5 @@ trait CardObserver {
    * @param effect The ability to apply.
    */
   def updateEffect(boardSubject: BoardSubject, theOne: WeatherCard, effect: Effect): Unit
+  
 }

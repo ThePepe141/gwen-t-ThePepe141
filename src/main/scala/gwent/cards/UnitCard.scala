@@ -1,9 +1,13 @@
 package cl.uchile.dcc
 package gwent.cards
 
+import gwent.board.BoardSubject
+import gwent.cards.abilities.Ability
+import gwent.cards.effects.Effect
+
 /** A trait that represents a Card of type Unit.
  */
-trait UnitCard extends Card{
+trait UnitCard extends Card {
   
   /** The power the Card currently posses.
    */
@@ -36,6 +40,6 @@ trait UnitCard extends Card{
    *  Change _power to its original value.
    */
   def resetPower: Unit
-  
+
 
 }
