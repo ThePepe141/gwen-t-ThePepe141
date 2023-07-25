@@ -9,6 +9,11 @@ import gwent.cards.{UnitCard, WeatherCard}
  */
 class PowerToOne extends Effect {
 
+  /** Applies the effect to a Card.
+   * 
+   * @param self The Card of the Effect.
+   * @param target The Card to apply the Effect.
+   */
   override def effect(self: WeatherCard, target: UnitCard): Unit = {
     target.setCurrentPower(1)
   }

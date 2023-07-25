@@ -7,10 +7,24 @@ import gwent.cards.effects.Effect
 
 import scala.collection.mutable.ListBuffer
 
+/** An abstract class the implements all methods defined in the trait BoardSubject.
+ * It also add the list of observers for each rows.
+ */
 abstract class AbstractBoardSubject extends BoardSubject {
 
+  /** A List of all cards in the CLoseCombatRow as CardObservers.
+   * It start empty.
+   */
   private var observersCCR: List[CardObserver] = Nil
+
+  /** A List of all cards in the RangedCombatRow as CardObservers.
+   * It start empty.
+   */
   private var observersRCR: List[CardObserver] = Nil
+
+  /** A List of all cards in the SiegeCombatRow as CardObservers.
+   * It start empty.
+   */
   private var observersSCR: List[CardObserver] = Nil
 
   override def addObserverCCR(observer: CardObserver): Unit = {

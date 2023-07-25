@@ -115,17 +115,23 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
     Back.updateTotalPower
   }
 
+  /** A function that clears all rows on the Board.
+   */
   def clearBoard: Unit = {
     Front.clearBoardSection
     Back.clearBoardSection
     Weather = ListBuffer[WeatherCard]()
   }
-  
+
+  /** A function that updates the scores of each player.
+   */
   def updateScores: Unit = {
     Front.updateTotalPower
     Back.updateTotalPower
   }
-  
+
+  /** Print all cards in all rows, except graveyard and weather.
+   */
   def showBoard: Unit = {
     println("The Opponent side")
     println("Siege Combat Row")

@@ -145,7 +145,7 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
 
   //Card movements ----------------------------------------------
 
-  /** A function that puts a CloseCombatUnit in CloseCombatRow.
+  /** A function that puts and play a CloseCombatUnit in CloseCombatRow.
    *  
    * @param theCard The Card to be put.
    */
@@ -157,7 +157,7 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
     println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
   }
 
-  /** A function that puts a RangedCombatUnit in RangedCombatRow.
+  /** A function that puts and play a RangedCombatUnit in RangedCombatRow.
    * 
    * @param theCard The Card to be put.
    */
@@ -169,7 +169,7 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
     println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
   }
 
-  /** A function that puts a SiegeCombatUnit in SiegeCombatRow.
+  /** A function that puts and play a SiegeCombatUnit in SiegeCombatRow.
    * 
    * @param theCard The Card to be put.
    */
@@ -181,7 +181,7 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
     println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
   }
 
-  /** A function that puts a WeatherCard in Weather on the Board.
+  /** A function that puts and play a WeatherCard in Weather on the Board.
    * 
    * @param theCard The Card to be put.
    */
@@ -244,6 +244,14 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
   def showSiegeCombatRow(): Unit = {
     for (card <- SiegeCombatRow) {
       println(s"Name: ${card.getName}, Power: ${card.currentPower}")
+    }
+  }
+
+  /** Print the cards in the graveyard.
+   */
+  def showGraveyard(): Unit = {
+    for (card <- Graveyard) {
+      println(s"Name: ${card.getName}")
     }
   }
 

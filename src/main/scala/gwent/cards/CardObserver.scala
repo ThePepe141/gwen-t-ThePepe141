@@ -15,6 +15,7 @@ trait CardObserver {
   /** Applies the ability send by boardSubject.
    * 
    * @param boardSubject The BoardSection of this current Card.
+   * @param theOne The UnitCard the send the ability.
    * @param ability The ability to apply.
    */
   def updateAbility(boardSubject: BoardSubject, theOne: UnitCard, ability: Ability): Unit
@@ -22,6 +23,7 @@ trait CardObserver {
   /** Applies the effect send by boardSubject.
    * 
    * @param boardSubject The BoardSection of this current Card.
+   * @param theOne The UnitCard the send the ability.
    * @param effect The ability to apply.
    */
   def updateEffect(boardSubject: BoardSubject, theOne: WeatherCard, effect: Effect): Unit
