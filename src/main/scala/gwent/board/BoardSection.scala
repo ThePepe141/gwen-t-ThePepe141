@@ -6,6 +6,7 @@ import gwent.cards.{AbstractUnitCard, Card, CloseCombatUnit, RangedCombatUnit, S
 import scala.collection.mutable.ListBuffer
 
 /** A class that represents a section of a Board.
+ * @param board The Board associate to this BoardSection.
  */
 class BoardSection(board: Board) extends AbstractBoardSubject {
 
@@ -20,11 +21,6 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
   /** The row for the Siege Combat UnitCards.
    */
   private var SiegeCombatRow: ListBuffer[SiegeCombatUnit] = ListBuffer[SiegeCombatUnit]()
-  
-
-  /** The place where Cards go at the end of the Round
-   */
-  private var Graveyard: ListBuffer[AbstractUnitCard] = ListBuffer[AbstractUnitCard]()
 
   /**The total power of the CLoseCombatRow.
    */
@@ -62,15 +58,8 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
    * @return the cards on SiegeCombatRow.
    */
   def getSiegeCombatRow: ListBuffer[SiegeCombatUnit] = SiegeCombatRow
-  
 
-  /** Getter of Graveyard.
-   *
-   * @return the cards in the Graveyard.
-   */
-  def getGraveyard: ListBuffer[AbstractUnitCard] = Graveyard
   
-
   /** Setter of CCRpower param.
    *
    * Updates the total power of CloseCombatRow.
@@ -205,17 +194,8 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
   /** A functions that clears all rows on the BoardSection.
    */
   def clearBoardSection: Unit = {
-    for (card <- CloseCombatRow){
-      Graveyard :+ card
-    }
     CloseCombatRow = ListBuffer[CloseCombatUnit]()
-    for (card <- RangedCombatRow){
-      Graveyard :+ card
-    }
     RangedCombatRow = ListBuffer[RangedCombatUnit]()
-    for (card <- SiegeCombatRow){
-      Graveyard :+ card
-    }
     SiegeCombatRow = ListBuffer[SiegeCombatUnit]()
     updateTotalPower
   }
@@ -244,14 +224,6 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
   def showSiegeCombatRow(): Unit = {
     for (card <- SiegeCombatRow) {
       println(s"Name: ${card.getName}, Power: ${card.currentPower}")
-    }
-  }
-
-  /** Print the cards in the graveyard.
-   */
-  def showGraveyard(): Unit = {
-    for (card <- Graveyard) {
-      println(s"Name: ${card.getName}")
     }
   }
 

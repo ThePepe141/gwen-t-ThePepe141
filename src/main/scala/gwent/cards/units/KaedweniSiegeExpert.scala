@@ -5,6 +5,9 @@ import gwent.cards.SiegeCombatUnit
 
 import gwent.cards.abilities.{Ability, MoraleBoost}
 
+/** A class that represent the Kaedweni Siege Expert Unit Card.
+ * Ability: Morale Boost.
+ */
 class KaedweniSiegeExpert extends SiegeCombatUnit("Kaedweni Siege Expert", 1) {
 
   override val ability: Ability = new MoraleBoost

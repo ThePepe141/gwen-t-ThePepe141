@@ -3,6 +3,9 @@ package gwent.cards.units
 
 import gwent.cards.CloseCombatUnit
 
+/** A class that represents the Geralt Unit Card.
+ * Ability: None.
+ */
 class Geralt extends CloseCombatUnit("Geralt of Rivia", 15){
   
   //Equals, hashCode y toString -------------------------------------------

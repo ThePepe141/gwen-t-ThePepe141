@@ -54,7 +54,9 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
     player1.assignBoardSection(Front)
     player2.assignBoardSection(Back)
   }
-  
+
+  /** A function that assign the scores of each round to FrontPoints and BackPoints.
+   */
   def assignPoints: Unit = {
     FrontPoints(round-1) = Front.getTotalPower
     BackPoints(round-1) = Back.getTotalPower

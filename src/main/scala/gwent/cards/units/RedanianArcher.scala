@@ -3,6 +3,9 @@ package gwent.cards.units
 
 import gwent.cards.RangedCombatUnit
 
+/** A class that represent the Redanian Archer Unit Card.
+ * Ability: None.
+ */
 class RedanianArcher extends RangedCombatUnit("Redanian Archer", 3){
   
   //Equals, hashCode y toStrong -----------------------------------------------------------

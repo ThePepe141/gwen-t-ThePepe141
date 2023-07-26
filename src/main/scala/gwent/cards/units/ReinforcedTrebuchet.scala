@@ -3,6 +3,9 @@ package gwent.cards.units
 
 import gwent.cards.SiegeCombatUnit
 
+/** A class that represent the Reinforced Trebuchet Unit Card.
+ * Ability: None.
+ */
 class ReinforcedTrebuchet extends SiegeCombatUnit("Reinforced Trebuchet",  6) {
   
   //Equals, hashCode y toString ----------------------------------

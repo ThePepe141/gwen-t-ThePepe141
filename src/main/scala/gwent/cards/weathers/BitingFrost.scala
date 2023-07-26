@@ -5,6 +5,9 @@ import gwent.cards.AbstractWeatherCard
 
 import gwent.cards.effects.{Effect, PowerToOne}
 
+/** A class that represents the Biting Frost Weather Card.
+ * Effect: PowerToOne on Close Combat Row.
+ */
 class BitingFrost extends AbstractWeatherCard("Biting Frost"){
 
 

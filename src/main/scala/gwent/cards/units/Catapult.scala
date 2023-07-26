@@ -1,10 +1,12 @@
 package cl.uchile.dcc
 package gwent.cards.units
-
 import gwent.cards.SiegeCombatUnit
 
 import gwent.cards.abilities.{Ability, StrongBond}
 
+/** A class that represents the Catapult Unit Card.
+ * Ability: Strong Bond.
+ */
 class Catapult extends SiegeCombatUnit("Catapult", 8){
 
   override val ability: Ability = new StrongBond

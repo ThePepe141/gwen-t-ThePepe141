@@ -5,6 +5,9 @@ import gwent.cards.CloseCombatUnit
 
 import gwent.cards.abilities.{Ability, MoraleBoost}
 
+/** A class that represents the Dandelion Unit Card.
+ * Ability: Morale Boost.
+ */
 class Dandelion extends CloseCombatUnit("Dandelion", 2){
 
   override val ability: Ability = new MoraleBoost

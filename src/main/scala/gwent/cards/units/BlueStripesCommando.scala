@@ -5,6 +5,9 @@ import gwent.cards.CloseCombatUnit
 
 import cl.uchile.dcc.gwent.cards.abilities.{Ability, StrongBond}
 
+/** A class that represents the Blue Stripes Commando Unit Card.
+ * Ability: Strong Bond.
+ */
 class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4){
 
   override val ability: Ability = new StrongBond

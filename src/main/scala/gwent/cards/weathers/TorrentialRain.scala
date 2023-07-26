@@ -4,6 +4,9 @@ package gwent.cards.weathers
 import gwent.cards.AbstractWeatherCard
 import gwent.cards.effects.{Effect, PowerToOne}
 
+/** A class that represent the Torrential Rain Weather Card.
+ * Effect: PowerToOne on Siege Combat Row.
+ */
 class TorrentialRain extends AbstractWeatherCard("Torrential Rain"){
 
   override val effect: Effect = new PowerToOne

@@ -36,7 +36,7 @@ class GameState(context: GameController){
     transitionError("BeforeMatchState")
   }
 
-  /** A function that switch the gameState to RoundStudyState.
+  /** A function that switch the gameState to BeginRoundState.
    */
   def toBeginRoundState(): Unit = {
     transitionError("BeginRoundState")
@@ -59,7 +59,9 @@ class GameState(context: GameController){
   def toStandByState(): Unit = {
     transitionError("StandByState")
   }
-  
+
+  /** A function that switch the gameState to EndRoundState.
+   */
   def toEndRoundState(): Unit = {
     transitionError("EndRoundState")
   }

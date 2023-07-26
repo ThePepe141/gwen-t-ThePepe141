@@ -5,6 +5,9 @@ import gwent.cards.RangedCombatUnit
 
 import cl.uchile.dcc.gwent.cards.abilities.{Ability, StrongBond}
 
+/** A class that represents the Crinfrid Reavers Hunter Unit Card.
+ * Ability: Strong Bond.
+ */
 class CrinfridReaversHunter extends RangedCombatUnit("Crinfrid Reavers Hunter", 5) {
 
   override val ability: Ability = new StrongBond

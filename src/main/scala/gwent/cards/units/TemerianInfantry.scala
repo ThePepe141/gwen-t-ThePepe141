@@ -3,6 +3,9 @@ package gwent.cards.units
 
 import gwent.cards.CloseCombatUnit
 
+/** A class that represent the Temerian Infantry Unit Card.
+ * Ability: None.
+ */
 class TemerianInfantry extends CloseCombatUnit("Temerain Infantry", 5) {
   
   //Equals, hashCode y toString ---------------------------------------------------------

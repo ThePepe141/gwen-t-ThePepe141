@@ -3,6 +3,9 @@ package gwent.cards.weathers
 
 import gwent.cards.AbstractWeatherCard
 
+/** A class that represent the Sunny Day Weather Card.
+ * Effect: clear weather on the Board.
+ */
 class SunnyDay extends AbstractWeatherCard("Sunny Day"){
   
   //Equals, hashCode y toString -------------------------------------------

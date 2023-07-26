@@ -4,6 +4,9 @@ package gwent.cards.weathers
 import gwent.cards.AbstractWeatherCard
 import gwent.cards.effects.{Effect, PowerToOne}
 
+/** A class that represents the Impenetrable Fog Weather Card.
+ * Effect: PowerToOne on Ranged Combat Row.
+ */
 class ImpenetrableFog extends AbstractWeatherCard("Impenetrable Fog"){
 
 
