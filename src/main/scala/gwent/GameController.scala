@@ -18,9 +18,9 @@ class GameController {
   var theBoard: Board = _
   val library = new CardLibrary
   var humanStartMatch: Boolean = _
-  var humanName: String = _
-  var humanDeck: ListBuffer[Card] = _
-  var cpuDeck: ListBuffer[Card] = _
+  var humanName: String = "Player1"
+  var humanDeck: ListBuffer[Card] = ListBuffer[Card]()
+  var cpuDeck: ListBuffer[Card] = ListBuffer[Card]()
   var firstMatch: Boolean = true
   var keepDecks: Boolean = false
   val text = "Wrong input, please try again"
@@ -34,114 +34,23 @@ class GameController {
     gameState.action()
   }
 
-  /** Set the players attributes
+  /** Sets the matches players, decks and board.
+   *
    */
-  def setPlayers(): Unit = {
-    if (firstMatch){
-      //Choose the human name
-      println("Hello Human player, please choose your name")
-      val name = readLine()
-      humanPlayer = new HumanPlayer(name, ListBuffer[Card]())
-      cpuPlayer = new CpuPlayer(ListBuffer[Card]())
-      println(s"Thank you ${humanPlayer.getUsername}")
-    }
-    else if (!firstMatch && keepDecks){
-      humanPlayer = new HumanPlayer(humanName, humanDeck)
-      cpuPlayer = new CpuPlayer(cpuDeck)
-    }
-    else{
-      humanPlayer = new HumanPlayer(humanName, ListBuffer[Card]())
-      cpuPlayer = new CpuPlayer(ListBuffer[Card]())
-    }
-  }
-
-  /** Set player´s decks
-   */
-  def matchSettings(): Unit = {
-    //Build the human player deck
-    println("Deck library")
-    library.showLibrary()
-    var a = readLine().toInt
-    while (a != -1 || humanPlayer.deckSize < 25) {
-      if (a == -1) {
-        println("Your deck does not have the minimum of cards")
-      }
-      else if (a != 1 && a != 2 && a != 3 && a != 4) {
-        println("Invalid set number")
-      }
-      else {
-        println("Which card do you want (write the index)")
-        val b = readLine().toInt
-        if (a == 1) {
-          humanPlayer.addToDeck(library.closeCombatCards(b))
-        }
-        else if (a == 2) {
-          humanPlayer.addToDeck(library.rangedCombatCards(b))
-        }
-        else if (a == 3) {
-          humanPlayer.addToDeck(library.siegeCombatCards(b))
-        }
-        else if (a == 4) {
-          humanPlayer.addToDeck(library.weatherCards(b))
-        }
-        println("Your current deck")
-        showDeck()
-      }
-      println("Write the number of the set you want to pick for or -1 to finish")
-      a = readLine().toInt
-    }
-    println("Your deck has been filled")
-    showDeck()
-    humanDeck = humanPlayer.getDeck
-    //Build the machine deck
-    println("Please choose your opponent´s deck")
-    println("Write the number of the set you want to pick for or -1 to finish")
-    var x = readLine().toInt
-    while (x != -1 || cpuPlayer.deckSize < 25) {
-      if (x == -1) {
-        println("Your deck does not have the minimum of cards")
-      }
-      else if (x != 1 && x != 2 && x != 3 && x != 4) {
-        println("Invalid set number")
-      }
-      else {
-        println("Which card do you want (write the index)")
-        val b = readLine().toInt
-        if (x == 1) {
-          cpuPlayer.addToDeck(library.closeCombatCards(b))
-        }
-        else if (x == 2) {
-          cpuPlayer.addToDeck(library.rangedCombatCards(b))
-        }
-        else if (x == 3) {
-          cpuPlayer.addToDeck(library.siegeCombatCards(b))
-        }
-        else if (x == 4) {
-          cpuPlayer.addToDeck(library.weatherCards(b))
-        }
-        println("Your current deck")
-        for (card <- cpuPlayer.getDeck) {
-          println(card.toString)
-        }
-      }
-      println("Write the number of the set you want to pick for or -1 to finish")
-      x = readLine().toInt
-    }
-    println("Your opponent´s deck has been filled")
-    cpuDeck = cpuPlayer.getDeck
-  }
-
-  /** Prepares the Board.
-   */
-  def setBoard(): Unit = {
-    //Create the Board
+  def matchSettings(): Unit ={
+    //Creates players
+    humanPlayer = new HumanPlayer(humanName, humanDeck)
+    cpuPlayer = new CpuPlayer(cpuDeck)
+    println(s"Welcome ${humanPlayer.getUsername}")
+    //Create the board
     theBoard = new Board(humanPlayer, cpuPlayer)
     //Board settings
     theBoard.assignSections
     theBoard.startMatch
-    //Switch gameState
+    //Switch GameState
     gameState.toBeginRoundState()
   }
+  
 
   /** Formally start the round, choose which player goes first.
    */
