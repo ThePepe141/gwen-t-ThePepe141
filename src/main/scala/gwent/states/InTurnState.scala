@@ -12,7 +12,7 @@ class InTurnState(context: GameController) extends GameState(context) {
   /** Trigger the GameController function that represents the player´s turn.
    */
   override def action(): Unit = {
-    context.humanMove()
+    context.humanMove(context.humanChoice, context.humanCardChoice)
   }
 
   override def toWaitingTurnState(): Unit = {

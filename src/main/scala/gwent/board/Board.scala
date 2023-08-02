@@ -40,6 +40,8 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
    */
   var BackPoints: ListBuffer[Int] = ListBuffer[Int](0,0,0)
   
+  var players: ListBuffer[Player] = ListBuffer[Player](player1, player2)
+  
   var coin: Int = _
 
   /** Getter of Weather.

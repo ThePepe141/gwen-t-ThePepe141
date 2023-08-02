@@ -12,7 +12,7 @@ class BeforeMatchState(context: GameController) extends GameState(context){
   /** Trigger the GameController functions that goes before the match.
    */
   override def action(): Unit = {
-    context.matchSettings()
+    context.matchSettings(context.humanName, context.humanDeck, context.cpuDeck)
   }
 
   override def toBeginRoundState(): Unit = {

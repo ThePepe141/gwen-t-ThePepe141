@@ -4,26 +4,32 @@ package gwent
 import gwent.states.{BeforeMatchState, GameState}
 import gwent.board.{Board, CardLibrary}
 import gwent.cards.Card
-import gwent.players.{CpuPlayer, HumanPlayer}
+import gwent.players.{CpuPlayer, HumanPlayer, Player}
 
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
 import scala.util.Random
 
 class GameController {
-  
+
+  //Fill by the class
   var gameState: GameState = new BeforeMatchState(this)
   var humanPlayer: HumanPlayer = _
   var cpuPlayer: CpuPlayer = _
+  var thePlayers: ListBuffer[Player] = ListBuffer[Player]()
   var theBoard: Board = _
   val library = new CardLibrary
   var humanStartMatch: Boolean = _
-  var humanName: String = "Player1"
-  var humanDeck: ListBuffer[Card] = ListBuffer[Card]()
-  var cpuDeck: ListBuffer[Card] = ListBuffer[Card]()
   var firstMatch: Boolean = true
   var keepDecks: Boolean = false
   val text = "Wrong input, please try again"
+  //Fill by the client
+  var humanName: String = "Player1"
+  var humanDeck: ListBuffer[Card] = ListBuffer[Card]()
+  var cpuDeck: ListBuffer[Card] = ListBuffer[Card]()
+  var humanChoice: Int = _
+  var humanCardChoice: Int = _
+  var rematch = false
   
   
   //GameState trigger functions ---------------------------------------
@@ -34,13 +40,16 @@ class GameController {
     gameState.action()
   }
 
-  /** Sets the matches players, decks and board.
+  /** Set the players and board for the match.
    *
+   * @param player1Name The Human player´s username.
+   * @param player1Deck The Human player´s deck.
+   * @param player2Deck The Cpu player´s deck.
    */
-  def matchSettings(): Unit ={
+  def matchSettings(player1Name: String, player1Deck: ListBuffer[Card], player2Deck: ListBuffer[Card]): Unit ={
     //Creates players
-    humanPlayer = new HumanPlayer(humanName, humanDeck)
-    cpuPlayer = new CpuPlayer(cpuDeck)
+    humanPlayer = new HumanPlayer(player1Name, player1Deck)
+    cpuPlayer = new CpuPlayer(player2Deck)
     println(s"Welcome ${humanPlayer.getUsername}")
     //Create the board
     theBoard = new Board(humanPlayer, cpuPlayer)
@@ -86,26 +95,18 @@ class GameController {
   /** Asks the human player for it´s choice.
    *  Play a Card or pass the Round, updates the Board scores.
    */
-  def humanMove(): Unit = {
-    showBoard()
-    showHand()
-    println("Choose 0 to play a card, choose 1 to pass")
-    var choice = readLine().toInt
-    while (choice!=1 && choice!=2){
-      println("Wrong input, choose 1 to play a card, choose 2 to pass")
-      choice = readLine().toInt
-    }
-    if (choice==1){
-      humanPlayer.playCard
+  def humanMove(choice: Int, cardChoice: Int): Unit = {
+    if (choice == 1) {
+      humanPlayer.playCard(cardChoice)
       theBoard.updateScores
-      if (humanPlayer.getHand.isEmpty){
+      if (humanPlayer.getHand.isEmpty) {
         gameState.toStandByState()
       }
-      else{
+      else {
         gameState.toWaitingTurnState()
       }
     }
-    else if (choice == 2){
+    else if (choice == 2) {
       gameState.toStandByState()
     }
   }
@@ -162,37 +163,34 @@ class GameController {
   /** Formally defines the winner of the Round, and prepares the Board for the next.
    * Change the gems attributes, print the winner, clean the Board.
    */
-  def definingWinner(): Unit = {
+  def notifyPlayers(): Unit = {
     theBoard.assignPoints
-    if (theBoard.FrontPoints(theBoard.round)>theBoard.BackPoints(theBoard.round)){
-      cpuPlayer.roundLost
-      println(s"${cpuPlayer.getUsername} loose the round")
+    for (player <- thePlayers){
+      player.updateGems(this, theBoard.FrontPoints(theBoard.round), theBoard.BackPoints(theBoard.round))
     }
-    else if(theBoard.FrontPoints(theBoard.round)<theBoard.BackPoints(theBoard.round)){
-      humanPlayer.roundLost
-      println(s"${humanPlayer.getUsername} loose the round")
-    }
-    else{
-      humanPlayer.roundLost
-      cpuPlayer.roundLost
-      println("The match end in draw")
-    }
-    if (humanPlayer.isDefeated && cpuPlayer.isDefeated){ 
-      println("The match end in draw")
-      gameState.toAfterMatchState()
-    }
-    else if (humanPlayer.isDefeated){
-      println(s"${cpuPlayer.getUsername} win the match")
-      gameState.toAfterMatchState()
-    }
-    else if (cpuPlayer.isDefeated) {
-      println(s"${humanPlayer.getUsername} win the match")
-      gameState.toAfterMatchState()
+  }
+
+  /** A function used by the Players to updates their status.
+   * 
+   * @param player The Player who notifies.
+   * @param defeated The defeated state of the Player.
+   * @param draw The draw state of the match.
+   */
+  def updateLost(player: Player, defeated: Boolean, draw: Boolean): Unit ={
+    if (draw){
+      println(s"The round end in draw")
     }
     else{
-      humanPlayer.pass = false
-      cpuPlayer.pass = false
-      theBoard.clearBoard
+      println(s"${player.getUsername} lost the round")
+    }
+    theBoard.clearBoard
+    humanPlayer.pass = false
+    cpuPlayer.pass = false
+    if (defeated){
+      println(s"${player.getUsername} has lost the match.")
+      gameState.toAfterMatchState()
+    }
+    else{
       gameState.toBeginRoundState()
     }
   }
@@ -207,27 +205,13 @@ class GameController {
     println(s"Round 1: ${theBoard.FrontPoints.head}, Round 2: ${theBoard.FrontPoints(1)}, Round 3: ${theBoard.FrontPoints(2)}")
     println(s"${cpuPlayer.getUsername} points:")
     println(s"Round 1: ${theBoard.BackPoints.head}, Round 2: ${theBoard.BackPoints(1)}, Round 3: ${theBoard.BackPoints(2)}")
-    println("Do you want to play another match? Choose 1 for yes, choose 2 for no")
-    var choice = readLine().toInt
-    while(choice!=1){
-      if (choice==2) println("Are you sure?")
-      else println(text)
-      choice = readLine().toInt
+    if (rematch){
+      println("Starting rematch")
+      gameState.toBeforeMatchState()
     }
-    firstMatch = false
-    println("Do you want to keep the decks? Choose 1 for yes, choose 2 for no")
-    var choice2 = readLine().toInt
-    while (choice2 != 1 && choice != 2) {
-      println(text)
-      choice2 = readLine().toInt
+    else{
+      println("GG")
     }
-    if (choice2 == 1) {
-      keepDecks = true
-    }
-    else {
-      keepDecks = false
-    }
-    gameState.toBeforeMatchState()
   }
   
   //Show functions -------------------------------------------------

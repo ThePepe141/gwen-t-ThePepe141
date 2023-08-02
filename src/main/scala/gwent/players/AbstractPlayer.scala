@@ -170,23 +170,13 @@ abstract class AbstractPlayer(override protected val username: String, protected
   /** A function that allows the Player to play a Card.
    *
    */
-  def playCard: Unit = {
-    // First: choose a Card
-    val indice = chooseCard
-    //Second: pick said Card from the hand
-    val theCard = hand(indice)
-    //Third: remove the Card from the hand (its no longer there)
-    hand.remove(indice)
-    //Fourth play the card
+  def playCard(cardIndex: Int): Unit = {
+    //First: pick said Card from the hand
+    val theCard = hand(cardIndex)
+    //Second: remove the Card from the hand (its no longer there)
+    hand.remove(cardIndex)
+    //Third: play the card
     theCard.playOnBoardSection(boardSection)
   }
-
-  /** A function the allows to pick a Card from the hand.
-   *
-   * @return The index of the chosen Card.
-   */
-  def chooseCard: Int
   
-  
-
 }

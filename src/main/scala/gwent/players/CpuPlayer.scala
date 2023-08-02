@@ -1,6 +1,8 @@
 package cl.uchile.dcc
 package gwent.players
+
 import gwent.cards.Card
+import gwent.GameController
 
 import scala.collection.mutable.ListBuffer
 
@@ -34,11 +36,16 @@ class CpuPlayer (deck: ListBuffer[Card]) extends AbstractPlayer("CPU", deck) {
   }
   //--------------------------------------------------------------------
 
-  /** A function that choose the first Card of the hand.
-   * 
-   * @return The index 0 of the hand.
-   */
-  override def chooseCard: Int = 0
+  override def updateGems(gameController: GameController, humanPoints: Int, cpuPoints: Int): Unit = {
+    if (humanPoints>cpuPoints){
+      this.roundLost
+      gameController.updateLost(this, this.isDefeated, false)
+    }
+    else if (humanPoints == cpuPoints) {
+      this.roundLost
+      gameController.updateLost(this, this.isDefeated, true)
+    }
+  }
   
 
 }

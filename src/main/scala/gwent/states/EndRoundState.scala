@@ -12,7 +12,7 @@ class EndRoundState(context: GameController) extends GameState(context) {
   /** Trigger the GameController function for when the round ends.
    */
   override def action(): Unit = {
-    context.definingWinner()
+    context.notifyPlayers()
   }
 
   override def toBeginRoundState(): Unit = {

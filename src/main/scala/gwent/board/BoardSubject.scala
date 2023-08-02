@@ -5,6 +5,8 @@ import gwent.cards.{CardObserver, UnitCard, WeatherCard}
 import gwent.cards.abilities.Ability
 import gwent.cards.effects.Effect
 
+import cl.uchile.dcc.gwent.players.Player
+
 import scala.collection.mutable.ListBuffer
 
 /** A trait that represents the Subject aspect of a BoardSection.

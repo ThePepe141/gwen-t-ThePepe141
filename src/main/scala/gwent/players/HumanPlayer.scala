@@ -2,6 +2,7 @@ package cl.uchile.dcc
 package gwent.players
 import gwent.cards.Card
 
+import gwent.GameController
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
 import scala.util.Random
@@ -37,17 +38,15 @@ class HumanPlayer(username: String, deck: ListBuffer[Card]) extends AbstractPlay
   }
   //---------------------------------------------------------------
 
-  /** A function that allows the Player to choose a Card (in hand) to play.
-   *
-   * @return The choice of the Player.
-   */
-  override def chooseCard: Int = {
-    println("Please write the number of the Card you want to play")
-    for (a <- hand.indices) {
-      println(s"$a , ${hand(a)}")
+  override def updateGems(gameController: GameController, humanPoints: Int, cpuPoints: Int): Unit = {
+    if (humanPoints<cpuPoints){
+      this.roundLost
+      gameController.updateLost(this, this.isDefeated, false)
     }
-    val choice = readLine().toInt
-    choice
+    else if (humanPoints==cpuPoints){
+      this.roundLost
+      gameController.updateLost(this, this.isDefeated, true)
+    }
   }
   
 }
