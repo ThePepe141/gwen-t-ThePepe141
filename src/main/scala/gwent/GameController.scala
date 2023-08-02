@@ -160,8 +160,8 @@ class GameController {
     }
   }
 
-  /** Formally defines the winner of the Round, and prepares the Board for the next.
-   * Change the gems attributes, print the winner, clean the Board.
+  /** Send to each Player the scores of the match.
+   * 
    */
   def notifyPlayers(): Unit = {
     theBoard.assignPoints
@@ -195,8 +195,8 @@ class GameController {
     }
   }
 
-  /** Formally finish the match and prepares the next.
-   * Reset player´s pass attributes, print scores, ask player if it wants to play again.
+  /** Show scores and start rematch if is the case.
+   * 
    */
   def postMatch(): Unit = {
     humanPlayer.pass = false
