@@ -12,7 +12,7 @@ import scala.collection.mutable.ListBuffer
  */
 class CpuPlayer (deck: ListBuffer[Card]) extends AbstractPlayer("CPU", deck) {
   
-  //Equals -----------------------------------------------------
+  //Equals, hashCode y toString  -----------------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -34,6 +34,16 @@ class CpuPlayer (deck: ListBuffer[Card]) extends AbstractPlayer("CPU", deck) {
       false
     }
   }
+
+  override def hashCode(): Int = {
+    val primo = 31
+    var total = 1
+    total = primo * total + classOf[CpuPlayer].##
+    total = primo * total + username.##
+    total
+  }
+
+  override def toString: String = s"CpuPlayer(username=$getUsername, gems=$getGems)"
   //--------------------------------------------------------------------
 
   override def updateGems(gameController: GameController, humanPoints: Int, cpuPoints: Int): Unit = {

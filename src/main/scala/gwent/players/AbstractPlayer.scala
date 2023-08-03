@@ -42,7 +42,7 @@ abstract class AbstractPlayer(override protected val username: String, protected
    */
   var pass: Boolean = false
   
-  //Equals --------------------------------------------------------
+  //Equals, hashCode y toString  --------------------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -65,6 +65,16 @@ abstract class AbstractPlayer(override protected val username: String, protected
       false
     }
   }
+
+  override def hashCode(): Int = {
+    val primo = 31
+    var total = 1
+    total = primo * total + classOf[AbstractPlayer].##
+    total = primo * total + username.##
+    total
+  }
+
+  override def toString: String = s"AbstractPlayer(username=$getUsername, gems=$getGems)"
   
   // Getters y Setters ------------------------------------
 

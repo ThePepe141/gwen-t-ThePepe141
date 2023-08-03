@@ -14,7 +14,7 @@ import scala.util.Random
  */
 class HumanPlayer(username: String, deck: ListBuffer[Card]) extends AbstractPlayer(username, deck) {
   
-  //Equals ------------------------------------------------------------------
+  //Equals, hashCode y toString  ------------------------------------------------------------------
 
   /** A function that compares the types of two values.
    * 
@@ -36,6 +36,16 @@ class HumanPlayer(username: String, deck: ListBuffer[Card]) extends AbstractPlay
       false
     }
   }
+
+  override def hashCode(): Int = {
+    val primo = 31
+    var total = 1
+    total = primo * total + classOf[HumanPlayer].##
+    total = primo * total + username.##
+    total
+  }
+
+  override def toString: String = s"HumanPlayer(username=$getUsername, gems=$getGems)"
   //---------------------------------------------------------------
 
   override def updateGems(gameController: GameController, humanPoints: Int, cpuPoints: Int): Unit = {
