@@ -1,6 +1,6 @@
 package cl.uchile.dcc
 import gwent.board.Board
-import gwent.cards.Card
+import gwent.cards.{Card, WeatherCard}
 import gwent.players.{CpuPlayer, HumanPlayer}
 
 import cl.uchile.dcc.gwent.cards.units.{BlueStripesCommando, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
@@ -129,6 +129,10 @@ class BoardTest extends FunSuite {
     theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
     theBoard.Front.putCardWR(new TorrentialRain)
     assertEquals(theBoard.Front.getSCRpower, 2)
+    //Sunny Day
+    assertEquals(theBoard.getWeather, ListBuffer[WeatherCard](new TorrentialRain))
+    theBoard.Front.putCardWR(new SunnyDay)
+    assertEquals(theBoard.getWeather, ListBuffer[WeatherCard](new SunnyDay))
   }
   
 

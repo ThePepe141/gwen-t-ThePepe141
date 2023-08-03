@@ -109,14 +109,29 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
     handOutCards()
   }
 
-  /** A function that updates the Wather on the Board.
+  /** A function that updates and applies the Weather on the Board.
    *
    * @param weatherCard
    */
   def assignWeather(weatherCard: WeatherCard): Unit = {
-    Weather = Weather :+ weatherCard
+    Weather = ListBuffer[WeatherCard](weatherCard)
+    for (row <- weatherCard.rows) {
+      if (row == 1) {
+        Front.notifyObserversCCR(weatherCard, weatherCard.effect)
+        Back.notifyObserversCCR(weatherCard, weatherCard.effect)
+      }
+      else if (row == 2) {
+        Front.notifyObserversRCR(weatherCard, weatherCard.effect)
+        Back.notifyObserversRCR(weatherCard, weatherCard.effect)
+      }
+      else if (row == 3) {
+        Front.notifyObserversSCR(weatherCard, weatherCard.effect)
+        Back.notifyObserversSCR(weatherCard, weatherCard.effect)
+      }
+    }
     Front.updateTotalPower
     Back.updateTotalPower
+    println(s"Name: ${weatherCard.getName} has been summoned")
   }
 
   /** A function that clears all rows on the Board.

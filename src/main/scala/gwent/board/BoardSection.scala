@@ -176,19 +176,6 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
    */
   def putCardWR(theCard: WeatherCard): Unit = {
     board.assignWeather(theCard)
-    for (row <- theCard.rows){
-      if (row==1){
-        notifyObserversCCR(theCard, theCard.effect)
-      }
-      else if (row==2){
-        notifyObserversRCR(theCard, theCard.effect)
-      }
-      else if(row==3){
-        notifyObserversSCR(theCard, theCard.effect)
-      }
-    }
-    updateTotalPower
-    println(s"Name: ${theCard.getName} has been summoned")
   }
   
   /** A functions that clears all rows on the BoardSection.
