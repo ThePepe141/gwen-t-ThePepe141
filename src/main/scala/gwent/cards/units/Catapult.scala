@@ -47,7 +47,7 @@ class Catapult extends SiegeCombatUnit("Catapult", 8){
     total
   }
 
-  override def toString: String = s"Catapult(basePower=$getBasePower, currentPower=$currentPower, ability=StrongBond"
+  override def toString: String = s"Catapult(basePower=$getBasePower, currentPower=$currentPower, ability=StrongBond)"
   //----------------------------------------------------------
   
 }

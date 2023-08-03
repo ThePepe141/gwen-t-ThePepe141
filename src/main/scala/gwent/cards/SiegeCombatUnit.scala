@@ -45,7 +45,7 @@ class SiegeCombatUnit(name: String, basePower: Int) extends AbstractUnitCard(nam
     total
   }
 
-  override def toString: String = s"SiegeCombatUnit(name=$getName, basePower=$getBasePower, currentPower=$currentPower, ability=Unknown"
+  override def toString: String = s"SiegeCombatUnit(name=$getName, basePower=$getBasePower, currentPower=$currentPower, ability=Unknown)"
   //----------------------------------------------------------------------
 
   /** A function that put the card on the SiegeCombatRow of the Section.

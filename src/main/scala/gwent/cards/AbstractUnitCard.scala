@@ -29,7 +29,7 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
   val ability: Ability = new NullAbility
 
 
-  //Equals y hashCode -----------------------------------------------------------
+  //Equals, hashCode y toString -----------------------------------------------------------
 
   /** A function that compares the types of two values.
    *
@@ -65,6 +65,8 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
     total = primo * total + basePower
     total
   }
+  
+  override def toString: String = s"AbstractUnitCard(name=$getName, basePower=$getBasePower, currentPower=$currentPower, ability:None)"
   
   //Getters y Setters ----------------------------------------------
 

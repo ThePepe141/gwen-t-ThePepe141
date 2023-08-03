@@ -48,7 +48,7 @@ class CrinfridReaversHunter extends RangedCombatUnit("Crinfrid Reavers Hunter", 
     total
   }
 
-  override def toString: String = s"CrinfridReaversHunter(basePower=$getBasePower, currentPower=$currentPower, ability=StrongBond"
+  override def toString: String = s"CrinfridReaversHunter(basePower=$getBasePower, currentPower=$currentPower, ability=StrongBond)"
   //----------------------------------------------------------
   
 }

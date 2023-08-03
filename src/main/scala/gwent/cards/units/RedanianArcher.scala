@@ -44,6 +44,6 @@ class RedanianArcher extends RangedCombatUnit("Redanian Archer", 3){
     total
   }
 
-  override def toString: String = s"RedanianArcher(basePower=$getBasePower, currentPower=$currentPower, ability=None"
+  override def toString: String = s"RedanianArcher(basePower=$getBasePower, currentPower=$currentPower, ability=None)"
   //-----------------------------------------------------------------------
 }

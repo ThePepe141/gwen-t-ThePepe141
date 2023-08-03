@@ -48,7 +48,7 @@ class KaedweniSiegeExpert extends SiegeCombatUnit("Kaedweni Siege Expert", 1) {
     total
   }
 
-  override def toString: String = s"KaedweniSiegeExpert(basePower=$getBasePower, currentPower=$currentPower, ability=MoraleBoost"
+  override def toString: String = s"KaedweniSiegeExpert(basePower=$getBasePower, currentPower=$currentPower, ability=MoraleBoost)"
   //----------------------------------------------------------
   
 }

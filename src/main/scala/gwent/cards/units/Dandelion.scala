@@ -48,7 +48,7 @@ class Dandelion extends CloseCombatUnit("Dandelion", 2){
     total
   }
 
-  override def toString: String = s"Dandelion(basePower=$getBasePower, currentPower=$currentPower, ability=MoraleBoost"
+  override def toString: String = s"Dandelion(basePower=$getBasePower, currentPower=$currentPower, ability=MoraleBoost)"
   //----------------------------------------------------------
   
 }

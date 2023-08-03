@@ -44,6 +44,6 @@ class ReinforcedTrebuchet extends SiegeCombatUnit("Reinforced Trebuchet",  6) {
     total
   }
 
-  override def toString: String = s"ReinforcedTrebuchet(basePower=$getBasePower, currentPower=$currentPower, ability=None"
+  override def toString: String = s"ReinforcedTrebuchet(basePower=$getBasePower, currentPower=$currentPower, ability=None)"
   //----------------------------------------------------------------
 }

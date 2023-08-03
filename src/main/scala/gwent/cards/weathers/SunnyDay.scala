@@ -43,7 +43,7 @@ class SunnyDay extends AbstractWeatherCard("Sunny Day"){
     total
   }
 
-  override def toString: String = s"SunnyDay(affected row = All rows"
+  override def toString: String = s"SunnyDay(affected row = All rows)"
 
   //-----------------------------------------------------------------
   /** Clear the current weatherEffect in the Board

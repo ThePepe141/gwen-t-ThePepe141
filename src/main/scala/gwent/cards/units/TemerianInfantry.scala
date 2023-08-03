@@ -44,7 +44,7 @@ class TemerianInfantry extends CloseCombatUnit("Temerain Infantry", 5) {
     total
   }
 
-  override def toString: String = s"TemerianInfantry(basePower=$getBasePower, currentPower=$currentPower, ability=None"
+  override def toString: String = s"TemerianInfantry(basePower=$getBasePower, currentPower=$currentPower, ability=None)"
   //-----------------------------------------------------------------------
   
 }
