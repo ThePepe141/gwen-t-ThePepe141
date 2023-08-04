@@ -17,7 +17,6 @@ class WaitingTurnState(context: GameController) extends GameState(context) {
 
   override def toInTurnState(): Unit = {
     context.gameState = new InTurnState(context)
-    context.trigger()
   }
 
 }

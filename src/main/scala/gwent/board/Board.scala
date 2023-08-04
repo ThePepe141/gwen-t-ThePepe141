@@ -5,6 +5,7 @@ import gwent.players.Player
 import gwent.players.{CpuPlayer, HumanPlayer}
 
 import cl.uchile.dcc.gwent.cards.WeatherCard
+import cl.uchile.dcc.gwent.exceptions.CardLimitException
 
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
@@ -89,15 +90,20 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
    * and shuffle the decks.
    */
   def startMatch: Unit = {
-    assert(player1.deckSize >= 25)
-    assert(player2.deckSize >= 25)
-    
-    player1.startMatch
-    player2.startMatch
+    if (player1.deckSize<25){
+      throw new CardLimitException(s"${player1.getUsername} don´t have enough cards, current number: ${player1.deckSize}, required: 25")
+    }
+    else if (player2.deckSize<25){
+      throw new CardLimitException(s"${player2.getUsername} don´t have enough cards, current number: ${player2.deckSize}, required: 25")
+    }
+    else{
+      player1.startMatch
+      player2.startMatch
 
-    player1.deckShuffle
-    player2.deckShuffle
-    coin = Random.nextInt(2)
+      player1.deckShuffle
+      player2.deckShuffle
+      coin = Random.nextInt(2)
+    }
   }
 
   /** Start a round

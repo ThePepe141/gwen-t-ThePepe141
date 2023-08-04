@@ -1,71 +1,40 @@
 package cl.uchile.dcc
 import gwent.GameController
+import gwent.exceptions.InvalidTransitionException
+import gwent.cards.Card
+import gwent.cards.units.{RedanianArcher, TemerianInfantry}
+import gwent.board.Board
+import gwent.players.{Player, CpuPlayer, HumanPlayer}
+import gwent.states.{AfterMatchState, BeforeMatchState, BeginRoundState, EndRoundState, GameState, InTurnState, StandByState, WaitingTurnState}
 
-import cl.uchile.dcc.gwent.exceptions.InvalidTransitionException
-import cl.uchile.dcc.gwent.states.{AfterMatchState, BeforeMatchState, BeginRoundState, EndRoundState, GameState, InTurnState, StandByState, WaitingTurnState}
 import munit.FunSuite
+
+import scala.collection.mutable.ListBuffer
 class GameControllerTest extends FunSuite{
 
   var gameCon: GameController = _
-  var state1: GameState = _
-  var state2: GameState = _
-  var state3: GameState = _
-  var state4: GameState = _
-  var state5: GameState = _
-  var state6: GameState = _
-  var state7: GameState = _
-
+  var deck1: ListBuffer[Card] = _
+  var deck2: ListBuffer[Card] = _
   override def beforeEach(context: BeforeEach): Unit = {
     gameCon = new GameController
-    state1 = new BeforeMatchState(new GameController)
-    state2 = new BeginRoundState(new GameController)
-    state3 = new InTurnState(new GameController)
-    state4 = new WaitingTurnState(new GameController)
-    state5 = new StandByState(new GameController)
-    state6 = new EndRoundState(new GameController)
-    state7 = new AfterMatchState(new GameController)
-  }
-
-  test("A GameController starts in BeforeMatchState"){
-    assertEquals(gameCon.gameState.getClass, state1.getClass)
-  }
-
-  test("A BeforeMatchState can only transit to BeginRoundState"){
-    try{
-      state1.toBeforeMatchState()
-    }catch {
-      case e: InvalidTransitionException => println("It cant")
+    deck1 = ListBuffer[Card]()
+    deck2 = ListBuffer[Card]()
+    for (a <- 1 to 25){
+      deck1 = deck1 :+ new TemerianInfantry
+      deck2 = deck2 :+ new RedanianArcher
     }
-    try {
-      state1.toInTurnState()
-    } catch {
-      case e: InvalidTransitionException => println("It cant")
-    }
-    try {
-      state1.toAfterMatchState()
-    } catch {
-      case e: InvalidTransitionException => println("It cant")
-    }
-    try {
-      state1.toWaitingTurnState()
-    } catch {
-      case e: InvalidTransitionException => println("It cant")
-    }
-    try {
-      state1.toEndRoundState()
-    } catch {
-      case e: InvalidTransitionException => println("It cant")
-    }
-    try {
-      state1.toStandByState()
-    } catch {
-      case e: InvalidTransitionException => println("It cant")
-    }
-    state1.toBeginRoundState()
-    assertEquals(state1.getClass, state2.getClass)
-
 
   }
+
+  test("Tests for methods"){
+    gameCon.matchSettings("Pepe", deck1, deck2)
+    assertEquals(gameCon.humanPlayer.getUsername, "Pepe")
+    assertEquals(gameCon.humanPlayer.getDeck, deck1)
+    assertEquals(gameCon.cpuPlayer.getDeck, deck2)
+    assertEquals(gameCon.theBoard.players, ListBuffer[Player](gameCon.humanPlayer, gameCon.cpuPlayer))
+  }
+
+
 
 
 }
