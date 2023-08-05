@@ -134,13 +134,15 @@ abstract class AbstractPlayer(override protected val username: String, protected
     deck = Random.shuffle(deck)
   }
 
-  /** Pick the first Card of the deck.
+  /** Pick the first Card of the deck and add it to the hand.
+   * Only when the hand is not full (less than 10 cards).
    */
   override def drawCard: Unit = {
-    assert(deck.nonEmpty)
-    val theCard: Card = deck.head
-    deck = deck.tail
-    hand += theCard
+    if (deck.nonEmpty && hand.length<10){
+      val theCard: Card = deck.head
+      deck = deck.tail
+      hand += theCard
+    }
   }
 
   /** Assign a BoardSection object to the Player for the match.

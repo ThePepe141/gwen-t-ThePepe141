@@ -35,11 +35,11 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
 
   /** A list with the Human player end points of each round.
    */
-  var FrontPoints: ListBuffer[Int] = ListBuffer[Int](0,0,0)
+  var FrontPoints: ListBuffer[Int] = ListBuffer[Int]()
 
   /** A List with the CPU player end points od each round.
    */
-  var BackPoints: ListBuffer[Int] = ListBuffer[Int](0,0,0)
+  var BackPoints: ListBuffer[Int] = ListBuffer[Int]()
   
   var players: ListBuffer[Player] = ListBuffer[Player](player1, player2)
   
@@ -61,8 +61,8 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
   /** A function that assign the scores of each round to FrontPoints and BackPoints.
    */
   def assignPoints: Unit = {
-    FrontPoints(round-1) = Front.getTotalPower
-    BackPoints(round-1) = Back.getTotalPower
+    FrontPoints = FrontPoints :+ Front.getTotalPower
+    BackPoints = BackPoints :+ Back.getTotalPower
   }
 
   /** It gives to each Player a specific number of Cards.

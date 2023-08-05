@@ -23,8 +23,7 @@ class InTurnState(context: GameController) extends GameState(context) {
 
   override def toStandByState(): Unit = {
     context.gameState = new StandByState(context)
-    println(s"${context.humanPlayer.getUsername} pass the round.")
-    //context.trigger()
+    context.trigger()
   }
 
 }

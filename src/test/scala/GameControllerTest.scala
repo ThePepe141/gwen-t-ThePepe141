@@ -27,25 +27,36 @@ class GameControllerTest extends FunSuite{
   }
 
   test("Tests for methods"){
+    //Testing the matchSettings
     gameCon.matchSettings("Pepe", deck1, deck2)
     assertEquals(gameCon.humanPlayer.getUsername, "Pepe")
     assertEquals(gameCon.humanPlayer.getDeck, deck1)
     assertEquals(gameCon.cpuPlayer.getDeck, deck2)
     assertEquals(gameCon.theBoard.players, ListBuffer[Player](gameCon.humanPlayer, gameCon.cpuPlayer))
     assert(gameCon.gameState.isInstanceOf[BeginRoundState])
+    //Testing the roundSettings
     gameCon.roundSettings()
     assert(gameCon.gameState.isInstanceOf[InTurnState] || gameCon.gameState.isInstanceOf[WaitingTurnState])
-    if (gameCon.theBoard.coin==0){
-      gameCon.humanMove(1,0)
-      assertEquals(gameCon.theBoard.Front.getCCRpower, 5)
-      assert(gameCon.gameState.isInstanceOf[WaitingTurnState])
-    }
-    else{
-      gameCon.machineMove(0)
-      assertEquals(gameCon.theBoard.Back.getRCRpower, 3)
-      assert(gameCon.gameState.isInstanceOf[InTurnState])
-    }
+    //We force the InTurnState and test the humanMove()
+    gameCon.gameState = new InTurnState(gameCon)
+    gameCon.humanMove(1,0)
+    assertEquals(gameCon.theBoard.Front.getCCRpower, 5)
+    assert(gameCon.gameState.isInstanceOf[WaitingTurnState])
+    //Testing the machineMove()
+    gameCon.machineMove(0)
+    assertEquals(gameCon.theBoard.Back.getRCRpower, 3)
+    assert(gameCon.gameState.isInstanceOf[InTurnState])
+    //Defining the machineCardChoice
+    gameCon.machineCardChoice = 0
+    //Testing (implicitly) humanPass(), machinePass and endingRound()
+    gameCon.humanMove(2,0)
+    assert(gameCon.gameState.isInstanceOf[EndRoundState])
+    //Testing notifyPlayers (and updateLost and updateGems implicitly)
+    gameCon.notifyPlayers()
+    assert(gameCon.gameState.isInstanceOf[BeginRoundState])
   }
+
+
 
 
 

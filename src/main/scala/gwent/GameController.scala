@@ -47,6 +47,7 @@ class GameController {
     //Creates players
     humanPlayer = new HumanPlayer(player1Name, player1Deck)
     cpuPlayer = new CpuPlayer(player2Deck)
+    thePlayers = ListBuffer[Player](humanPlayer, cpuPlayer)
     println(s"Welcome ${humanPlayer.getUsername}")
     //Create the board
     theBoard = new Board(humanPlayer, cpuPlayer)
@@ -153,7 +154,7 @@ class GameController {
     }
     else{
       while(theBoard.Front.getTotalPower>=theBoard.Back.getTotalPower && cpuPlayer.getHand.nonEmpty){
-        cpuPlayer.playCard
+        cpuPlayer.playCard(machineCardChoice)
         theBoard.updateScores
       }
       machinePass()
@@ -167,7 +168,7 @@ class GameController {
   def notifyPlayers(): Unit = {
     theBoard.assignPoints
     for (player <- thePlayers){
-      player.updateGems(this, theBoard.FrontPoints(theBoard.round), theBoard.BackPoints(theBoard.round))
+      player.updateGems(this, theBoard.FrontPoints(theBoard.round-1), theBoard.BackPoints(theBoard.round-1))
     }
   }
 
