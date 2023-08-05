@@ -143,7 +143,7 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
     notifyObserversCCR(theCard, theCard.ability)
     addObserverCCR(theCard)
     updateTotalPower
-    println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
+    println(s"${theCard.getName} (Power: ${theCard.currentPower}) joined the battlefield")
   }
 
   /** A function that puts and play a RangedCombatUnit in RangedCombatRow.
@@ -155,7 +155,7 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
     notifyObserversRCR(theCard, theCard.ability)
     addObserverRCR(theCard)
     updateTotalPower
-    println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
+    println(s"${theCard.getName} (Power: ${theCard.currentPower}) joined the battlefield")
   }
 
   /** A function that puts and play a SiegeCombatUnit in SiegeCombatRow.
@@ -167,7 +167,7 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
     notifyObserversSCR(theCard, theCard.ability)
     addObserverSCR(theCard)
     updateTotalPower
-    println(s"Name: ${theCard.getName}, Power: ${theCard.currentPower} joined the battlefield")
+    println(s"${theCard.getName} (Power: ${theCard.currentPower}) joined the battlefield")
   }
 
   /** A function that puts and play a WeatherCard in Weather on the Board.

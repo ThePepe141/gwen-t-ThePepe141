@@ -12,11 +12,13 @@ class WaitingTurnState(context: GameController) extends GameState(context) {
   /** Trigger the GameController function that represents cpu player´s turn..
    */
   override def action(): Unit = {
-    context.machineMove()
+    context.machineMove(context.machineCardChoice)
   }
 
   override def toInTurnState(): Unit = {
     context.gameState = new InTurnState(context)
+    println(s"Your turn.")
+    //context.trigger()
   }
 
 }

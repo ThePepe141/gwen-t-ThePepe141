@@ -18,6 +18,7 @@ class StandByState(context: GameController) extends GameState(context) {
 
   override def toEndRoundState(): Unit = {
     context.gameState = new EndRoundState(context)
+    //context.trigger()
   }
 
 }

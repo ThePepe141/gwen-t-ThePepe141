@@ -2,9 +2,9 @@ package cl.uchile.dcc
 import gwent.GameController
 import gwent.exceptions.InvalidTransitionException
 import gwent.cards.Card
-import gwent.cards.units.{RedanianArcher, TemerianInfantry}
+import gwent.cards.units.{BlueStripesCommando, CrinfridReaversHunter, RedanianArcher, TemerianInfantry}
 import gwent.board.Board
-import gwent.players.{Player, CpuPlayer, HumanPlayer}
+import gwent.players.{CpuPlayer, HumanPlayer, Player}
 import gwent.states.{AfterMatchState, BeforeMatchState, BeginRoundState, EndRoundState, GameState, InTurnState, StandByState, WaitingTurnState}
 
 import munit.FunSuite
@@ -32,6 +32,19 @@ class GameControllerTest extends FunSuite{
     assertEquals(gameCon.humanPlayer.getDeck, deck1)
     assertEquals(gameCon.cpuPlayer.getDeck, deck2)
     assertEquals(gameCon.theBoard.players, ListBuffer[Player](gameCon.humanPlayer, gameCon.cpuPlayer))
+    assert(gameCon.gameState.isInstanceOf[BeginRoundState])
+    gameCon.roundSettings()
+    assert(gameCon.gameState.isInstanceOf[InTurnState] || gameCon.gameState.isInstanceOf[WaitingTurnState])
+    if (gameCon.theBoard.coin==0){
+      gameCon.humanMove(1,0)
+      assertEquals(gameCon.theBoard.Front.getCCRpower, 5)
+      assert(gameCon.gameState.isInstanceOf[WaitingTurnState])
+    }
+    else{
+      gameCon.machineMove(0)
+      assertEquals(gameCon.theBoard.Back.getRCRpower, 3)
+      assert(gameCon.gameState.isInstanceOf[InTurnState])
+    }
   }
 
 

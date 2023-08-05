@@ -17,10 +17,12 @@ class EndRoundState(context: GameController) extends GameState(context) {
 
   override def toBeginRoundState(): Unit = {
     context.gameState = new BeginRoundState(context)
+    //context.trigger()
   }
   
   override def toAfterMatchState(): Unit = {
     context.gameState = new AfterMatchState(context)
+    //context.trigger()
   }
 
 }

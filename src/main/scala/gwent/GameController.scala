@@ -29,6 +29,7 @@ class GameController {
   var cpuDeck: ListBuffer[Card] = ListBuffer[Card]()
   var humanChoice: Int = _
   var humanCardChoice: Int = _
+  var machineCardChoice: Int = _
   var rematch = false
   
   
@@ -70,11 +71,13 @@ class GameController {
 
       if (theBoard.coin == 0) {
         //Human player begin
+        println(s"${humanPlayer.getUsername} begins the round.")
         humanStartMatch = true
         gameState.toInTurnState()
       }
       else {
         //Cpu player begin
+        println(s"${cpuPlayer.getUsername} begins the round.")
         humanStartMatch = false
         gameState.toWaitingTurnState()
       }
@@ -83,10 +86,12 @@ class GameController {
       humanStartMatch = !humanStartMatch
       if (humanStartMatch) {
         //Cpu player begun last turn, it´s human player´s turn
+        println(s"${humanPlayer.getUsername} begins the round.")
         gameState.toInTurnState()
       }
       else {
         //Human player begun last turn, it´s cpu player´s turn
+        println(s"${cpuPlayer.getUsername} begins the round.")
         gameState.toWaitingTurnState()
       }
     }
@@ -113,9 +118,9 @@ class GameController {
 
   /** Play a Card from the cpu Player or make the cpu player pass the Round.
    */
-  def machineMove(): Unit = {
+  def machineMove(cardChoice: Int): Unit = {
     if (!cpuPlayer.pass){
-      cpuPlayer.playCard
+      cpuPlayer.playCard(cardChoice)
       theBoard.updateScores
       if (cpuPlayer.getHand.isEmpty) {
         machinePass()

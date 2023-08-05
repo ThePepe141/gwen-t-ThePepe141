@@ -17,6 +17,7 @@ class BeforeMatchState(context: GameController) extends GameState(context){
 
   override def toBeginRoundState(): Unit = {
     context.gameState = new BeginRoundState(context)
+    //context.trigger()
   }
 
 }

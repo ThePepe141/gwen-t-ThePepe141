@@ -17,10 +17,14 @@ class InTurnState(context: GameController) extends GameState(context) {
 
   override def toWaitingTurnState(): Unit = {
     context.gameState = new WaitingTurnState(context)
+    println(s"${context.cpuPlayer.getUsername} turn.")
+    //context.trigger()
   }
 
   override def toStandByState(): Unit = {
     context.gameState = new StandByState(context)
+    println(s"${context.humanPlayer.getUsername} pass the round.")
+    //context.trigger()
   }
 
 }
