@@ -4,8 +4,8 @@ package gwent.board
 import Array.*
 import gwent.cards.{Card, CloseCombatUnit, RangedCombatUnit, SiegeCombatUnit, WeatherCard}
 
-import cl.uchile.dcc.gwent.cards.units.{BlueStripesCommando, Catapult, CrinfridReaversHunter, Dandelion, Geralt, KaedweniSiegeExpert, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
-import cl.uchile.dcc.gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain}
+import gwent.cards.units.{BlueStripesCommando, Catapult, CrinfridReaversHunter, Dandelion, Geralt, KaedweniSiegeExpert, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
+import gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain}
 
 import scala.collection.mutable.ListBuffer
 

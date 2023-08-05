@@ -1,8 +1,8 @@
 package cl.uchile.dcc
 package gwent.cards
 
-import cl.uchile.dcc.gwent.cards.units.{BlueStripesCommando, Catapult, CrinfridReaversHunter, Dandelion, Geralt, KaedweniSiegeExpert, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
-import cl.uchile.dcc.gwent.cards.weathers.SunnyDay
+import gwent.cards.units.{BlueStripesCommando, Catapult, CrinfridReaversHunter, Dandelion, Geralt, KaedweniSiegeExpert, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
+import gwent.cards.weathers.SunnyDay
 import munit.FunSuite
 
 class CardTest extends FunSuite {
@@ -80,11 +80,6 @@ class CardTest extends FunSuite {
   test("UnitCard ability test") {
     //Test for ability
     Geralt.ability
-  }
-
-  test("WeatherCard ability test") {
-    //Test for weatherEffect
-    sunnyDay.weatherEffect
   }
 
 }

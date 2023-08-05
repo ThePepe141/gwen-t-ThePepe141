@@ -59,10 +59,6 @@ abstract class AbstractWeatherCard(val name: String) extends WeatherCard with Eq
   override def toString: String = s"WeatherCard(name=$getName, affected row = Unknown)"
   // ---------------------------------------------------------------------------
 
-  /** The effect this Card has in the Board.
-   */
-  override def weatherEffect: Unit = {println("Aqui iria mi efecto, si tuviera uno!!")}
-
   /** A function that set the weather of the Board to the one of the card.
    * 
    * @param section The BoardSection where the card is placed.

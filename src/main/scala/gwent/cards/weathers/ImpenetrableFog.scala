@@ -7,7 +7,7 @@ import gwent.cards.effects.{Effect, PowerToOne}
 /** A class that represents the Impenetrable Fog Weather Card.
  * Effect: PowerToOne on Ranged Combat Row.
  */
-class ImpenetrableFog extends AbstractWeatherCard("Impenetrable Fog"){
+class ImpenetrableFog extends AbstractWeatherCard("Impenetrable Fog") {
 
 
   override val effect: Effect = new PowerToOne
@@ -52,6 +52,4 @@ class ImpenetrableFog extends AbstractWeatherCard("Impenetrable Fog"){
   override def toString: String = s"ImpenetrableFog(affected row = RangedCombatRow)"
 
   //--------------------------------------------------
-
-  override def weatherEffect: Unit = println("I don´t see sh#t")
 }

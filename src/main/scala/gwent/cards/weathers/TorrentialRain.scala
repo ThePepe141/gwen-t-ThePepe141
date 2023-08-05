@@ -52,6 +52,4 @@ class TorrentialRain extends AbstractWeatherCard("Torrential Rain"){
 
   //--------------------------------------------------
 
-  override def weatherEffect: Unit = println("It was sunny just moments ago!")
-
 }

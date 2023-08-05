@@ -18,11 +18,7 @@ class GameController {
   var cpuPlayer: CpuPlayer = _
   var thePlayers: ListBuffer[Player] = ListBuffer[Player]()
   var theBoard: Board = _
-  val library = new CardLibrary
   var humanStartMatch: Boolean = _
-  var firstMatch: Boolean = true
-  var keepDecks: Boolean = false
-  val text = "Wrong input, please try again"
   //Fill by the client
   var humanName: String = "Player1"
   var humanDeck: ListBuffer[Card] = ListBuffer[Card]()

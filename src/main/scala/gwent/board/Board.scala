@@ -4,8 +4,8 @@ package gwent.board
 import gwent.players.Player
 import gwent.players.{CpuPlayer, HumanPlayer}
 
-import cl.uchile.dcc.gwent.cards.WeatherCard
-import cl.uchile.dcc.gwent.exceptions.CardLimitException
+import gwent.cards.WeatherCard
+import gwent.exceptions.CardLimitException
 
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
@@ -71,13 +71,13 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
    */
   def handOutCards(): Unit = {
     if (round==1){
-      for (a <- 1 to 10) {
+      for (_ <- 1 to 10) {
         player1.drawCard
         player2.drawCard
       }
     }
     else {
-      for (a <- 1 to 3) {
+      for (_ <- 1 to 3) {
         player1.drawCard
         player2.drawCard
       }
@@ -102,7 +102,7 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
 
       player1.deckShuffle
       player2.deckShuffle
-      coin = Random.nextInt(2)
+      coin = Random.between(0,2)
     }
   }
 
@@ -117,7 +117,7 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
 
   /** A function that updates and applies the Weather on the Board.
    *
-   * @param weatherCard
+   * @param weatherCard The weather to apply to the board.
    */
   def assignWeather(weatherCard: WeatherCard): Unit = {
     Weather = ListBuffer[WeatherCard](weatherCard)

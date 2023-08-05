@@ -73,13 +73,13 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
     CCRpower
   }
 
-  /** Getter of CCRpower param.
+  /** Getter of CCR power param.
    *
    * @return the total power of the CloseCombatRow.
    */
   def getCCRpower: Int = CCRpower
 
-  /** Setter of RCRpower param.
+  /** Setter of RCR power param.
    *
    * Updates the total power of RangedCombatRow.
    *
@@ -92,13 +92,13 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
     RCRpower
   }
 
-  /** Getter of RCRpower param.
+  /** Getter of RCR power param.
    *
    * @return the total power of the RangedCombatRow.
    */
   def getRCRpower: Int = RCRpower
 
-  /** Setter of SCRpower param.
+  /** Setter of SCR power param.
    *
    * Updates the total power of SiegeCombatRow.
    *
@@ -111,7 +111,7 @@ class BoardSection(board: Board) extends AbstractBoardSubject {
     SCRpower
   }
 
-  /** Getter of SCRpower param.
+  /** Getter of SCR power param.
    *
    * @return the total power of the SiegeCombatRow.
    */
