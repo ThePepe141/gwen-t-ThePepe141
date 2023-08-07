@@ -7,16 +7,16 @@ import scala.collection.mutable.ListBuffer
  *
  * @param effectList The list of effects to apply.
  */
-class MultipleEffect(var effectList: ListBuffer[Effect]) extends Effect {
+class MultipleEffect(val effectList: ListBuffer[Effect]) extends Effect {
 
   /** Applies the effects in the order of the list to a card.
    *
    * @param self The Card of the Effect.
    * @param target The Card to apply the Effect.
    */
-  override def effect(self: WeatherCard, target: UnitCard): Unit = {
+  override def apply(self: WeatherCard, target: UnitCard): Unit = {
     for (theEffect <- effectList){
-      theEffect.effect(self, target)
+      theEffect(self, target)
     }
   }
 

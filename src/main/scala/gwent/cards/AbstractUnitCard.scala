@@ -3,8 +3,8 @@ package gwent.cards
 
 import gwent.cards.abilities.{Ability, NullAbility}
 
-import cl.uchile.dcc.gwent.board.BoardSubject
-import cl.uchile.dcc.gwent.cards.effects.Effect
+import gwent.board.BoardSubject
+import gwent.cards.effects.Effect
 
 
 /** A class that represents a Unit type Card.
@@ -102,12 +102,12 @@ abstract class AbstractUnitCard(override protected val name: String, val basePow
   
   override def updateAbility(boardSubject: BoardSubject,theOne: UnitCard, ability: Ability): Unit = {
     //something
-    ability.apply(theOne, this)
+    ability(theOne, this)
   }
 
   override def updateEffect(boardSubject: BoardSubject, theOne: WeatherCard, effect: Effect): Unit = {
     //something
-    effect.effect(theOne, this)
+    effect(theOne, this)
   }
   
   

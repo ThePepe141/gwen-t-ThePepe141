@@ -1,16 +1,13 @@
 package cl.uchile.dcc
 package gwent.cards.units
 
-import gwent.cards.CloseCombatUnit
+import gwent.cards.SiegeCombatUnit
 
-import gwent.cards.abilities.{Ability, StrongBond}
+import cl.uchile.dcc.gwent.cards.abilities.{Ability, DoublePower}
 
-/** A class that represents the Blue Stripes Commando Unit Card.
- * Ability: Strong Bond.
- */
-class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4){
+class Henselt extends SiegeCombatUnit("King Henselt of Kaedwen", 6){
 
-  override val ability: Ability = new StrongBond
+  override val ability: Ability = new DoublePower
 
   //Equals, hashCode y toString -------------------------------------------
 
@@ -19,7 +16,7 @@ class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4){
    * @param that The other value to compare.
    * @return True if the two values have the same type.
    */
-  override def canEqual(that: Any): Boolean = that.isInstanceOf[BlueStripesCommando]
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[Henselt]
 
   /** A function that compares the structure of two objects.
    *
@@ -42,14 +39,12 @@ class BlueStripesCommando extends CloseCombatUnit("Blue Stripes Commando", 4){
   override def hashCode(): Int = {
     val primo = 31
     var total = 1
-    total = primo * total + classOf[BlueStripesCommando].##
+    total = primo * total + classOf[Henselt].##
     total = primo * total + name.##
     total = primo * total + basePower
     total
   }
-  
-  override def toString: String = s"BlueStripesCommando(basePower=$getBasePower, currentPower=$currentPower, ability=StrongBond)"
-  //----------------------------------------------------------
 
-  
+  override def toString: String = s"Henselt(basePower=$getBasePower, currentPower=$currentPower, ability=DoublePower)"
+
 }

@@ -2,11 +2,10 @@ package cl.uchile.dcc
 import gwent.board.Board
 import gwent.cards.{Card, WeatherCard}
 import gwent.players.{CpuPlayer, HumanPlayer}
-import gwent.cards.units.{BlueStripesCommando, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
-import gwent.cards.units.{Catapult, CrinfridReaversHunter, Dandelion, KaedweniSiegeExpert}
+import gwent.cards.units.{BlueStripesCommando, Catapult, CrinfridReaversHunter, Dandelion, Foltest, Henselt, KaedweniSiegeExpert, Radovid, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
 import gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain}
-
 import gwent.exceptions.CardLimitException
+
 import munit.FunSuite
 
 import scala.collection.mutable.ListBuffer
@@ -129,7 +128,21 @@ class BoardTest extends FunSuite {
     theBoard.Front.putCardCCR(new TemerianInfantry)
     theBoard.Front.putCardCCR(new BlueStripesCommando)
     assertEquals(theBoard.Front.getCCRpower, 21)
+  }
 
+  test("Test for DoublePower"){
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new BlueStripesCommando)
+    theBoard.Front.putCardCCR(new Foltest)
+    assertEquals(theBoard.Front.getCCRpower, 24)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new CrinfridReaversHunter)
+    theBoard.Front.putCardRCR(new Radovid)
+    assertEquals(theBoard.Front.getRCRpower, 22)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new Catapult)
+    theBoard.Front.putCardSCR(new Henselt)
+    assertEquals(theBoard.Front.getSCRpower, 34)
   }
 
   test("Test for effects"){

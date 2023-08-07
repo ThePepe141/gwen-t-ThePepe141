@@ -12,7 +12,7 @@ class NullEffect extends Effect {
    * @param self The Card of the Effect.
    * @param target The Card to apply the Effect.
    */
-  override def effect(self: WeatherCard, target: UnitCard): Unit = {
+  override def apply(self: WeatherCard, target: UnitCard): Unit = {
     //Nothing
   }
 

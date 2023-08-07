@@ -13,6 +13,6 @@ trait Effect {
    * @param self The Card of the Effect.
    * @param target The Card to apply the Effect.
    */
-  def effect(self: WeatherCard, target: UnitCard): Unit
+  def apply(self: WeatherCard, target: UnitCard): Unit
 
 }
