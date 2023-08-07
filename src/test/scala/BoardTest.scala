@@ -2,11 +2,11 @@ package cl.uchile.dcc
 import gwent.board.Board
 import gwent.cards.{Card, WeatherCard}
 import gwent.players.{CpuPlayer, HumanPlayer}
-
 import gwent.cards.units.{BlueStripesCommando, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
 import gwent.cards.units.{Catapult, CrinfridReaversHunter, Dandelion, KaedweniSiegeExpert}
-
 import gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain}
+
+import gwent.exceptions.CardLimitException
 import munit.FunSuite
 
 import scala.collection.mutable.ListBuffer
@@ -27,7 +27,7 @@ class BoardTest extends FunSuite {
     player1 = new HumanPlayer("Pepe", ListBuffer[Card]())
     player2 = new CpuPlayer(ListBuffer[Card]())
     theBoard = new Board(player1, player2)
-    for (a <- 1 to 9) {
+    for (_ <- 1 to 9) {
       val carta1 = new TemerianInfantry
       val carta2 = new RedanianArcher
       val carta3 = new ReinforcedTrebuchet
@@ -53,21 +53,40 @@ class BoardTest extends FunSuite {
     assertEquals(player2.getBoardSection, theBoard.Back)
   }
 
-  test("To initiate a Match each Player needs (at least) 25 Cards on their decks") {
-    //Test for startMatch
-    theBoard.startMatch
+  test("To initiate a Match each Player needs, at least, 25 Cards on their decks") {
+    try{
+      val playerA = new HumanPlayer("A", ListBuffer[Card]())
+      val playerB = new CpuPlayer(ListBuffer[Card]())
+      val board = new Board(playerA, playerB)
+      board.assignSections
+      board.startMatch
+    } catch{
+      case _: CardLimitException => println("Not enough cards")
+    } finally{
+      //Test for startMatch
+      theBoard.startMatch
+    }
   }
+
   test("When a Round beings each Player draw a number of Cards"){
-    //Test for startRound and handOutCards
+    //Test for startRound and handOutCards (implicitly)
+    theBoard.assignSections
     theBoard.startMatch
     assert(player1.getHand.isEmpty)
     assert(player2.getHand.isEmpty)
     theBoard.startRound
     assertEquals(player1.getHand.length, 10)
     assertEquals(player2.getHand.length, 10)
+    for (_ <- 1 to 10){
+      player1.playCard(0)
+    }
+    //Test for round higher than 1
+    theBoard.startRound
+    assertEquals(player1.getHand.length, 3)
   }
 
   test("You can fill de rows"){
+    //Tests for putCards and row getters.
     assert(theBoard.Front.getCloseCombatRow.isEmpty)
     theBoard.Front.putCardCCR(new TemerianInfantry)
     assert(theBoard.Front.getCloseCombatRow.nonEmpty)
