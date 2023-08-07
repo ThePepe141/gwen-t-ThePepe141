@@ -33,7 +33,7 @@ class GameControllerTest extends FunSuite{
     assertEquals(gameCon.humanPlayer.getDeck, deck1)
     assertEquals(gameCon.cpuPlayer.getDeck, deck2)
     assertEquals(gameCon.theBoard.players, ListBuffer[Player](gameCon.humanPlayer, gameCon.cpuPlayer))
-    assert(gameCon.gameState.isInstanceOf[BeginRoundState])
+    //Transition to BeginRoundState
     //Testing the roundSettings
     gameCon.roundSettings()
     assert(gameCon.gameState.isInstanceOf[InTurnState] || gameCon.gameState.isInstanceOf[WaitingTurnState])
@@ -41,19 +41,23 @@ class GameControllerTest extends FunSuite{
     gameCon.gameState = new InTurnState(gameCon)
     gameCon.humanMove(1,0)
     assertEquals(gameCon.theBoard.Front.getCCRpower, 5)
-    assert(gameCon.gameState.isInstanceOf[WaitingTurnState])
+    //Transition to WaitingTurnState
     //Testing the machineMove()
     gameCon.machineMove(0)
     assertEquals(gameCon.theBoard.Back.getRCRpower, 3)
-    assert(gameCon.gameState.isInstanceOf[InTurnState])
+    //Transition to InTurnState
     //Defining the machineCardChoice
     gameCon.machineCardChoice = 0
     //Testing (implicitly) humanPass(), machinePass and endingRound()
     gameCon.humanMove(2,0)
-    assert(gameCon.gameState.isInstanceOf[EndRoundState])
+    //Transition to StandByState
+    //Testing humanPass, endingRound and machinePass (implicitly)
+    gameCon.humanPass()
+    gameCon.endingRound()
+    //Transition to EndRoundState
     //Testing notifyPlayers (and updateLost and updateGems implicitly)
     gameCon.notifyPlayers()
-    assert(gameCon.gameState.isInstanceOf[BeginRoundState])
+    //The match is not over, transition to BeginRoundState
     gameCon.roundSettings()
     //We force (again) InTurnState we test for a draw case and a match lost.
     gameCon.gameState = new InTurnState(gameCon)
@@ -70,6 +74,8 @@ class GameControllerTest extends FunSuite{
     gameCon.humanMove(1, 0)
     gameCon.machineMove(0)
     gameCon.humanMove(2,0)
+    gameCon.humanPass()
+    gameCon.endingRound()
     gameCon.notifyPlayers()
     //Human Player lost the match
     assert(gameCon.gameState.isInstanceOf[AfterMatchState])

@@ -3,10 +3,10 @@ import gwent.board.Board
 import gwent.cards.{Card, WeatherCard}
 import gwent.players.{CpuPlayer, HumanPlayer}
 
-import cl.uchile.dcc.gwent.cards.units.{BlueStripesCommando, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
+import gwent.cards.units.{BlueStripesCommando, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
 import gwent.cards.units.{Catapult, CrinfridReaversHunter, Dandelion, KaedweniSiegeExpert}
 
-import cl.uchile.dcc.gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain}
+import gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain}
 import munit.FunSuite
 
 import scala.collection.mutable.ListBuffer

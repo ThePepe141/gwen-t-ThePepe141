@@ -17,7 +17,7 @@ class AfterMatchState(context: GameController) extends GameState(context){
 
   override def toBeforeMatchState(): Unit = {
     context.gameState = new BeforeMatchState(context)
-    context.trigger()
+    //context.trigger()
   }
 
 }

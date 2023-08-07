@@ -23,7 +23,7 @@ class BeginRoundState(context: GameController) extends GameState(context) {
 
   override def toWaitingTurnState(): Unit = {
     context.gameState = new WaitingTurnState(context)
-    println(s"${context.cpuPlayer.getUsername} turn.")
+    println(s"Opponent turn.")
     //context.trigger()
   }
 
