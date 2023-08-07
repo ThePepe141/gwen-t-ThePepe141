@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent
 
-import gwent.states.{BeforeMatchState, GameState}
+import gwent.states.{BeforeMatchState, EndRoundState, GameState}
 import gwent.board.{Board, CardLibrary}
 import gwent.cards.Card
 import gwent.players.{CpuPlayer, HumanPlayer, Player}
@@ -179,21 +179,23 @@ class GameController {
    * @param draw The draw state of the match.
    */
   def updateLost(player: Player, defeated: Boolean, draw: Boolean): Unit ={
-    if (draw){
-      println(s"The round end in draw")
-    }
-    else{
-      println(s"${player.getUsername} lost the round")
-    }
-    theBoard.clearBoard
-    humanPlayer.pass = false
-    cpuPlayer.pass = false
-    if (defeated){
-      println(s"${player.getUsername} has lost the match.")
-      gameState.toAfterMatchState()
-    }
-    else{
-      gameState.toBeginRoundState()
+    if (gameState.isInstanceOf[EndRoundState]){
+      if (draw) {
+        println(s"The round end in draw")
+      }
+      else {
+        println(s"${player.getUsername} lost the round")
+      }
+      theBoard.clearBoard
+      humanPlayer.pass = false
+      cpuPlayer.pass = false
+      if (defeated) {
+        println(s"${player.getUsername} has lost the match.")
+        gameState.toAfterMatchState()
+      }
+      else {
+        gameState.toBeginRoundState()
+      }
     }
   }
 
@@ -203,7 +205,6 @@ class GameController {
   def postMatch(): Unit = {
     humanPlayer.pass = false
     cpuPlayer.pass = false
-    var round3 = 0
     if (theBoard.round==3){
       println(s"${humanPlayer.getUsername} points: Round 1: ${theBoard.FrontPoints.head} | Round 2: ${theBoard.FrontPoints(1)} | Round 3: ${theBoard.FrontPoints(2)}")
       println(s"${cpuPlayer.getUsername} points: Round 1: ${theBoard.BackPoints.head} | Round 2: ${theBoard.BackPoints(1)} | Round 3: ${theBoard.BackPoints(2)}")
@@ -226,6 +227,7 @@ class GameController {
   /** Shows the humanPlayer´s deck.
    */
   def showDeck(): Unit = {
+    println(s"${humanPlayer.getUsername}´s deck.")
     for (card <- humanPlayer.getDeck){
       println(card.toString)
     }
@@ -234,6 +236,7 @@ class GameController {
   /** Shows the humanPlayer´s hand.
    */
   def showHand(): Unit = {
+    println(s"${humanPlayer.getUsername}´s hand.")
     for (card <- humanPlayer.getHand){
       println(card.toString)
     }

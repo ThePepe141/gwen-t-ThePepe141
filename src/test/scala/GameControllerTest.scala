@@ -54,7 +54,8 @@ class GameControllerTest extends FunSuite{
     //Testing notifyPlayers (and updateLost and updateGems implicitly)
     gameCon.notifyPlayers()
     assert(gameCon.gameState.isInstanceOf[BeginRoundState])
-    //We force (again) InTurnState
+    gameCon.roundSettings()
+    //We force (again) InTurnState we test for a draw case and a match lost.
     gameCon.gameState = new InTurnState(gameCon)
     gameCon.humanMove(1,0)
     gameCon.machineMove(0)
@@ -62,14 +63,28 @@ class GameControllerTest extends FunSuite{
     gameCon.machineMove(0)
     gameCon.humanMove(1,0)
     gameCon.machineMove(0)
+    gameCon.humanMove(1, 0)
+    gameCon.machineMove(0)
+    gameCon.humanMove(1, 0)
+    gameCon.machineMove(0)
+    gameCon.humanMove(1, 0)
+    gameCon.machineMove(0)
     gameCon.humanMove(2,0)
     gameCon.notifyPlayers()
     //Human Player lost the match
     assert(gameCon.gameState.isInstanceOf[AfterMatchState])
     //Testing postMatch
     gameCon.postMatch()
-    assertEquals(gameCon.theBoard.FrontPoints, ListBuffer[Int](5,15))
-    assertEquals(gameCon.theBoard.BackPoints, ListBuffer[Int](6,18))
+    assertEquals(gameCon.theBoard.FrontPoints, ListBuffer[Int](5,30))
+    assertEquals(gameCon.theBoard.BackPoints, ListBuffer[Int](6,30))
+  }
+
+  test("You can print the deck and hand of the human player along with the board"){
+    gameCon.matchSettings("Pepe", deck1, deck2)
+    gameCon.roundSettings()
+    gameCon.showDeck()
+    gameCon.showHand()
+    gameCon.showBoard()
   }
 
 
