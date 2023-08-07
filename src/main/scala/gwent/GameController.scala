@@ -203,10 +203,15 @@ class GameController {
   def postMatch(): Unit = {
     humanPlayer.pass = false
     cpuPlayer.pass = false
-    println(s"${humanPlayer.getUsername} points:")
-    println(s"Round 1: ${theBoard.FrontPoints.head}, Round 2: ${theBoard.FrontPoints(1)}, Round 3: ${theBoard.FrontPoints(2)}")
-    println(s"${cpuPlayer.getUsername} points:")
-    println(s"Round 1: ${theBoard.BackPoints.head}, Round 2: ${theBoard.BackPoints(1)}, Round 3: ${theBoard.BackPoints(2)}")
+    var round3 = 0
+    if (theBoard.round==3){
+      println(s"${humanPlayer.getUsername} points: Round 1: ${theBoard.FrontPoints.head} | Round 2: ${theBoard.FrontPoints(1)} | Round 3: ${theBoard.FrontPoints(2)}")
+      println(s"${cpuPlayer.getUsername} points: Round 1: ${theBoard.BackPoints.head} | Round 2: ${theBoard.BackPoints(1)} | Round 3: ${theBoard.BackPoints(2)}")
+    }
+    else{
+      println(s"${humanPlayer.getUsername} points: Round 1: ${theBoard.FrontPoints.head} | Round 2: ${theBoard.FrontPoints(1)}")
+      println(s"${cpuPlayer.getUsername} points: Round 1: ${theBoard.BackPoints.head} | Round 2: ${theBoard.BackPoints(1)}")
+    }
     if (rematch){
       println("Starting rematch")
       gameState.toBeforeMatchState()

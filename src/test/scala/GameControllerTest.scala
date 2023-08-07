@@ -19,7 +19,7 @@ class GameControllerTest extends FunSuite{
     gameCon = new GameController
     deck1 = ListBuffer[Card]()
     deck2 = ListBuffer[Card]()
-    for (a <- 1 to 25){
+    for (_ <- 1 to 25){
       deck1 = deck1 :+ new TemerianInfantry
       deck2 = deck2 :+ new RedanianArcher
     }
@@ -37,7 +37,7 @@ class GameControllerTest extends FunSuite{
     //Testing the roundSettings
     gameCon.roundSettings()
     assert(gameCon.gameState.isInstanceOf[InTurnState] || gameCon.gameState.isInstanceOf[WaitingTurnState])
-    //We force the InTurnState and test the humanMove()
+    //We force the InTurnState and test humanMove()
     gameCon.gameState = new InTurnState(gameCon)
     gameCon.humanMove(1,0)
     assertEquals(gameCon.theBoard.Front.getCCRpower, 5)
@@ -54,6 +54,22 @@ class GameControllerTest extends FunSuite{
     //Testing notifyPlayers (and updateLost and updateGems implicitly)
     gameCon.notifyPlayers()
     assert(gameCon.gameState.isInstanceOf[BeginRoundState])
+    //We force (again) InTurnState
+    gameCon.gameState = new InTurnState(gameCon)
+    gameCon.humanMove(1,0)
+    gameCon.machineMove(0)
+    gameCon.humanMove(1,0)
+    gameCon.machineMove(0)
+    gameCon.humanMove(1,0)
+    gameCon.machineMove(0)
+    gameCon.humanMove(2,0)
+    gameCon.notifyPlayers()
+    //Human Player lost the match
+    assert(gameCon.gameState.isInstanceOf[AfterMatchState])
+    //Testing postMatch
+    gameCon.postMatch()
+    assertEquals(gameCon.theBoard.FrontPoints, ListBuffer[Int](5,15))
+    assertEquals(gameCon.theBoard.BackPoints, ListBuffer[Int](6,18))
   }
 
 
