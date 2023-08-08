@@ -1,8 +1,10 @@
 package cl.uchile.dcc
 package gwent.players
 import gwent.cards.Card
-
 import gwent.GameController
+
+import cl.uchile.dcc.gwent.board.Board
+
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
 import scala.util.Random
@@ -48,14 +50,14 @@ class HumanPlayer(username: String, deck: ListBuffer[Card]) extends AbstractPlay
   override def toString: String = s"HumanPlayer(username=$getUsername, gems=$getGems)"
   //---------------------------------------------------------------
 
-  override def updateGems(gameController: GameController, humanPoints: Int, cpuPoints: Int): Unit = {
+  override def updateGems(board: Board, humanPoints: Int, cpuPoints: Int): Unit = {
     if (humanPoints<cpuPoints){
       this.roundLost
-      gameController.updateLost(this, this.isDefeated, false)
+      board.updateLost(this, this.isDefeated, false)
     }
     else if (humanPoints==cpuPoints){
       this.roundLost
-      gameController.updateLost(this, this.isDefeated, true)
+      board.updateLost(this, this.isDefeated, true)
     }
   }
   

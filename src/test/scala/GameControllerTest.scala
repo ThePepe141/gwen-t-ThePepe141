@@ -57,6 +57,7 @@ class GameControllerTest extends FunSuite{
     //Transition to EndRoundState
     //Testing notifyPlayers (and updateLost and updateGems implicitly)
     gameCon.notifyPlayers()
+    gameCon.roundUpdate()
     //The match is not over, transition to BeginRoundState
     gameCon.roundSettings()
     //We force (again) InTurnState we test for a draw case and a match lost.
@@ -77,6 +78,7 @@ class GameControllerTest extends FunSuite{
     gameCon.humanPass()
     gameCon.endingRound()
     gameCon.notifyPlayers()
+    gameCon.roundUpdate()
     //Human Player lost the match
     assert(gameCon.gameState.isInstanceOf[AfterMatchState])
     //Testing postMatch

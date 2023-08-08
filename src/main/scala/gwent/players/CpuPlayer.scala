@@ -4,6 +4,8 @@ package gwent.players
 import gwent.cards.Card
 import gwent.GameController
 
+import cl.uchile.dcc.gwent.board.Board
+
 import scala.collection.mutable.ListBuffer
 
 /** A class that represents a Player controlled by the CPU.
@@ -46,14 +48,14 @@ class CpuPlayer (deck: ListBuffer[Card]) extends AbstractPlayer("CPU", deck) {
   override def toString: String = s"CpuPlayer(username=$getUsername, gems=$getGems)"
   //--------------------------------------------------------------------
 
-  override def updateGems(gameController: GameController, humanPoints: Int, cpuPoints: Int): Unit = {
+  override def updateGems(board: Board, humanPoints: Int, cpuPoints: Int): Unit = {
     if (humanPoints>cpuPoints){
       this.roundLost
-      gameController.updateLost(this, this.isDefeated, false)
+      board.updateLost(this, this.isDefeated, false)
     }
     else if (humanPoints == cpuPoints) {
       this.roundLost
-      gameController.updateLost(this, this.isDefeated, true)
+      board.updateLost(this, this.isDefeated, true)
     }
   }
   

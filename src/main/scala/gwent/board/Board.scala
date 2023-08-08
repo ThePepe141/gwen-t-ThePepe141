@@ -42,6 +42,14 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
   var BackPoints: ListBuffer[Int] = ListBuffer[Int]()
   
   var players: ListBuffer[Player] = ListBuffer[Player](player1, player2)
+
+  /** If the match end in draw.
+   */
+  var drawEnd = false
+
+  /** An auxiliary list: human defeat, cpu defeat.
+   */
+  var playersDefeated: ListBuffer[Boolean] = ListBuffer[Boolean](false, false)
   
   var coin: Int = _
 
@@ -64,6 +72,47 @@ class Board(val player1: HumanPlayer, val player2: CpuPlayer) {
     FrontPoints = FrontPoints :+ Front.getTotalPower
     BackPoints = BackPoints :+ Back.getTotalPower
   }
+
+  /** A function that send to each Player the scores of the round.
+   */
+  def EndRound: Unit = {
+    assignPoints
+    for (player <- players){
+      player.updateGems(this, FrontPoints(round-1), BackPoints(round-1))
+    }
+  }
+
+  /** A function that updates the values of drawEnd and playersDefeated.
+   * 
+   * @param player The player who updates.
+   * @param defeat If the player is defeat
+   * @param draw If the round end in draw.
+   */
+  def updateLost(player: Player, defeat: Boolean, draw: Boolean): Unit = {
+    if (draw) {
+      drawEnd = true
+    }
+    else{
+      drawEnd = false
+    }
+    if (player.isInstanceOf[HumanPlayer]){
+      if(defeat){
+        playersDefeated.update(0, true)
+      }
+      else {
+        playersDefeated.update(0, false)
+      }
+    }
+    else{
+      if (defeat){
+        playersDefeated.update(1, true)
+      }
+      else{
+        playersDefeated.update(1, false)
+      }
+    }
+  }
+  
 
   /** It gives to each Player a specific number of Cards.
    * 

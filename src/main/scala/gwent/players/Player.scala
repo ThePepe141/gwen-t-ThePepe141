@@ -2,6 +2,7 @@ package cl.uchile.dcc
 package gwent.players
 
 import gwent.cards.Card
+import gwent.board.Board
 
 import scala.collection.mutable.ListBuffer
 import gwent.board.{BoardSection}
@@ -94,10 +95,10 @@ trait Player {
   /** Update the gems of the player with the points send by the board.
    * Sends a message to the gameController in case of defeat (either the round or the match).
    * 
-   * @param gameController The GameController associate with the match.
+   * @param board The Board associate with the match.
    * @param humanPoitns The points of the Human Player in the round.
    * @param cpuPoints The points of the Cpu Player in the round.
    */
-  def updateGems(gameController: GameController, humanPoints: Int, cpuPoints: Int): Unit
+  def updateGems(board: Board, humanPoints: Int, cpuPoints: Int): Unit
 
 }

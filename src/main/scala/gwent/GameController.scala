@@ -166,33 +166,37 @@ class GameController {
    * 
    */
   def notifyPlayers(): Unit = {
-    theBoard.assignPoints
-    for (player <- thePlayers){
-      player.updateGems(this, theBoard.FrontPoints(theBoard.round-1), theBoard.BackPoints(theBoard.round-1))
-    }
+    theBoard.EndRound
   }
 
   /** A function used by the Players to updates their status.
-   * 
-   * @param player The Player who notifies.
-   * @param defeated The defeated state of the Player.
-   * @param draw The draw state of the match.
    */
-  def updateLost(player: Player, defeated: Boolean, draw: Boolean): Unit ={
+  def roundUpdate(): Unit ={
     if (gameState.isInstanceOf[EndRoundState]){
-      if (draw) {
+      if (theBoard.drawEnd) {
         println(s"The round end in draw")
       }
-      else {
-        println(s"${player.getUsername} lost the round")
+      else if (theBoard.FrontPoints(theBoard.round-1)<theBoard.BackPoints(theBoard.round-1)){
+        println(s"${cpuPlayer.getUsername} lost the round")
+      }
+      else{
+        println(s"${humanPlayer.getUsername} lost the round")
       }
       theBoard.clearBoard
       humanPlayer.pass = false
       cpuPlayer.pass = false
-      if (defeated) {
-        println(s"${player.getUsername} has lost the match.")
+      if (theBoard.playersDefeated.head && theBoard.playersDefeated(1)) {
+        println(s"Both players have lost the match.")
         gameState.toAfterMatchState()
       }
+      else if (theBoard.playersDefeated.head){
+        println(s"${humanPlayer.getUsername} has lost the match")
+        gameState.toAfterMatchState()
+      }
+      else if (theBoard.playersDefeated(1)){
+        println(s"${cpuPlayer.getUsername} has lost the match")
+        gameState.toAfterMatchState()
+      }  
       else {
         gameState.toBeginRoundState()
       }
