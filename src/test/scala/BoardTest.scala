@@ -167,7 +167,7 @@ class BoardTest extends FunSuite {
     assertEquals(theBoard.getWeather, ListBuffer[WeatherCard](new SunnyDay))
   }
 
-  test("Test for UnderSiegeFire"){
+  test("Test for Ragnarok WeatherUnit"){
     theBoard.Front.putCardCCR(new TemerianInfantry)
     theBoard.Front.putCardCCR(new TemerianInfantry)
     theBoard.Front.putCardCCR(new TemerianInfantry)
