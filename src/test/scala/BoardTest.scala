@@ -1,0 +1,188 @@
+package cl.uchile.dcc
+import gwent.board.Board
+import gwent.cards.{Card, WeatherCard}
+import gwent.players.{CpuPlayer, HumanPlayer}
+import gwent.cards.units.{BlueStripesCommando, Catapult, CrinfridReaversHunter, Dandelion, Foltest, Henselt, KaedweniSiegeExpert, Radovid, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
+import gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain, Ragnarok}
+import gwent.exceptions.CardLimitException
+
+import munit.FunSuite
+
+import scala.collection.mutable.ListBuffer
+
+
+class BoardTest extends FunSuite {
+
+  var theBoard: Board = _
+  var player1: HumanPlayer = _
+  var player2: CpuPlayer = _
+  var commando1: BlueStripesCommando = _
+  var catapult1: Catapult = _
+  var hunter1: CrinfridReaversHunter = _
+  var bard1: Dandelion = _
+  var expert1: KaedweniSiegeExpert = _
+
+  override def beforeEach(context: BeforeEach): Unit = {
+    player1 = new HumanPlayer("Pepe", ListBuffer[Card]())
+    player2 = new CpuPlayer(ListBuffer[Card]())
+    theBoard = new Board(player1, player2)
+    for (_ <- 1 to 9) {
+      val carta1 = new TemerianInfantry
+      val carta2 = new RedanianArcher
+      val carta3 = new ReinforcedTrebuchet
+      player1.addToDeck(carta1)
+      player1.addToDeck(carta2)
+      player1.addToDeck(carta3)
+      player2.addToDeck(carta1)
+      player2.addToDeck(carta2)
+      player2.addToDeck(carta3)
+    }
+    commando1 = new BlueStripesCommando
+    catapult1 = new Catapult
+    hunter1 = new CrinfridReaversHunter
+    bard1 = new Dandelion
+    expert1 = new KaedweniSiegeExpert
+
+  }
+
+  test("The Board automatically assign BoardSections to the Players") {
+    //Test for assignSections, getBoardSection and Board class in general
+    theBoard.assignSections
+    assertEquals(player1.getBoardSection, theBoard.Front)
+    assertEquals(player2.getBoardSection, theBoard.Back)
+  }
+
+  test("To initiate a Match each Player needs, at least, 25 Cards on their decks") {
+    try{
+      val playerA = new HumanPlayer("A", ListBuffer[Card]())
+      val playerB = new CpuPlayer(ListBuffer[Card]())
+      val board = new Board(playerA, playerB)
+      board.assignSections
+      board.startMatch
+    } catch{
+      case _: CardLimitException => println("Not enough cards")
+    } finally{
+      //Test for startMatch
+      theBoard.startMatch
+    }
+  }
+
+  test("When a Round beings each Player draw a number of Cards"){
+    //Test for startRound and handOutCards (implicitly)
+    theBoard.assignSections
+    theBoard.startMatch
+    assert(player1.getHand.isEmpty)
+    assert(player2.getHand.isEmpty)
+    theBoard.startRound
+    assertEquals(player1.getHand.length, 10)
+    assertEquals(player2.getHand.length, 10)
+    for (_ <- 1 to 10){
+      player1.playCard(0)
+    }
+    //Test for round higher than 1
+    theBoard.startRound
+    assertEquals(player1.getHand.length, 3)
+  }
+
+  test("You can fill de rows"){
+    //Tests for putCards and row getters.
+    assert(theBoard.Front.getCloseCombatRow.isEmpty)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    assert(theBoard.Front.getCloseCombatRow.nonEmpty)
+    assert(theBoard.Front.getRangedCombatRow.isEmpty)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    assert(theBoard.Front.getRangedCombatRow.nonEmpty)
+    assert(theBoard.Front.getSiegeCombatRow.isEmpty)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    assert(theBoard.Front.getSiegeCombatRow.nonEmpty)
+  }
+
+  test("The power on each row can change"){
+    //Test for get and update functions of each row, assignPoints, clearBoard
+    assertEquals(theBoard.Front.getCCRpower, 0)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    assertEquals(theBoard.Front.getCCRpower, 5)
+    assertEquals(theBoard.Front.getRCRpower, 0)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    assertEquals(theBoard.Front.getRCRpower, 3)
+    assertEquals(theBoard.Front.getSCRpower, 0)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    assertEquals(theBoard.Front.getSCRpower, 6)
+    assertEquals(theBoard.Front.getTotalPower, 14)
+    theBoard.startRound
+    theBoard.assignPoints
+    assertEquals(theBoard.FrontPoints.head, 14)
+    theBoard.clearBoard
+    assertEquals(theBoard.Front.getTotalPower, 0)
+  }
+
+  test("Test for MoraleBoost"){
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new Dandelion)
+    assertEquals(theBoard.Front.getCCRpower, 14)
+  }
+
+  test("Test for StrongBond") {
+    theBoard.Front.putCardCCR(new BlueStripesCommando)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new BlueStripesCommando)
+    assertEquals(theBoard.Front.getCCRpower, 21)
+  }
+
+  test("Test for DoublePower"){
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new BlueStripesCommando)
+    theBoard.Front.putCardCCR(new Foltest)
+    assertEquals(theBoard.Front.getCCRpower, 24)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new CrinfridReaversHunter)
+    theBoard.Front.putCardRCR(new Radovid)
+    assertEquals(theBoard.Front.getRCRpower, 22)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new Catapult)
+    theBoard.Front.putCardSCR(new Henselt)
+    assertEquals(theBoard.Front.getSCRpower, 34)
+  }
+
+  test("Test for effects"){
+    //Biting Frost
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardWR(new BitingFrost)
+    assertEquals(theBoard.Front.getCCRpower, 2)
+    //Impenetrable Fog
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardWR(new ImpenetrableFog)
+    assertEquals(theBoard.Front.getRCRpower, 2)
+    //Torrential Rain
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardWR(new TorrentialRain)
+    assertEquals(theBoard.Front.getSCRpower, 2)
+    //Sunny Day
+    assertEquals(theBoard.getWeather, ListBuffer[WeatherCard](new TorrentialRain))
+    theBoard.Front.putCardWR(new SunnyDay)
+    assertEquals(theBoard.getWeather, ListBuffer[WeatherCard](new SunnyDay))
+  }
+
+  test("Test for Ragnarok WeatherUnit"){
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardWR(new Ragnarok)
+    theBoard.showBoard
+  }
+  
+
+}
