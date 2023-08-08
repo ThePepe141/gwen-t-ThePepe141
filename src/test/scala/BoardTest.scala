@@ -3,7 +3,7 @@ import gwent.board.Board
 import gwent.cards.{Card, WeatherCard}
 import gwent.players.{CpuPlayer, HumanPlayer}
 import gwent.cards.units.{BlueStripesCommando, Catapult, CrinfridReaversHunter, Dandelion, Foltest, Henselt, KaedweniSiegeExpert, Radovid, RedanianArcher, ReinforcedTrebuchet, TemerianInfantry}
-import gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain}
+import gwent.cards.weathers.{BitingFrost, ImpenetrableFog, SunnyDay, TorrentialRain, Ragnarok}
 import gwent.exceptions.CardLimitException
 
 import munit.FunSuite
@@ -165,6 +165,23 @@ class BoardTest extends FunSuite {
     assertEquals(theBoard.getWeather, ListBuffer[WeatherCard](new TorrentialRain))
     theBoard.Front.putCardWR(new SunnyDay)
     assertEquals(theBoard.getWeather, ListBuffer[WeatherCard](new SunnyDay))
+  }
+
+  test("Test for UnderSiegeFire"){
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardCCR(new TemerianInfantry)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardRCR(new RedanianArcher)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardSCR(new ReinforcedTrebuchet)
+    theBoard.Front.putCardWR(new Ragnarok)
+    theBoard.showBoard
   }
   
 
